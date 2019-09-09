@@ -1,0 +1,19 @@
+{
+    "name": "lvmod/control-panel",
+    "description": "Control panel for Laravel application",
+    "type": "library",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Юрий Шульгин",
+            "email": "yu.shulgin@gmail.com"
+        }
+    ],
+    "minimum-stability": "dev",
+    "require": {},
+    "autoload": {
+        "psr-4": {
+            "Lvmod\\ControlPanel\\": "src"
+        }
+    }
+}
