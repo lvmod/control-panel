@@ -117,7 +117,7 @@
                                 <li><a href="/control/article"><i class="fa fa-circle-o"></i> Статьи</a></li>
                             </ul>
                         </li>
-                        <li><a href="/"><i class="fa fa-share"></i> <span>Сайт</span></a></li>
+                        <li><a target="_blank" href="/"><i class="fa fa-share"></i> <span>Сайт</span></a></li>
 
                         <!-- <li>
                             <a href="/vendor/control-panel/pages/widgets.html">
