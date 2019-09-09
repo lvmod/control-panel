@@ -85,7 +85,7 @@
                         </div>
                     </div>
                     <!-- search form -->
-                    <form action="#" method="get" class="sidebar-form">
+                    <!-- <form action="#" method="get" class="sidebar-form">
                         <div class="input-group">
                             <input type="text" name="q" class="form-control" placeholder="Search...">
                             <span class="input-group-btn">
@@ -94,39 +94,32 @@
                                 </button>
                             </span>
                         </div>
-                    </form>
+                    </form> -->
                     <!-- /.search form -->
                     <!-- sidebar menu: : style can be found in sidebar.less -->
                     <ul class="sidebar-menu" data-widget="tree">
-                        <li class="header">MAIN NAVIGATION</li>
-                        <li class="active treeview menu-open">
+                        <!-- <li class="header">MAIN NAVIGATION</li> -->
+                        <li>
+                            <a href="/control">
+                                <i class="fa fa-home"></i> <span>Главная</span>
+                            </a>
+                        </li>
+                        <li class="treeview">
                             <a href="#">
-                                <i class="fa fa-dashboard"></i> <span>Dashboard</span>
+                                <i class="fa fa-files-o"></i>
+                                <span>Материалы</span>
                                 <span class="pull-right-container">
                                     <i class="fa fa-angle-left pull-right"></i>
                                 </span>
                             </a>
                             <ul class="treeview-menu">
-                                <li><a href="/vendor/control-panel/index.html"><i class="fa fa-circle-o"></i> Dashboard v1</a></li>
-                                <li class="active"><a href="/vendor/control-panel/index2.html"><i class="fa fa-circle-o"></i> Dashboard v2</a></li>
+                                <li><a href="/control/news"><i class="fa fa-circle-o"></i> Новости</a></li>
+                                <li><a href="/control/article"><i class="fa fa-circle-o"></i> Статьи</a></li>
                             </ul>
                         </li>
-                        <li class="treeview">
-                            <a href="#">
-                                <i class="fa fa-files-o"></i>
-                                <span>Layout Options</span>
-                                <span class="pull-right-container">
-                                    <span class="label label-primary pull-right">4</span>
-                                </span>
-                            </a>
-                            <ul class="treeview-menu">
-                                <li><a href="/vendor/control-panel/pages/layout/top-nav.html"><i class="fa fa-circle-o"></i> Top Navigation</a></li>
-                                <li><a href="/vendor/control-panel/pages/layout/boxed.html"><i class="fa fa-circle-o"></i> Boxed</a></li>
-                                <li><a href="/vendor/control-panel/pages/layout/fixed.html"><i class="fa fa-circle-o"></i> Fixed</a></li>
-                                <li><a href="/vendor/control-panel/pages/layout/collapsed-sidebar.html"><i class="fa fa-circle-o"></i> Collapsed Sidebar</a></li>
-                            </ul>
-                        </li>
-                        <li>
+                        <li><a href="/"><i class="fa fa-share"></i> <span>Сайт</span></a></li>
+
+                        <!-- <li>
                             <a href="/vendor/control-panel/pages/widgets.html">
                                 <i class="fa fa-th"></i> <span>Widgets</span>
                                 <span class="pull-right-container">
@@ -265,8 +258,7 @@
                         <li><a href="https://adminlte.io/docs"><i class="fa fa-book"></i> <span>Documentation</span></a></li>
                         <li class="header">LABELS</li>
                         <li><a href="#"><i class="fa fa-circle-o text-red"></i> <span>Important</span></a></li>
-                        <li><a href="#"><i class="fa fa-circle-o text-yellow"></i> <span>Warning</span></a></li>
-                        <li><a href="#"><i class="fa fa-circle-o text-aqua"></i> <span>Information</span></a></li>
+                        <li><a href="#"><i class="fa fa-circle-o text-yellow"></i> <span>Warning</span></a></li> -->
                     </ul>
                 </section>
                 <!-- /.sidebar -->
