@@ -76,12 +76,12 @@
                                     <input type="text" name="title" id="title" class="form-control" value="{{ old('title', $news->title) }}">                                    </div>
 
                                     <br/>
-                                        <div class="col-lg-9">
-                                        <div class="form-group">
-                                            <h5>
-                                                Текст новости:
-                                            </h5>
-                                            <textarea name='body' class="form-control">{{ old('body', $news->body) }}</textarea>
+                                        <div class="col-lg-12">
+                                            <div class="form-group">
+                                                <h5>
+                                                    Текст новости:
+                                                </h5>
+                                                <textarea name='body' class="form-control">{{ old('body', $news->body) }}</textarea>
                                             </div>
                                         </div>
                                     </div>
