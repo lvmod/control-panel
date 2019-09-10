@@ -28,5 +28,4 @@ class NewsRepository {
                         ->orderBy('created_at', 'asc')
                         ->get();
     }
-
 }

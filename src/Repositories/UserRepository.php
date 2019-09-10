@@ -20,8 +20,8 @@ class UserRepository {
 
     public function hasRole(User $user, $roleName) {
         return DB::table('role_user')
-                ->join('roles', 'role_user.role', '=', 'roles.id')
-                ->where('role_user.user', '=', $user->id)
+                ->join('roles', 'role_user.role_id', '=', 'roles.id')
+                ->where('role_user.user_id', '=', $user->id)
                 ->where('roles.name', '=', $roleName)
                 ->count();
     }

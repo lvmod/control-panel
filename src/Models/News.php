@@ -39,7 +39,7 @@ class News extends Model {
      * Получить автора статьи
      */
     public function author() {
-        return $this->belongsTo('App\User', 'author');
+        return $this->belongsTo('App\User');
     }
 
     //Один ко многим (Обратное отношение)https://laravel.ru/docs/v5/eloquent-relationships#%D0%BE%D0%B4%D0%B8%D0%BD
@@ -47,7 +47,7 @@ class News extends Model {
      * Получить категорию статьи
      */
     public function category() {
-        return $this->belongsTo('Lvmod\ControlPanel\Models\Сategory', 'category');
+        return $this->belongsTo('Lvmod\ControlPanel\Models\Category');
     }
     
     

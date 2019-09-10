@@ -2,55 +2,68 @@
 
 @section('content')
 
+<section class="content-header">
+                    <div>
+                        <h3 class="font-light m-b-xs" style="margin-top: 5px; margin-bottom: 3px;">
+                            Новости                            <br>
+                        </h3>
+                    </div>
+                    
+        <ol class="breadcrumb">
+            <li><a href="/control"><i class="fa fa-home pr-10"></i> Главная</a></li>
+            <li class="active">Материалы</li><li class="active">Новости</li>
+        </ol>                
+</section>
 
-<div class="container mt-4 mb-4">
-
-    <!-- Кнопка добавления новости -->
-    <div class="form-group">
-        <div class="col-sm-offset-3 col-sm-6">
-            <a class="btn btn-default" href="{{ url('/control/news/create') }}">
-                <i class="fa fa-plus"></i> Добавить новость
+<section class="content">
+    <div class="box box-primary">
+        <div class="box-body">
+            <a class="btn btn-success btn-sm" href="{{ url('/control/news/create') }}">
+                Создать новость
             </a>
         </div>
     </div>
 
+
     @if (count($news) > 0)
-    <div class="panel panel-default">
-        <div class="panel-body">
-            <table class="table table-striped task-table">
-
-                <!-- Заголовок таблицы -->
-                <thead>
-                <th>Новости</th>
-                <th>&nbsp;</th>
-                </thead>
-
-                <!-- Тело таблицы -->
-                <tbody>
-                    @foreach ($news as $item)
-                    <tr>
-                        <!-- Имя задачи -->
-                        <td class="table-text">
-                            <div>{{ $item->title }}</div>
-                        </td>
-
-                        <!-- Кнопка Удалить -->
-                        <td>
-                            <form action="{{ url('/control/news/delete/'.$item->id) }}" method="POST">
-                                {{ csrf_field() }}
-                                {{ method_field('DELETE') }}
-
-                                <button type="submit" id="delete-news-{{ $item->id }}" class="btn btn-danger">
-                                    <i class="fa fa-btn fa-trash"></i>Удалить
-                                </button>
-                            </form>
-                        </td>
-                    </tr>
-                    @endforeach
-                </tbody>
-            </table>
-        </div>
-    </div>
+        @foreach ($news as $item)
+        <div class="box box-widget">
+            <div class='box-header with-border'>
+                <div class='user-block'>
+                    <!-- <img class='img-circle' src='<?php
+                    // if (isset($item['author_photo'])) {
+                    //     echo $this->basePath($item['author_photo']);
+                    // } else {
+                    //     echo $this->basePath('images/people/empty.png');
+                    // }
+                    ?>'> -->
+                    <span class='username'><small>Автор: <span class="font-bold">{{ $item->author->name }}</span> </small></span>
+                    <span class='description'>Публикация: 
+                        <?php
+                        $posted = new DateTime($item->posted);
+                        echo $posted->format('d.m.Y');
+                        ?>
+                    </span>
+                </div><!-- /.user-block -->
+                <div class='box-tools' style='padding-top: 5px'>
+                    <a href="/news/edit/{{ $item->id }}"><button class="btn btn-xs btn-default">Изменить</button></a>
+                    <a href="{{ url('/control/news/delete/'.$item->id) }}"><button class="btn btn-danger btn-xs btn-default">Удалить</button></a>
+                </div><!-- /.box-tools -->
+            </div><!-- /.box-header -->
+            <div class='box-body' style='padding-top: 0px'>
+                <?php if (!isset($_COOKIE['allcontents'])): ?>
+                    <a href="/news/edit/<?php echo $item['id'] ?>"> <h4>{{ $item->title }}</h4></a>
+                    <?php
+                    $body = strip_tags($item->body);
+                    echo mb_strlen($body, 'UTF-8') > 400 ? mb_substr($body, 0, 400, 'UTF-8') . '...' : $body;
+                    ?>
+                <?php else: ?>
+                    <a href="/news/edit/{{ $item->id }}"> <h4>{{ $item->title }}</h4></a>
+                    {{ $item->body }}
+                <?php endif; ?>
+            </div><!-- /.box-body -->
+        </div><!-- /.box -->                                        
+        @endforeach
     @endif
-</div>
+</section>
 @endsection

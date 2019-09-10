@@ -15,7 +15,7 @@ class Category extends Model {
      *
      * @var string
      */
-    protected $table = 'сtegory';
+    protected $table = 'category';
 
     /**
      * Атрибуты, для которых запрещено массовое назначение.
@@ -36,6 +36,6 @@ class Category extends Model {
      * Получить новости раздела.
      */
     public function news() {
-        return $this->hasMany('Lvmod\ControlPanel\Models\News', 'category');
+        return $this->hasMany('Lvmod\ControlPanel\Models\News');
     }
 }

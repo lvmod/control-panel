@@ -4,6 +4,6 @@ Route::group(['prefix' => 'control', 'namespace' => 'Lvmod\ControlPanel\Controll
     Route::get('news', 'NewsController@index');
     Route::get('news/create', 'NewsController@create');
     Route::post('news/store', 'NewsController@store');
-    Route::delete('news/delete/{news}', 'NewsController@delete');
+    Route::get('news/delete/{news}', 'NewsController@delete');
 });
 
