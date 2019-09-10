@@ -14,14 +14,14 @@ composer require lvmod/control-panel:dev-master --prefer-source
      * Получить новости пользователя.
      */
     public function news() {
-        return $this->hasMany('Lvmod\ControlPanel\Models\News', 'author');
+        return $this->hasMany('Lvmod\ControlPanel\Models\News', 'author_id');
     }
 
     /**
      * Роли, принадлежащие пользователю.
      */
     public function roles() {
-        return $this->belongsToMany('Lvmod\ControlPanel\Models\Role', 'role_user', 'user', 'role');
+        return $this->belongsToMany('Lvmod\ControlPanel\Models\Role', 'role_user');
     }
 
 #Выполнить команду копирования ресурсов
