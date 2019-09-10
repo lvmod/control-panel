@@ -46,19 +46,19 @@
                     </span>
                 </div><!-- /.user-block -->
                 <div class='box-tools' style='padding-top: 5px'>
-                    <a href="/news/edit/{{ $item->id }}"><button class="btn btn-xs btn-default">Изменить</button></a>
+                    <a href="{{ url('/control/news/edit/'.$item->id) }}"><button class="btn btn-xs btn-default">Изменить</button></a>
                     <a href="{{ url('/control/news/delete/'.$item->id) }}"><button class="btn btn-danger btn-xs btn-default">Удалить</button></a>
                 </div><!-- /.box-tools -->
             </div><!-- /.box-header -->
             <div class='box-body' style='padding-top: 0px'>
                 <?php if (!isset($_COOKIE['allcontents'])): ?>
-                    <a href="/news/edit/<?php echo $item['id'] ?>"> <h4>{{ $item->title }}</h4></a>
+                    <a href="{{ url('/control/news/edit/'.$item->id) }}"> <h4>{{ $item->title }}</h4></a>
                     <?php
                     $body = strip_tags($item->body);
                     echo mb_strlen($body, 'UTF-8') > 400 ? mb_substr($body, 0, 400, 'UTF-8') . '...' : $body;
                     ?>
                 <?php else: ?>
-                    <a href="/news/edit/{{ $item->id }}"> <h4>{{ $item->title }}</h4></a>
+                    <a href="{{ url('/control/news/edit/'.$item->id) }}"> <h4>{{ $item->title }}</h4></a>
                     {{ $item->body }}
                 <?php endif; ?>
             </div><!-- /.box-body -->

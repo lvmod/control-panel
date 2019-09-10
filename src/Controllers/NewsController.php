@@ -36,6 +36,10 @@ class NewsController extends Controller {
         return view('control::news.create');
     }
 
+    public function edit(Request $request, News $news) {
+        return view('control::news.edit', ['news'=>$news]);
+    }
+
     public function store(Request $request) {
         $this->validate($request, [
             'title' => 'required|max:255',
@@ -43,6 +47,21 @@ class NewsController extends Controller {
         ]);
 
         $news = new News;
+        $news->title = $request->title;
+        $news->body = "sdf";
+        $news->author_id = $user = $request->user()->id;
+        $news->category_id = 1;
+        $news->save();
+
+        return redirect('/control/news');
+    }
+
+    public function update(Request $request, News $news) {
+        $this->validate($request, [
+            'title' => 'required|max:255',
+//            'body' => 'required',
+        ]);
+
         $news->title = $request->title;
         $news->body = "sdf";
         $news->author_id = $user = $request->user()->id;

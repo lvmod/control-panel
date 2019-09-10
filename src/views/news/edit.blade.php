@@ -10,15 +10,15 @@
         @include('common.errors')
 
         <!-- Форма новой новости -->
-        <form action="{{ url('/control/news/store') }}" method="POST" class="form-horizontal">
+        <form action="{{ url('/control/news/update/'.$news->id) }}" method="POST" class="form-horizontal">
             {{ csrf_field() }}
-
+            
             <!-- Имя задачи -->
             <div class="form-group">
                 <label for="task" class="col-sm-3 control-label">Новость</label>
 
                 <div class="col-sm-6">
-                    <input type="text" name="title" id="title" class="form-control" value="{{ old('title') }}">
+                    <input type="text" name="title" id="title" class="form-control" value="{{ old('title', $news->title) }}">
                 </div>
             </div>
 
