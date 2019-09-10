@@ -30,3 +30,4 @@ php artisan vendor:publish --provider="Lvmod\ControlPanel\Providers\ControlPanel
 #Выполнить 
 php artisan migrate
 php artisan db:seed --class=Lvmod\\ControlPanel\\Seeds\\RolesTableSeeder
+php artisan db:seed --class=Lvmod\\ControlPanel\\Seeds\\MenuTableSeeder
