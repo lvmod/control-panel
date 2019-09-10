@@ -30,6 +30,15 @@
         <!-- Google Font -->
         <link rel="stylesheet"
               href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700,300italic,400italic,600italic">
+        
+        <script type="text/javascript" src="/vendor/control-panel/plugins/tinymce/tinymce.min.js"></script>
+        <script type="text/javascript">
+            tinymce.init({
+                selector : "textarea",
+                plugins : ["advlist autolink lists link image charmap print preview anchor", "searchreplace visualblocks code fullscreen", "insertdatetime media table contextmenu paste"],
+                toolbar : "insertfile undo redo | styleselect | bold italic | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | link image"
+            }); 
+        </script>
     </head>
     <!-- <body class="hold-transition skin-blue sidebar-mini"> -->
     <body class="hold-transition skin-black-light sidebar-mini">

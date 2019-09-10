@@ -59,11 +59,11 @@ class NewsController extends Controller {
     public function update(Request $request, News $news) {
         $this->validate($request, [
             'title' => 'required|max:255',
-//            'body' => 'required',
+            'body' => 'required',
         ]);
 
         $news->title = $request->title;
-        $news->body = "sdf";
+        $news->body = $request->body;
         $news->author_id = $user = $request->user()->id;
         $news->category_id = 1;
         $news->save();
