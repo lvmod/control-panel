@@ -6,8 +6,6 @@
 #Устанавливаем пакет control-panel
 composer require lvmod/control-panel:dev-master --prefer-source
 
-В файл config/app.php в массив 'providers' добавить: Lvmod\ControlPanel\Providers\ControlPanelServiceProvider::class
-
 В app/User.php добавить
 
     /**

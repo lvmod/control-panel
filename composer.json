@@ -15,5 +15,12 @@
         "psr-4": {
             "Lvmod\\ControlPanel\\": "src"
         }
+    },
+    "extra": {
+        "laravel": {
+             "providers": [
+                 "Lvmod\\ControlPanel\\Providers\\ControlPanelServiceProvider"
+             ]
+        }
     }
 }
