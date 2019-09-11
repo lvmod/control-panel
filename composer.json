@@ -19,8 +19,12 @@
     "extra": {
         "laravel": {
              "providers": [
-                 "Lvmod\\ControlPanel\\Providers\\ControlPanelServiceProvider"
-             ]
+                "Lvmod\\ControlPanel\\Providers\\ControlPanelServiceProvider",
+                "Lvmod\\ControlPanel\\Providers\\MenuServiceProvider"
+            ],
+            "aliases": {
+                "Menu": "Lvmod\\ControlPanel\\Helpers\\Menu"
+            }
         }
     }
 }
