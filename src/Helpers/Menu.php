@@ -2,13 +2,36 @@
 
 namespace Lvmod\ControlPanel\Helpers;
  
-// use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\DB;
  
 class Menu {
 
+    // protected $menu;
+    
+    // public function __construct($menu) {
+    //     $this->menu = $menu;
+    // }
+
     public static function get() {
-        // $user = DB::table('users')->where('userid', $user_id)->first();
-         
-        return "work";
+        $menu = DB::table('menu')->get();
+        return Menu::build($menu);
+    }
+
+    private static function build($menu, $root = null) {
+        $result = [];
+        if(!$menu || !count($menu)) {
+            return $result;
+        }
+
+        foreach($menu as $key => $item) {
+            if($item->parent_id == $root) {
+                unset($menu[$key]);
+                $result[] = [
+                    'item' => $item,
+                    'children' => Menu::build($menu, $item->id)
+                ];
+            }
+        }
+        return $result;    
     }
 }
