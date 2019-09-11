@@ -17,7 +17,7 @@ class Menu {
         return Menu::build($menu);
     }
 
-    private static function build($menu, $root = null) {
+    private static function build($menu, $root = null, $parent = null) {
         $result = [];
         if(!$menu || !count($menu)) {
             return $result;
@@ -26,10 +26,13 @@ class Menu {
         foreach($menu as $key => $item) {
             if($item->parent_id == $root) {
                 unset($menu[$key]);
-                $result[] = [
+                $menuItem = [
                     'item' => $item,
-                    'children' => Menu::build($menu, $item->id)
+                    'active' => '/'.\Request::path() == $item->path
                 ];
+                $children = Menu::build($menu, $item->id, $menuItem);
+                $menuItem['children'] = $children;
+                $result[] = $menuItem;
             }
         }
         return $result;    

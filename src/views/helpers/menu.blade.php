@@ -1,6 +1,7 @@
 <!--Шаблон для вывода меню с использованием рекурсии-->
 
 @foreach($items as $item)
+{{var_dump($item['active'])}}
     <!--Добавляем класс active для активного пункта меню-->
     <li class="{{ ('/'.Request::path() == $item['item']->path) ? 'active' : '' }} {{count($item['children'])?'treeview':''}}">
         <!-- метод url() получает ссылку на пункт меню (указана вторым параметром
