@@ -1,6 +1,7 @@
 @extends('control::layouts.control')
 
 @section('content')
+@include('control::helpers.header', ['title'=>'Добавление новости', 'items'=>app()->controlMenu->breadcrumb()])
 
 <!-- Bootstrap шаблон... -->
 

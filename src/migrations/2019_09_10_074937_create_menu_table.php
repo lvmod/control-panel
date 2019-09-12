@@ -28,6 +28,7 @@ class CreateMenuTable extends Migration
             //Если place_type first или end, то place_id не учитывается и элемент размещается певым или последним для parent_id
             $table->integer('place_id')->nullable()->unsigned()->index();
             $table->string('place_type')->nullable();  //first|before|instead|after|end (первым, до place_id, вместо place_id, после place_id, последним)
+            $table->boolean('unvisible')->nullable();
             $table->timestamps();
         });
     }
