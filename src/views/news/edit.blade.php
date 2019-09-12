@@ -23,37 +23,33 @@
                                             Публикация:
                                         </h5>
                                         <div class="input-group date">
-                                            <input type="text" name="datapicker2" id="datapicker2" class="form-control" value="10.09.2019"> <span class="input-group-addon">
-                                                <i class="glyphicon glyphicon-th"></i>
-                                            </span>
+                                            <div class="input-group-addon">
+                                                <i class="fa fa-calendar"></i>
+                                            </div>
+                                            <input name="datapicker2" id="datapicker2" autocomplete="off" type="text" class="datepicker form-control pull-right">
                                         </div>
                                         <br />
 
                                         <h5>
                                             Категория:
                                         </h5>
-                                        <div class="form-group">
-                                            <select name="category" id="category" class="form-control">
-                                                @foreach($category as $item)
-                                                    <option value="{{$item->id}}" {{($item->id==old('category', $news->category->id))?'selected':''}}>{{$item->name}}</option>
-                                                @endforeach
-                                            </select>
-                                        </div>
+                                        <select name="category" id="category" class="form-control select2">
+                                            @foreach($category as $item)
+                                            <option value="{{$item->id}}" {{($item->id==old('category', $news->category->id))?'selected':''}}>{{$item->name}}</option>
+                                            @endforeach
+                                        </select>
 
                                         <br>
+                                        <br>
+                                        <input type="checkbox" name="checkbox3" id="checkbox3" class="minimal" checked>
+                                        Отображать новость на сайте
 
-                                        <div class="checkbox checkbox-success">
-                                            <input type="hidden" name="checkbox3" value="0"><input type="checkbox" name="checkbox3" id="checkbox3" checked="checked" value="1"> <label for="checkbox3">
-                                                Отображать новость на сайте </label>
-                                        </div>
-
-                                        <div class="hr-line-dashed"></div>
-                                        <div class="form-group">
-                                            <div>
-                                                <input type="submit" name="submit" class="btn&#x20;btn-primary" value="&#x0421;&#x043E;&#x0445;&#x0440;&#x0430;&#x043D;&#x0438;&#x0442;&#x044C;"> &nbsp;
-                                                &nbsp;
-                                                <a class="btn btn-default" href="/news">Отмена</a>
-                                            </div>
+                                        <br>
+                                        <br>
+                                        <div>
+                                            <input type="submit" name="submit" class="btn btn-primary" value="Сохранить"> 
+                                            <a class="btn btn-danger sw-alert-delete"  href="{{ url('/control/news/delete/'.$news->id) }}">Удалить</a>
+                                            <a class="btn btn-default" href="{{ (isset($_SERVER['HTTP_REFERER'])) ? $_SERVER['HTTP_REFERER'] : '/control/news' }}">Отмена</a>
                                         </div>
                                     </div>
 

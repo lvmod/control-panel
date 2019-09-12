@@ -61,7 +61,7 @@ class NewsController extends Controller
         $news->title = $request->title;
         $news->body = "sdf";
         $news->author_id = $user = $request->user()->id;
-        $news->category_id = $request->category;
+        $news->category_id = 1;
         $news->save();
 
         return redirect('/control/news');

@@ -35,8 +35,8 @@
                     </span>
                 </div><!-- /.user-block -->
                 <div class='box-tools' style='padding-top: 5px'>
-                    <a href="{{ url('/control/news/edit/'.$item->id) }}"><button class="btn btn-xs btn-default">Изменить</button></a>
-                    <a href="{{ url('/control/news/delete/'.$item->id) }}"><button class="btn btn-danger btn-xs btn-default">Удалить</button></a>
+                    <a href="{{ url('/control/news/edit/'.$item->id) }}" class="btn btn-xs btn-default">Изменить</a>
+                    <a href="{{ url('/control/news/delete/'.$item->id) }}" class="btn btn-danger btn-xs sw-alert-delete">Удалить</a>
                 </div><!-- /.box-tools -->
             </div><!-- /.box-header -->
             <div class='box-body' style='padding-top: 0px'>
