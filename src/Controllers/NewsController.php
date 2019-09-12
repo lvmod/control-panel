@@ -53,15 +53,19 @@ class NewsController extends Controller
     public function store(Request $request)
     {
         $this->validate($request, [
+            'posted' => 'required',
+            'category' => 'required',
             'title' => 'required|max:255',
-            //            'body' => 'required',
+            'body' => 'required',
         ]);
 
         $news = new News;
         $news->title = $request->title;
-        $news->body = "sdf";
-        $news->author_id = $user = $request->user()->id;
-        $news->category_id = 1;
+        $news->posted = \Carbon\Carbon::parse($request->posted)->toDateString();
+        $news->visible = !!$request->visible;
+        $news->body = $request->body;
+        $news->author_id = $request->user()->id;
+        $news->category_id = $request->category;
         $news->save();
 
         return redirect('/control/news');
@@ -70,13 +74,17 @@ class NewsController extends Controller
     public function update(Request $request, News $news)
     {
         $this->validate($request, [
+            'posted' => 'required',
+            'category' => 'required',
             'title' => 'required|max:255',
             'body' => 'required',
         ]);
 
         $news->title = $request->title;
+        $news->posted = \Carbon\Carbon::parse($request->posted)->toDateString();
+        $news->visible = !!$request->visible;
         $news->body = $request->body;
-        $news->author_id = $user = $request->user()->id;
+        $news->author_id = $request->user()->id;
         $news->category_id = $request->category;
         $news->save();
 

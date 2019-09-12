@@ -20,13 +20,13 @@
                                     <div class="col-lg-3">
 
                                         <h5>
-                                            Публикация:
+                                            Дата публикации:
                                         </h5>
                                         <div class="input-group date">
                                             <div class="input-group-addon">
                                                 <i class="fa fa-calendar"></i>
                                             </div>
-                                            <input name="datapicker2" id="datapicker2" autocomplete="off" type="text" class="datepicker form-control pull-right">
+                                            <input name="posted" id="posted" autocomplete="off" type="text" class="datepicker form-control pull-right" value="{{ old('posted', \Carbon\Carbon::parse($news->posted)->format('d.m.Y')) }}">
                                         </div>
                                         <br />
 
@@ -41,7 +41,7 @@
 
                                         <br>
                                         <br>
-                                        <input type="checkbox" name="checkbox3" id="checkbox3" class="minimal" checked>
+                                        <input type="checkbox" name="visible" id="visible" class="minimal" {{ old('visible', $news->visible)?'checked':'' }}>
                                         Отображать новость на сайте
 
                                         <br>
@@ -49,7 +49,7 @@
                                         <div>
                                             <input type="submit" name="submit" class="btn btn-primary" value="Сохранить"> 
                                             <a class="btn btn-danger sw-alert-delete"  href="{{ url('/control/news/delete/'.$news->id) }}">Удалить</a>
-                                            <a class="btn btn-default" href="{{ (isset($_SERVER['HTTP_REFERER'])) ? $_SERVER['HTTP_REFERER'] : '/control/news' }}">Отмена</a>
+                                            <a class="btn btn-default" href="/control/news">Отмена</a>
                                         </div>
                                     </div>
 
