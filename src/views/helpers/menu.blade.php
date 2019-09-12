@@ -9,7 +9,7 @@
         <i class="{{ $item['item']->icon }}"></i>
         @endif
 
-        {{ $item['item']->title }}
+        <span>{{ $item['item']->title }}</span>
         @if(count($item['children']))
             <span class="pull-right-container">
                 <i class="fa fa-angle-left pull-right"></i>
