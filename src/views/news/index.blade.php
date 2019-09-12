@@ -19,20 +19,15 @@
         <div class="box box-widget">
             <div class='box-header with-border'>
                 <div class='user-block'>
-                    <!-- <img class='img-circle' src='<?php
-                    // if (isset($item['author_photo'])) {
-                    //     echo $this->basePath($item['author_photo']);
-                    // } else {
-                    //     echo $this->basePath('images/people/empty.png');
-                    // }
-                    ?>'> -->
+                    <img class='img-circle' src='<?php
+                    if (isset($item->author->photo)) {
+                        echo $item->author->photo;
+                    } else {
+                        echo "/vendor/control-panel/dist/img/empty.png";
+                    }
+                    ?>'> 
                     <span class='username'><small>Автор: <span class="font-bold">{{ $item->author->name }}</span> </small></span>
-                    <span class='description'>Публикация: 
-                        <?php
-                        $posted = new DateTime($item->posted);
-                        echo $posted->format('d.m.Y');
-                        ?>
-                    </span>
+                    <span class='description'>Публикация: {{\Carbon\Carbon::parse($item->posted)->format('d.m.Y')}} </span>
                 </div><!-- /.user-block -->
                 <div class='box-tools' style='padding-top: 5px'>
                     <a href="{{ url('/control/news/edit/'.$item->id) }}" class="btn btn-xs btn-default">Изменить</a>
