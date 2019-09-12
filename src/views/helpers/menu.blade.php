@@ -1,11 +1,8 @@
 <!--Шаблон для вывода меню с использованием рекурсии-->
 
 @foreach($items as $item)
-{{var_dump($item['active'])}}
     <!--Добавляем класс active для активного пункта меню-->
-    <li class="{{ ('/'.Request::path() == $item['item']->path) ? 'active' : '' }} {{count($item['children'])?'treeview':''}}">
-        <!-- метод url() получает ссылку на пункт меню (указана вторым параметром
-        при создании объекта LavMenu)-->
+    <li class="{{ ($item['active']) ? 'active' : '' }} {{count($item['children'])?'treeview':''}}">
         <a href="{{ count($item['children'])?'#':$item['item']->path }}" {{ $item['item']->target?'target="'.$item['item']->target.'"':'' }} >
         
         @if($item['item']->icon)
@@ -19,12 +16,9 @@
             </span>
         @endif
         </a>
-        <!--Формируем дочерние пункты меню
-        метод haschildren() проверяет наличие дочерних пунктов меню-->
+        <!--Формируем дочерние пункты меню-->
         @if(count($item['children']))
-        
             <ul class="treeview-menu">
-                <!--метод children() возвращает дочерние пункты меню для текущего пункта-->
                 @include('control::helpers.menu', ['items'=>$item['children']])
             </ul>
         @endif

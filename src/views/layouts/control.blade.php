@@ -407,28 +407,8 @@ tinymce.init({
                     <!-- sidebar menu: : style can be found in sidebar.less -->
 
                     <ul class="sidebar-menu" data-widget="tree">
-                        @include('control::helpers.menu', ['items'=>\Menu::get()])
-                        <!-- <li class="header">MAIN NAVIGATION</li> -->
-                        <li>
-                            <a href="/control">
-                                <i class="fa fa-home"></i> <span>Главная</span>
-                            </a>
-                        </li>
-                        <li class="treeview active">
-                            <a href="#">
-                                <i class="fa fa-files-o"></i>
-                                <span>Материалы</span>
-                                <span class="pull-right-container">
-                                    <i class="fa fa-angle-left pull-right"></i>
-                                </span>
-                            </a>
-                            <ul class="treeview-menu">
-                                <li class="active"><a href="/control/news"><i class="fa fa-circle-o"></i> Новости</a></li>
-                                <li><a href="/control/article"><i class="fa fa-circle-o"></i> Статьи</a></li>
-                            </ul>
-                        </li>
-                        <li><a target="_blank" href="/"><i class="fa fa-share"></i> <span>Сайт</span></a></li>
-
+                    @include('control::helpers.menu', ['items'=>app()->controlMenu->get()])
+                        
                         <!-- <li>
                             <a href="/vendor/control-panel/pages/widgets.html">
                                 <i class="fa fa-th"></i> <span>Widgets</span>

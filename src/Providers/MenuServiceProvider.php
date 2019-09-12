@@ -3,7 +3,8 @@
 namespace Lvmod\ControlPanel\Providers;
  
 use Illuminate\Support\ServiceProvider;
- 
+use Lvmod\ControlPanel\Helpers\Menu;
+
 class MenuServiceProvider extends ServiceProvider
 {
   /**
@@ -24,6 +25,7 @@ class MenuServiceProvider extends ServiceProvider
  */
   public function register()
   {
-    require_once __DIR__.'/../Helpers/Menu.php';
+    $this->app->singleton(Menu::class);
+    $this->app->alias(Menu::class, 'controlMenu');
   }
 }

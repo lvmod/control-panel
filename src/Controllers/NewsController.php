@@ -27,6 +27,8 @@ class NewsController extends Controller {
     }
 
     public function index(Request $request) {
+        // var_dump(json_encode(app()->controlMenu->breadcrumb()));
+        // die();
         return view('control::news.index', [
             'news' => $this->news->find(),
         ]);

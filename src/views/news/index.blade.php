@@ -2,18 +2,7 @@
 
 @section('content')
 
-<section class="content-header">
-                    <div>
-                        <h3 class="font-light m-b-xs" style="margin-top: 5px; margin-bottom: 3px;">
-                            Новости                            <br>
-                        </h3>
-                    </div>
-                    
-        <ol class="breadcrumb">
-            <li><a href="/control"><i class="fa fa-home pr-10"></i> Главная</a></li>
-            <li class="active">Материалы</li><li class="active">Новости</li>
-        </ol>                
-</section>
+@include('control::helpers.header', ['title'=>'Новости', 'items'=>app()->controlMenu->breadcrumb()])
 
 <section class="content">
     <div class="box box-primary">
