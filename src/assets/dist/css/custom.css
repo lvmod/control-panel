@@ -1,3 +1,99 @@
 .treeview-menu>li {
     margin: 0 0 0 10px;
 }
+
+.file-box {
+    border-width: 1px;
+    border-style: solid;
+    border-color: rgb(238, 238, 238);
+    border-image: initial;
+}
+
+.sidebar-menu .treeview-menu {
+    display: none;
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    padding-left: 15px; 
+}
+
+.skin-black-light .treeview-menu>li.active>a {
+     font-weight: normal; 
+}
+
+body .sidebar-menu {
+    display: block;
+}
+
+body.sidebar-collapse .sidebar-menu {
+    display: none;
+}
+
+.box {
+    border-top: 2px solid #d2d6de;
+}
+
+.fotorama .fotorama__caption {
+    display: none;
+}
+
+.fotorama.fotorama--fullscreen .fotorama__caption {
+    display: block;
+    text-align: center;
+} 
+
+.content-file-manager-dialog {
+    padding: 6px 20px 6px 20px;
+}
+
+.content-file-manager-dialog .hpanel {
+    margin-bottom: 5px;
+}
+
+.content-file-manager-dialog .panel-body {
+    padding: 4px; 
+    padding-left: 9px;
+}
+
+.content-file-manager-dialog .file-body.selected-file {
+    border: 1px solid #3F499A;
+}
+
+.content-file-manager-dialog .dropdown li a {
+    font-size: 13px;
+    line-height: 18px;
+}
+
+.content-file-manager-dialog a {
+    cursor: pointer; 
+    color: #34495e;
+}
+
+.content-file-manager-dialog a:hover {
+    cursor: pointer; 
+    text-decoration: none;
+    color: #34495e;
+}
+
+.content-file-manager-dialog .file-manager-header {
+    margin-bottom: 10px;
+    border-bottom: 1px solid #e4e5e7;    
+}
+
+.content-file-manager-dialog .file-manager-body {
+/*    height: 300px;
+    overflow: auto;
+    overflow-x: hidden;
+    overflow-y: scroll;*/
+}
+
+.clockpicker-popover {
+    z-index: 1050 !important
+}
+
+@media (min-width: 992px) {
+    .custom-modal-lg {
+        width: 900px;
+    }
+}
+

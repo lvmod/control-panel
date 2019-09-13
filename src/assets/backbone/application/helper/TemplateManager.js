@@ -7,7 +7,7 @@ TemplateManager = {
       action(template);
     } else {
       var conteiner = this.templatesRaw;
-      $.get("/control-panel/application/template/" + id + ".html", function(template){
+      $.get("/vendor/control-panel/backbone/application/template/" + id + ".html", function(template){
         var tmpl = template;
         conteiner[id] = tmpl;
         action(tmpl);
@@ -20,7 +20,7 @@ TemplateManager = {
       action(template);
     } else {
       var conteiner = this.templates;
-      $.get("/control-panel/application/template/" + id + ".html", function(template){
+      $.get("/vendor/control-panel/backbone/application/template/" + id + ".html", function(template){
         var tmpl = _.template(template);
         conteiner[id] = tmpl;
         action(tmpl);

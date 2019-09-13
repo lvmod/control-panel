@@ -44,7 +44,7 @@ var FilesView = Backbone.View.extend({
                 context.listenTo(view, 'fm-click', function (file) {
                     if (file.isfolder == 1) {
                         if (window.fmApp.historyEnable && window.fmRouter) {
-                            window.fmRouter.navigate(file.id, {trigger: true});
+                            window.fmRouter.navigate(""+file.id, {trigger: true});
                         } else {
                             context.model.set("id", file.id);
                             this.model.fetch();
@@ -89,11 +89,13 @@ var FilesView = Backbone.View.extend({
                 success: function (model, response, options) {
                     if (response.error) {
                         alert(response.error);
-                    } else if (response.file) {
+                    } else {
                         //Можно делать fetch, но будут перезапрашиваться все данные с сервера, 
                         //быстрее добавить в коллекцию один вставляемый элемент и перерисовать
 //                        context.model.fetch();
-                        context.collection.add(response.file, {silent: true});
+                        context.collection.add(response, {silent: true});
+
+
                         context.model.set("files", [], {silent: true});
                         context.model.set("files", context.collection.toJSON(), {silent: true});
                         context.render();
@@ -447,7 +449,7 @@ var FilesView = Backbone.View.extend({
             var formData = new FormData();
             formData.append("file", file);
             var jxhr = $.ajax({
-                url: '/filemanager/upload/id/' + context.model.get("id"),
+                url: '/control/files/upload/id/' + context.model.get("id"),
                 type: 'POST',
                 dataType: "json",
                 xhr: function () {  // Custom XMLHttpRequest

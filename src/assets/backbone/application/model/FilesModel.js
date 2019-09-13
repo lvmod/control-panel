@@ -3,7 +3,7 @@ var FilesModel = Backbone.Model.extend({
         return false;
     },
     url: function () {
-        return "/filemanager/view/id/" + this.get('id');
+        return "/control/files/view/" + this.get('id');
     },
     defaults: {
         filePath: "",

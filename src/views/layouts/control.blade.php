@@ -49,6 +49,15 @@
     
     <link rel="stylesheet" href="/vendor/control-panel/dist/css/custom.css">
 
+    <!-- jQuery 3 -->
+    <script src="/vendor/control-panel/bower_components/jquery/dist/jquery.min.js"></script>
+    <script>
+        $.ajaxSetup({
+            headers: {
+                'X-CSRF-TOKEN': "{{ csrf_token() }}"
+            }
+        });
+    </script>
 </head>
 <!-- <body class="hold-transition skin-blue sidebar-mini"> -->
 
@@ -473,8 +482,6 @@
     </div>
     <!-- ./wrapper -->
 
-    <!-- jQuery 3 -->
-    <script src="/vendor/control-panel/bower_components/jquery/dist/jquery.min.js"></script>
     <!-- Bootstrap 3.3.7 -->
     <script src="/vendor/control-panel/bower_components/bootstrap/dist/js/bootstrap.min.js"></script><!-- Select2 -->
     <script src="/vendor/control-panel/bower_components/select2/dist/js/select2.full.min.js"></script>

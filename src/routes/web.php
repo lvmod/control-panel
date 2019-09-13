@@ -17,6 +17,7 @@ Route::group(['prefix' => 'control', 'namespace' => 'Lvmod\ControlPanel\Controll
         Route::get('/', 'FilesController@index');
         Route::get('view/{id?}', 'FilesController@view');
         Route::get('file/{id?}', 'FilesController@file');
+        Route::post('file', 'FilesController@newfolder');
         Route::post('upload/{id?}', 'FilesController@upload');
     });
 });

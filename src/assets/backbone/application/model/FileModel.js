@@ -1,10 +1,10 @@
 var FileModel = Backbone.Model.extend({
-    urlRoot : '/filemanager/file',
+    urlRoot : '/control/files/file',
 //    isNew: function () {
 //        return false;
 //    },
 //    url: function () {
-//        return "/filemanager/file/" + this.get('id');
+//        return "/control/files/file/" + this.get('id');
 //    },
     defaults: {
 //        id: "",
