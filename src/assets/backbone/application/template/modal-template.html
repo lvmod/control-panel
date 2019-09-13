@@ -1,0 +1,21 @@
+<div class="modal-dialog <%= dialogClass %>"><div class="modal-content">
+<% if (title) { %>
+  <div class="modal-header">
+    <% if (allowCancel) { %>
+      <a class="close">&times;</a>
+    <% } %>
+    <h4><%= title %></h4>
+  </div>
+<% } %>
+<div class="modal-body"><%= content %></div>
+<% if (showFooter) { %>
+  <div class="modal-footer">
+    <% if (allowCancel) { %>
+      <% if (cancelText) { %>
+        <a href="#" class="btn cancel"><%= cancelText %></a>
+      <% } %>
+    <% } %>
+    <a href="#" class="btn ok btn-primary"><%= okText %></a>
+  </div>
+<% } %>
+</div></div>

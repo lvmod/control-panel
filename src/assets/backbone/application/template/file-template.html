@@ -1,0 +1,16 @@
+<!--style="... position: relative;" необходим для нормальной работы iCheck-->
+<td style="width: 25px; vertical-align: middle; position: relative;" data-id="<%= id %>">
+    <% if(name!=='..') { %>
+    <input type="checkbox">
+    <% } %>
+</td>
+<td class="fm-clickable mailbox-star" style="width: 50px; cursor: pointer; text-align: center"><img height=30 src="<%= default_preview %>" /></td>
+<td class="fm-clickable mailbox-name" style="vertical-align: middle; cursor: pointer; color: #3c8dbc;"><%= name %></td>
+<td class="fm-clickable mailbox-subject" style="vertical-align: middle; cursor: pointer"><%= description %></td>
+<td style="width: 35px; vertical-align: middle; cursor: pointer">
+    <% if(name!=='..') { %>
+    <a href='/filemanager/download/id/<%= id %>'>
+        <button type="button" class="btn btn-default btn-sm btn-fm-download"><i class="fa fa-download"></i></button>
+    </a>
+    <% } %>
+</td>

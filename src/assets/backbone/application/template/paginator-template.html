@@ -1,0 +1,9 @@
+<% if (firstPageInRange > first) { %>
+    <li class="first"><a href="javascript:;">«</a></li>
+<% } %>
+<% for (var i = firstPageInRange; i <= lastPageInRange; i++) { %>
+    <li <% if (current == i) print('class="active"') %> ><a href="javascript:;"><%= i %></a></li>
+<% } %>
+<% if (lastPageInRange < last) { %>
+    <li class="last"><a href="javascript:;">»</a></li>
+<% } %>

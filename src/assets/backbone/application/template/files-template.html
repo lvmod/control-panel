@@ -1,0 +1,206 @@
+<!-- шаблон диалога создания папки, переименования файла/папки, добавления описания -->
+<script id="create-folder-tmpl" type="text/x-jquery-tmpl">
+    <div class="modal fade" tabindex="-1" role="dialog"  aria-hidden="true">
+    <div class="modal-dialog">
+    <div class="modal-content" style="overflow: auto;">
+    <form <?php echo ($this->isDialog) ? 'class="file-manager-dialog"' : ''; ?> action="/control/files/index/id/{%= id %}/<?php echo ($this->isDialog) ? 'view/dialog' : ''; ?>" method="POST">
+    <div class="hpanel" style="margin-bottom: 0px;">
+    <div class="alert alert-danger td-upload-error" style="display: none"></div>
+    <div class="panel-body">
+    <br><h5>{%= title %}</h5>
+    <input type="hidden" name="operation" id="operation" value="new-folder">
+    <div><input type="text" name="name" id="name" value="{%= value %}" class="form-control"></div>
+    <br><div class="pull-right">
+    <input type="submit" name="submit" id="submit" value="Сохранить" class="btn btn-primary">
+    &nbsp;&nbsp;
+    <a class="btn btn-default" href="#">Отмена</a>
+    </div>
+    </div>
+    </div>
+    </form>
+    </div>
+    </div>
+    </div>  
+</script>
+
+<!-- шаблон option для элемента slect2 -->
+<script id="link-file-option-tmpl" type="text/x-jquery-tmpl">
+    <option value="{%= id %}">{%= name %}</option>
+</script>
+
+
+<!-- шаблон предпросмотра изображения -->
+<script id="preview-image-tmpl" type="text/x-jquery-tmpl">
+    <div class="modal fade" tabindex="-1" role="dialog"  aria-hidden="true">
+    <div class="modal-dialog custom-modal-lg">
+    <div class="modal-content">
+
+    <div class="hpanel" style="margin-bottom: 0px;">
+    <div class="panel-body">
+
+    <div style='text-align: center'><img style='max-width: 100%' src='{%= src %}' /></div>
+    <br><div class="pull-right">
+    <a class="btn btn-default" href="#">Закрыть</a>
+    </div>
+    </div>
+    </div>
+
+    </div>
+    </div>
+    </div>  
+</script>
+
+<!-- шаблон диалога загрузки файлов -->
+<script id="upload-files-tmpl" type="text/x-jquery-tmpl">
+    <div class="modal fade" tabindex="-1" role="dialog"  aria-hidden="true">
+    <div class="modal-dialog custom-modal-lg">
+    <div class="modal-content" style="overflow: auto;">
+    <form enctype="multipart/form-data">
+    <div class="normalheader transition animated fadeIn small-header">
+    <div class="hpanel">
+    <div class="panel-body">
+    <h2 class="font-light m-b-xs">
+    Загрузка файлов
+    </h2>
+    </div>
+    <div class="panel-footer">
+    <a class="btn btn-primary btn-sm a-upload-file" href="#" >
+    <i class="glyphicon glyphicon-plus"></i>
+    Добавить файлы...
+    </a>
+    <input style='display:none' name="file" id='input-upload-file' type="file" multiple="true" />
+
+    <div class="pull-right">
+    <a class="btn btn-success" href="#">Готово</a>
+    </div>
+    </div>
+    </div>
+    </div>
+
+    <br>
+    <div class="hpanel">
+    <div class="panel-body" style="border: none">
+    <div class="row">
+    <div class="col-md-12">
+    <table role="presentation" class="table table-striped">
+    <tbody class="files">
+    </tbody>
+    </table>
+    </div>
+    </div>
+    </div>
+    </div>
+    <!--                                    <a class="btn btn-primary btn-sm a-upload-file" href="#" >
+    <i class="glyphicon glyphicon-plus"></i>
+    </a>-->
+    </form>
+    </div>
+    </div>
+    </div>  
+</script>
+
+<!-- шаблон строки таблицы загружаемого файла -->
+<script id="tr-file-tmpl" type="text/x-jquery-tmpl">
+    <tr class="template-upload fade in">
+    <td style="vertical-align: middle">
+    <div class="preview"></div>
+    </td>
+    <td style="vertical-align: middle">
+    {%= name %}
+    </td>
+    <td style="width: 120px; vertical-align: middle">
+    {%= csize %}
+    </td>
+    <td style="width: 240px; vertical-align: middle; text-align: center">
+    <div class="alert alert-danger td-upload-error" style="display: none"></div>
+    <div class="td-upload-check" style="display: none"><i style="color:green;" class="fa fa-check"></i></div>
+    <div class="progress m-t-xs full progress-striped active" style="margin: 0; background-color: #D6D6D6;">
+    <div style="width: 0%" aria-valuemax="100" aria-valuemin="0" aria-valuenow="0" role="progressbar" class="progress-bar progress-bar-success">
+    </div>
+    </div>                                    
+    </td>
+    <td style="width: 40px; vertical-align: middle">
+    <button class="btn btn-xs btn-warning reload" style="display:none">
+    <i class="glyphicon glyphicon-refresh"></i>
+    </button>
+    <button class="btn btn-xs btn-danger2 cancel">
+    <i class="glyphicon glyphicon-ban-circle"></i>
+    </button>
+    </td>
+    </tr>
+</script>
+
+<div class="box box-primary">
+    <div class="box-header with-border">
+        <h3 class="box-title">Файлы</h3>
+
+<!--        <div class="box-tools pull-right">
+            <div class="has-feedback">
+                <input type="text" class="form-control input-sm" placeholder="Поиск файлов">
+                <span class="glyphicon glyphicon-search form-control-feedback"></span>
+            </div>
+        </div>-->
+        <!-- /.box-tools -->
+    </div>
+    <!-- /.box-header -->
+    <div class="box-body no-padding">
+        <div class="mailbox-controls">
+            <!-- Check all button -->
+            <button type="button" class="btn btn-default btn-sm checkbox-toggle"><i class="fa fa-square-o"></i>
+            </button>
+            <div class="btn-group">
+                <button type="button" class="btn btn-default btn-sm upload-file"><i class="fa fa fa-upload"></i></button>
+                <button type="button" class="btn btn-default btn-sm create-folder"><i class="fa fa-folder"></i></button>
+                <button type="button" class="btn btn-default btn-sm delete-file"><i class="fa fa-trash-o"></i></button>
+                <!--                <button type="button" class="btn btn-default btn-sm"><i class="fa fa-reply"></i></button>
+                                <button type="button" class="btn btn-default btn-sm"><i class="fa fa-share"></i></button>-->
+            </div>
+            <!-- /.btn-group -->
+            <button type="button" class="btn btn-default btn-sm fm-refresh"><i class="fa fa-refresh"></i></button>
+<!--            <div class="pull-right">
+                1-50/200
+                <div class="btn-group">
+                    <button type="button" class="btn btn-default btn-sm"><i class="fa fa-chevron-left"></i></button>
+                    <button type="button" class="btn btn-default btn-sm"><i class="fa fa-chevron-right"></i></button>
+                </div>
+                 /.btn-group 
+            </div>-->
+            <!-- /.pull-right -->
+        </div>
+        <div class="table-responsive mailbox-messages">
+            <table class="table table-hover table-striped">
+                <tbody class="object-container">
+
+                </tbody>
+            </table>
+            <!-- /.table -->
+        </div>
+        <!-- /.mail-box-messages -->
+    </div>
+    <!-- /.box-body -->
+    <div class="box-footer no-padding">
+        <div class="mailbox-controls">
+            <!-- Check all button -->
+            <button type="button" class="btn btn-default btn-sm checkbox-toggle"><i class="fa fa-square-o"></i>
+            </button>
+            <div class="btn-group">
+                <button type="button" class="btn btn-default btn-sm upload-file"><i class="fa fa fa-upload"></i></button>
+                <button type="button" class="btn btn-default btn-sm create-folder"><i class="fa fa-folder"></i></button>
+                <button type="button" class="btn btn-default btn-sm delete-file"><i class="fa fa-trash-o"></i></button>
+                <!--                <button type="button" class="btn btn-default btn-sm"><i class="fa fa-reply"></i></button>
+                                <button type="button" class="btn btn-default btn-sm"><i class="fa fa-share"></i></button>-->
+            </div>
+            <!-- /.btn-group -->
+            <button type="button" class="btn btn-default btn-sm fm-refresh"><i class="fa fa-refresh"></i></button>
+<!--            <div class="pull-right">
+                1-50/200
+                <div class="btn-group">
+                    <button type="button" class="btn btn-default btn-sm"><i class="fa fa-chevron-left"></i></button>
+                    <button type="button" class="btn btn-default btn-sm"><i class="fa fa-chevron-right"></i></button>
+                </div>
+                 /.btn-group 
+            </div>-->
+            <!-- /.pull-right -->
+        </div>
+    </div>
+</div>

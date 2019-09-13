@@ -1,0 +1,35 @@
+<div class="box" style="border-top: none;">
+    <div class="box-header no-padding">
+                <h5>Материалы к статье:</h5>
+                <button type="button" class="multimedia-add btn btn-default" style="margin-bottom: 10px"><i class="fa fa-plus"></i></button>
+        </div>
+    </div>
+    <!-- /.box-header -->
+    <div class="box-body no-padding">
+        <% if(data && data.length) { %>
+        <table class="table table-condensed">
+            <tr>
+                <th>Файл</th>
+                <th style="width: 130px">Действия</th>
+            </tr>
+            <% _.each(data, function(item){ %>
+            <tr data-multimedia="<%= item['multimedia_id'] %>">
+                <td>
+                    <i class="fa fa-comment-o pr-5"></i>
+                    <a href="/filemanager/download/id/<%= item['multimedia_id'] %>"><%= item['name'] %></a>
+                </td>
+                <td>
+                    <div class="btn-group">
+                        <button type="button" class="multimedia-order-up btn btn-default"><i class="fa fa-toggle-up"></i></button>
+                        <button type="button" class="multimedia-order-down btn btn-default"><i class="fa fa-toggle-down"></i></button>
+                        <button type="button" class="multimedia-remove btn btn-danger"><i class="fa fa-remove"></i></button>
+                    </div>
+                </td>
+            </tr>
+            <% }); %>
+        </table>
+        <% } %>
+
+    </div>
+    <!-- /.box-body -->
+</div>                                 
