@@ -160,10 +160,10 @@ class FilesController extends Controller
                             $item['name'] .= '.' . $item->type->name;
                         }
             
-                        $zip->addFromString(iconv("UTF-8", "CP866", $item->path ), Storage::disk('public')->get($filePath . $item['file_name']));
+                        $zip->addFromString($item->path, Storage::disk('public')->get($filePath . $item['file_name']));
                         // $zip->addFile( $path . '/public/' . $filePath . $item->file_name, iconv("UTF-8", "CP866", $item->path . $item->name));
                     } else if ($item['isfolder']) {
-                        $zip->addEmptyDir(iconv("UTF-8", "CP866", $item->path));
+                        $zip->addEmptyDir($item->path);
                     }
                 }
             }
