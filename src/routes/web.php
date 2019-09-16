@@ -1,5 +1,6 @@
 <?php
-Route::get('files/download/{id}', 'FilesController@download');
+
+Route::get('download/{file}', 'Lvmod\ControlPanel\Controllers\FilesController@download')->middleware('web');
 
 Route::group(['prefix' => 'control', 'namespace' => 'Lvmod\ControlPanel\Controllers', 'middleware' => ['web', 'check.role:admin,developer']], function () {
     Route::get('/', 'IndexController@index');
