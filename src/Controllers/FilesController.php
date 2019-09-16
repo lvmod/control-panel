@@ -8,10 +8,11 @@ use Lvmod\ControlPanel\Repositories\MultimediaRepository;
 use Lvmod\ControlPanel\Repositories\MultimediaTypeRepository;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
+use ZipArchive;
 
 class FilesController extends Controller
 {
-    protected $uploadMaxFilesize = "200MB";
     protected $photopeople = "images/people";
     protected $uploadfiles = "files/multimedia";
 
@@ -85,7 +86,7 @@ class FilesController extends Controller
             'mediaType' => $this->mediaType->allExtension(),
             'filePath' => $this->uploadfiles . "/",
             'filePathMin' => $this->uploadfiles . "_min/",
-            'uploadMaxFilesize' => $this->uploadMaxFilesize,
+            'uploadMaxFilesize' => app()->Utils->fileUploadMaxSize(),
             'path' => $this->media->getPathById($id),
         ];
     }
@@ -120,50 +121,146 @@ class FilesController extends Controller
         return $folder;
     }
 
-    public function store(Request $request)
+    public function download(Request $request, Multimedia $file)
     {
-        $this->validate($request, [
-            'posted' => 'required',
-            'category' => 'required',
-            'title' => 'required|max:255',
-            'body' => 'required',
-        ]);
+        if (!$file->isfolder) {
+            if (!empty($file->file_name)) {
+                $filePath = $this->uploadfiles . "/" . $file->file_name;
+                if (Storage::disk('public')->exists($filePath)) {
 
-        $news = new News;
-        $news->title = $request->title;
-        $news->posted = \Carbon\Carbon::parse($request->posted)->toDateString();
-        $news->visible = !!$request->visible;
-        $news->body = $request->body;
-        $news->author_id = $request->user()->id;
-        $news->category_id = $request->category;
-        $news->save();
+                    if (!empty($file->type->name) && !app()->Utils->endsWith(mb_strtolower($file->name, 'UTF-8'), mb_strtolower($file->type->name, 'UTF-8'))) {
+                        $file->name .= '.' . $file->type->name;
+                    }
 
-        return redirect('/control/news');
+                    return Storage::disk('public')->download($filePath, $file->name);
+                }
+            }
+        } else {
+            //Создание временной папки
+            $tmpDir = '/tmp/';
+            Storage::disk('local')->makeDirectory($tmpDir, $mode=0775);
+            $path = storage_path('app');
+            //Получаем список файлов
+            $files = $this->media->getAllById($file->id, true, true, $file->id);
+
+            //Создаем архив
+            $fileName = $path . $tmpDir . md5(date('Y-m-d H:i:s') . app()->Utils->generateString()) . '.zip';
+            $zip = new ZipArchive();
+
+            if ($zip->open($fileName, ZipArchive::CREATE) !== TRUE) {
+                return ["result" => "error", "error" => "Во время создания архива произошла ошибка"];
+            }
+
+            $filePath = $this->uploadfiles . "/";
+            
+            if (!is_null($files) && is_array($files)) {
+                foreach ($files as $item) {
+                    if (!$item->isfolder && Storage::disk('public')->exists($filePath . $item['file_name'])) {
+                        if (!empty($item->type->name) && !app()->Utils->endsWith(mb_strtolower($item->name, 'UTF-8'), mb_strtolower($item->type->name, 'UTF-8'))) {
+                            $item['name'] .= '.' . $item->type->name;
+                        }
+            
+                        $zip->addFromString(iconv("UTF-8", "CP866", $item->path ), Storage::disk('public')->get($filePath . $item['file_name']));
+                        // $zip->addFile( $path . '/public/' . $filePath . $item->file_name, iconv("UTF-8", "CP866", $item->path . $item->name));
+                    } else if ($item['isfolder']) {
+                        $zip->addEmptyDir(iconv("UTF-8", "CP866", $item->path));
+                    }
+                }
+            }
+            $zip->close();
+
+            if ($zip->status != ZipArchive::ER_OK) {
+                if (file_exists($fileName)) {
+                    unlink($fileName);
+                }
+                return ["result" => "error", "error" => "Во время создания архива произошла ошибка"];
+            }
+
+            $response = response(file_get_contents($fileName))
+                ->header('Content-Type', 'application/file')
+                ->header('content-length', filesize($fileName))
+                ->header('content-Description', 'File Transfer')
+                ->header('Content-Disposition', 'attachment; filename="' . $file['name'] . '.zip"');
+
+            if (file_exists($fileName)) {
+                unlink($fileName);
+            }
+
+            return $response;
+        }
+
+        abort(404);
     }
 
-    public function update(Request $request, News $news)
+    public function upload(Request $request, $id)
     {
-        $this->validate($request, [
-            'posted' => 'required',
-            'category' => 'required',
-            'title' => 'required|max:255',
-            'body' => 'required',
-        ]);
+        if (!$id) {
+            $id = 0;
+        }
 
-        $news->title = $request->title;
-        $news->posted = \Carbon\Carbon::parse($request->posted)->toDateString();
-        $news->visible = !!$request->visible;
-        $news->body = $request->body;
-        $news->author_id = $request->user()->id;
-        $news->category_id = $request->category;
-        $news->save();
+        // Storage::disk('local')->put('avatars/1', "asdfasdf");
+        // var_dump(Storage::disk('local')->exists('avatars/1'));
+        // var_dump(Storage::disk('local')->get('avatars/1'));
+        // var_dump(Storage::disk('local')->url('avatars/1'));
+        // Storage::size('file1.jpg');
+        // Storage::lastModified('file1.jpg');
+        // Storage::delete('file.jpg');
+        // Storage::delete(['file1.jpg', 'file2.jpg']);
+        // Storage::makeDirectory($directory);
+        // Storage::deleteDirectory($directory);
+        try {
+            $file = $request->file('file');
+            if (!$file || !$file->getClientOriginalName()) {
+                return ['message' => 'Файл не выбран либо превышает допустимые ограничения по размеру'];
+            }
 
-        return redirect('/control/news');
+            if ($this->media->byName($file->getClientOriginalName(), $id)) {
+                return ['message' => 'Файл с таким именем уже существует'];
+            }
+
+            $ext = $file->extension();
+            if (!$ext) {
+                return ['message' => 'Ошибка загрузки файла. Не удалось определить тип файла'];
+            }
+
+            $ext = strtolower($ext);
+            $type = $this->mediaType->byName($ext);
+            if (!$type) {
+                return ['message' => 'Ошибка загрузки файла. Не поддерживаемый тип файла'];
+            }
+
+            $name = $file->getClientOriginalName();
+            $newName = md5(date('Y-m-d H:i:s')) . "_" . $name;
+            $path = Storage::disk('public')->putFileAs($this->uploadfiles, $file, $newName);
+
+            $newFullName = $this->uploadfiles . "/" . $newName;
+            $newFullNameMin = $this->uploadfiles . "_min/" . $newName;
+
+            if ($type && $type->makepreview) {
+                //Подобрать параметры ширины и высоты миниатюры
+                app()->Utils->img_resize($newFullName, $newFullNameMin, 200, 100);
+            }
+
+            //Сохранение информации о файле в базе дынных
+            $f = new Multimedia();
+            $f->parent_id = $id;
+            $f->name = $name;
+            $f->file_name = $newName;
+            $f->type_id = $type->id;
+            $f->isfolder = 0;
+            $f->save();
+        } catch (\Exception $ex) {
+            return ['message' => 'Произошла ошибка во время загрузки файла. Возможно файл превышает допустимые ограничения по размеру ' . app()->Utils->fileUploadMaxSize()];
+        }
+
+        return [];
     }
 
-    public function delete(Request $request, News $news)
+    public function delete(Request $request, $id)
     {
-        $news->delete();
-        return redirect('/control/news');
+        if (!$this->media->trash($id)) {
+            return ['error' => 'Ошибка удаления'];
+        }
+        return [];
     }
 }

@@ -20,7 +20,8 @@
         "laravel": {
              "providers": [
                 "Lvmod\\ControlPanel\\Providers\\ControlPanelServiceProvider",
-                "Lvmod\\ControlPanel\\Providers\\MenuServiceProvider"
+                "Lvmod\\ControlPanel\\Providers\\MenuServiceProvider",
+                "Lvmod\\ControlPanel\\Providers\\UtilsServiceProvider"
             ]
         }
     }

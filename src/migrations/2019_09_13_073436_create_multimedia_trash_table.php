@@ -14,7 +14,7 @@ class CreateMultimediaTrashTable extends Migration
     public function up()
     {
         Schema::create('multimedia_trash', function (Blueprint $table) {
-            $table->increments('id');
+            $table->bigInteger('id')->primary();
             $table->integer('parent_id')->nullable()->unsigned()->index();
             $table->string('name');
             $table->string('file_name')->nullable();

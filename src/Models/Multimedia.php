@@ -7,6 +7,12 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Multimedia extends Model {
 
+    /**
+     * transient field
+     * Временное поле для хранения пути файла. Не сохраняется в базе данных
+     */
+    public $path;
+
     protected $table = 'multimedia';
 
     /**

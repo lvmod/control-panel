@@ -253,7 +253,7 @@ var FilesView = Backbone.View.extend({
                     //                        }
                     //                    }
 
-                    return '<img height=' + previewHeight + ' src="/images/PNG/Documents/Grey/Stroke/@2x/icon-54-document@2x.png">';
+                    return '<img height=' + previewHeight + ' src="/vendor/control-panel/dist/img/PNG/Documents/Grey/Stroke/@2x/icon-54-document@2x.png">';
                 } else {
                     //Если файл не является изображением или видео, то устанавливаем иконку из массива mediaType 
                     if (file.name) {
@@ -265,7 +265,7 @@ var FilesView = Backbone.View.extend({
                                 }
                             }
                         }
-                        return '<img height=' + previewHeight + ' src="/images/PNG/Documents/Grey/Stroke/@2x/icon-54-document@2x.png">';
+                        return '<img height=' + previewHeight + ' src="/vendor/control-panel/dist/img/PNG/Documents/Grey/Stroke/@2x/icon-54-document@2x.png">';
                     }
 
                 }
@@ -449,7 +449,7 @@ var FilesView = Backbone.View.extend({
             var formData = new FormData();
             formData.append("file", file);
             var jxhr = $.ajax({
-                url: '/control/files/upload/id/' + context.model.get("id"),
+                url: '/control/files/upload/' + context.model.get("id"),
                 type: 'POST',
                 dataType: "json",
                 xhr: function () {  // Custom XMLHttpRequest

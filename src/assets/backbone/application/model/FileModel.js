@@ -8,7 +8,7 @@ var FileModel = Backbone.Model.extend({
 //    },
     defaults: {
 //        id: "",
-        default_preview: "/images/PNG/Filetypes/Grey/Stroke/@2x/icon-74-document-file-jpg@2x.png",
+        default_preview: "/vendor/control-panel/dist/img/PNG/Filetypes/Grey/Stroke/@2x/icon-74-document-file-jpg@2x.png",
         deleted: "0",
         description: "",
         external_url: "",
