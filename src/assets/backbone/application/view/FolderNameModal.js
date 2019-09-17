@@ -3,14 +3,7 @@ var FolderNameModal = Backbone.View.extend({
   initialize: function (options) {
     this.options = options || {};
   },
-  render: function () {
-    TemplateManager.render(this, this.template, { actions: this.actions, currency: this.currency },
-      function (context, template, data) {
-        context.initSearchProduct();
-      });
-
-    return this;
-  },
+  
   render: function () {
     TemplateManager.render(this, this.template, this.model.toJSON(), function (context, template, data) {
       $("#folder-name", context.$el).val(context.model.get('name'));
