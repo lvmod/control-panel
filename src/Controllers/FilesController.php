@@ -264,4 +264,16 @@ class FilesController extends Controller
         }
         return [];
     }
+
+    public function links(Request $request, Multimedia $file)
+    {
+        $data = json_decode($request->getContent());
+        if (!$data) {
+            return ['error' => 'Ошибка установки связи'];
+        }
+
+        $file->users()->sync($data->users);
+
+        return $file;
+    }
 }

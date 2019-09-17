@@ -33,4 +33,8 @@ class Multimedia extends Model {
     public function items() {
         return $this->hasMany('Lvmod\ControlPanel\Models\Multimedia', 'parent_id');
     }
+
+    public function users() {
+        return $this->belongsToMany('App\User', 'multimedia_user');
+    }
 }

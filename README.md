@@ -22,6 +22,10 @@ composer require lvmod/control-panel:dev-master --prefer-source
         return $this->belongsToMany('Lvmod\ControlPanel\Models\Role', 'role_user');
     }
 
+    public function multimedia() {
+        return $this->belongsToMany('Lvmod\ControlPanel\Models\Multimedia', 'multimedia_user');
+    }
+
 #Выполнить команду копирования ресурсов
 php artisan vendor:publish --provider="Lvmod\ControlPanel\Providers\ControlPanelServiceProvider" --tag=public --force
 

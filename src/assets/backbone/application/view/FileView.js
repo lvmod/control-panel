@@ -26,15 +26,7 @@ var FileView = Backbone.View.extend({
   fileLinkClick: function () {
     var context = this;
 
-    var view = new FileLinkModal({
-      parentView: context, model: new FileModel({
-        parent: context.model.get("id"),
-        name: "",
-        type: "1",
-        isfolder: "1",
-        description: ""
-      })
-    });
+    var view = new FileLinkModal({parentView: context, model: context.model});
     Utils.showSimpleModalBackboneView(view, "Укажите имя папки", function () {
       view.save();
     }, null, { dialogClass: "", cancelText: "Отмена", allowCancel: true });

@@ -11,11 +11,12 @@ class UserRepository {
 
 
     public function find() {
-        return Role::all();
+        return User::orderBy('created_at', 'asc')
+        ->get();
     }
 
     public function byEmail($email) {
-        return Role::where('email', $email)->first();
+        return User::where('email', $email)->first();
     }
 
     public function hasRole(User $user, $roleName) {

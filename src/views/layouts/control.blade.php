@@ -483,7 +483,8 @@
     <!-- ./wrapper -->
 
     <!-- Bootstrap 3.3.7 -->
-    <script src="/vendor/control-panel/bower_components/bootstrap/dist/js/bootstrap.min.js"></script><!-- Select2 -->
+    <script src="/vendor/control-panel/bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
+    <!-- Select2 -->
     <script src="/vendor/control-panel/bower_components/select2/dist/js/select2.full.min.js"></script>
     <!-- InputMask -->
     <script src="/vendor/control-panel/plugins/input-mask/jquery.inputmask.js"></script>

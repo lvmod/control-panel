@@ -1,7 +1,16 @@
 <form role="form">
     <div class="form-group">
-        <label for="folder-name">Имя папки:</label>
-        <input type="text" class="form-control"
-               id="folder-name" placeholder="Имя"/>
+        <label for="users">Пользователи:</label>
+        <select name="users" id="users" class="form-control select2" multiple="multiple" style="width: 100%">
+                <% 
+                    if(users && users.length) {
+                        for(var i = 0; i < users.length; i++) {
+                %>
+                    <option value="<%= users[i].id %>"><%= users[i].name %></option>
+                <%
+                        }
+                    }                
+                %>
+        </select>
     </div>
 </form>
