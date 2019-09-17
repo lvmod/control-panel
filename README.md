@@ -31,3 +31,5 @@ php artisan db:seed --class=Lvmod\\ControlPanel\\Seeds\\RolesTableSeeder
 php artisan db:seed --class=Lvmod\\ControlPanel\\Seeds\\CategoryTableSeeder
 php artisan db:seed --class=Lvmod\\ControlPanel\\Seeds\\MenuTableSeeder
 php artisan db:seed --class=Lvmod\\ControlPanel\\Seeds\\MultimediaTypeTableSeeder
+
+#Для создания миниатюр необходим установленный плагин php<version>-gd

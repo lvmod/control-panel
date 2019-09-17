@@ -4,7 +4,7 @@
     <input type="checkbox">
     <% } %>
 </td>
-<td class="fm-clickable mailbox-star" style="width: 50px; cursor: pointer; text-align: center"><img height=30 src="<%= type.default_preview %>" /></td>
+<td class="fm-clickable mailbox-star" style="width: 50px; cursor: pointer; text-align: center"><img height=30 src="<%= default_preview||type.default_preview %>" /></td>
 <td class="fm-clickable mailbox-name" style="vertical-align: middle; cursor: pointer; color: #3c8dbc;"><%= name %></td>
 <td class="fm-clickable mailbox-subject" style="vertical-align: middle; cursor: pointer"><%= description %></td>
 <td style="width: 35px; vertical-align: middle; cursor: pointer">

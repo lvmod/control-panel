@@ -28,11 +28,11 @@ var FilesView = Backbone.View.extend({
             context.collection.each(function (item) {
                 item.set('real_file_path', item.get('file_name'));
                 if (filePath) {
-                    item.set('real_file_path', '/' + filePath + item.get('file_name'));
+                    item.set('real_file_path', filePath + item.get('file_name'));
                 }
 
-                if (item.get('type_makepreview') > 0 && filePathMin) {
-                    item.set('default_preview', '/' + filePathMin + item.get('file_name'));
+                if (item.get('type').makepreview > 0 && filePathMin) {
+                    item.set('default_preview', filePathMin + item.get('file_name'));
                 }
                 var container = $('.object-container', context.$el);
                 var view = new FileView({model: item});

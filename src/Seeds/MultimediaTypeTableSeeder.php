@@ -27,6 +27,14 @@ class MultimediaTypeTableSeeder extends Seeder
         ]);
 
         MultimediaType::firstOrCreate([
+            'name' => 'jpeg',
+            'makepreview' => 1,
+            'display' => 1,
+            'default_preview' => '/vendor/control-panel/dist/img/PNG/Filetypes/Grey/Stroke/@2x/icon-74-document-file-jpg@2x.png',
+            'viewer' => 'image',
+        ]);
+
+        MultimediaType::firstOrCreate([
             'name' => 'gif',
             'makepreview' => 1,
             'display' => 1,

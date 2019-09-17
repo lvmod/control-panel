@@ -14,7 +14,8 @@ use ZipArchive;
 class FilesController extends Controller
 {
     protected $photopeople = "images/people";
-    protected $uploadfiles = "files/multimedia";
+    protected $disk = "media";
+    protected $uploadfiles = "multimedia";
 
     /**
      * @var MultimediaRepository
@@ -84,8 +85,8 @@ class FilesController extends Controller
             'files' => $files,
             'id' => $id,
             'mediaType' => $this->mediaType->allExtension(),
-            'filePath' => $this->uploadfiles . "/",
-            'filePathMin' => $this->uploadfiles . "_min/",
+            'filePath' => '/files/'.$this->uploadfiles . "/",
+            'filePathMin' => '/files/'.$this->uploadfiles . "_min/",
             'uploadMaxFilesize' => app()->Utils->fileUploadMaxSize(),
             'path' => $this->media->getPathById($id),
         ];
@@ -126,25 +127,25 @@ class FilesController extends Controller
         if (!$file->isfolder) {
             if (!empty($file->file_name)) {
                 $filePath = $this->uploadfiles . "/" . $file->file_name;
-                if (Storage::disk('public')->exists($filePath)) {
+                if (Storage::disk($this->disk)->exists($filePath)) {
 
                     if (!empty($file->type->name) && !app()->Utils->endsWith(mb_strtolower($file->name, 'UTF-8'), mb_strtolower($file->type->name, 'UTF-8'))) {
                         $file->name .= '.' . $file->type->name;
                     }
 
-                    return Storage::disk('public')->download($filePath, $file->name);
+                    return Storage::disk($this->disk)->download($filePath, $file->name);
                 }
             }
         } else {
             //Создание временной папки
             $tmpDir = '/tmp/';
-            Storage::disk('local')->makeDirectory($tmpDir, $mode=0775);
-            $path = storage_path('app');
+            Storage::disk($this->disk)->makeDirectory($tmpDir, $mode=0775);
+            $path = Storage::disk($this->disk)->path($tmpDir);
             //Получаем список файлов
             $files = $this->media->getAllById($file->id, true, true, $file->id);
 
             //Создаем архив
-            $fileName = $path . $tmpDir . md5(date('Y-m-d H:i:s') . app()->Utils->generateString()) . '.zip';
+            $fileName = $path . md5(date('Y-m-d H:i:s') . app()->Utils->generateString()) . '.zip';
             $zip = new ZipArchive();
 
             if ($zip->open($fileName, ZipArchive::CREATE) !== TRUE) {
@@ -155,12 +156,12 @@ class FilesController extends Controller
             
             if (!is_null($files) && is_array($files)) {
                 foreach ($files as $item) {
-                    if (!$item->isfolder && Storage::disk('public')->exists($filePath . $item['file_name'])) {
+                    if (!$item->isfolder && Storage::disk($this->disk)->exists($filePath . $item['file_name'])) {
                         if (!empty($item->type->name) && !app()->Utils->endsWith(mb_strtolower($item->name, 'UTF-8'), mb_strtolower($item->type->name, 'UTF-8'))) {
                             $item['name'] .= '.' . $item->type->name;
                         }
             
-                        $zip->addFromString($item->path, Storage::disk('public')->get($filePath . $item['file_name']));
+                        $zip->addFromString($item->path, Storage::disk($this->disk)->get($filePath . $item['file_name']));
                         // $zip->addFile( $path . '/public/' . $filePath . $item->file_name, iconv("UTF-8", "CP866", $item->path . $item->name));
                     } else if ($item['isfolder']) {
                         $zip->addEmptyDir($item->path);
@@ -226,17 +227,21 @@ class FilesController extends Controller
             $ext = strtolower($ext);
             $type = $this->mediaType->byName($ext);
             if (!$type) {
-                return ['message' => 'Ошибка загрузки файла. Не поддерживаемый тип файла'];
+                return ['message' => 'Ошибка загрузки файла. Не поддерживаемый тип файла '. $ext];
             }
 
             $name = $file->getClientOriginalName();
             $newName = md5(date('Y-m-d H:i:s')) . "_" . $name;
-            $path = Storage::disk('public')->putFileAs($this->uploadfiles, $file, $newName);
+            Storage::disk($this->disk)->putFileAs($this->uploadfiles, $file, $newName);
 
-            $newFullName = $this->uploadfiles . "/" . $newName;
-            $newFullNameMin = $this->uploadfiles . "_min/" . $newName;
+            $path = Storage::disk($this->disk)->path($this->uploadfiles);
+            $newFullName = $path . "/" . $newName;
+            $newFullNameMin = $path . "_min/" . $newName;
 
             if ($type && $type->makepreview) {
+                if(!Storage::disk($this->disk)->exists($this->uploadfiles."_min")) {
+                   Storage::disk($this->disk)->makeDirectory($this->uploadfiles."_min", $mode=0775);
+                }
                 //Подобрать параметры ширины и высоты миниатюры
                 app()->Utils->img_resize($newFullName, $newFullNameMin, 200, 100);
             }

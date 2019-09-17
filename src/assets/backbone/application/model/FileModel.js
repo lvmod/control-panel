@@ -8,19 +8,17 @@ var FileModel = Backbone.Model.extend({
 //    },
     defaults: {
 //        id: "",
-        default_preview: "/vendor/control-panel/dist/img/PNG/Filetypes/Grey/Stroke/@2x/icon-74-document-file-jpg@2x.png",
+        default_preview: "",
         deleted: "0",
         description: "",
         external_url: "",
         file_name: "",
         isfolder: "",
         name: "",
-        parent: "0",
+        parent: "",
+        parent_id: "0",
         type: "",
-        type_display: "",
         type_id: "",
-        type_makepreview: "",
-        type_name: ""
     },
     initialize: function (data, options) {
 //        this.set("_id", UID.generate());
