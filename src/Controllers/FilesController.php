@@ -219,15 +219,11 @@ class FilesController extends Controller
                 return ['message' => 'Файл с таким именем уже существует'];
             }
 
-            $ext = $file->extension();
-            if (!$ext) {
-                return ['message' => 'Ошибка загрузки файла. Не удалось определить тип файла'];
-            }
 
-            $ext = strtolower($ext);
-            $type = $this->mediaType->byName($ext);
+            $type = $this->mediaType->getTypeByFileName($file->getClientOriginalName());
+
             if (!$type) {
-                return ['message' => 'Ошибка загрузки файла. Не поддерживаемый тип файла '. $ext];
+                return ['message' => 'Ошибка загрузки файла. Не поддерживаемый тип файла'];
             }
 
             $name = $file->getClientOriginalName();
