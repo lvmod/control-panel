@@ -1,0 +1,29 @@
+<div class="modal-dialog <%= dialogClass %>" style="margin: 0px; height: 100%; background-color: white;">
+  <div class="modal-content">
+      <div class="modal-header">
+        <% if (title) { %>
+            <h4 style="display: inline"><%= title %></h4>
+        <% } %>
+        <div class="header-actions pull-right" style="display: inline">
+            <a href="javascript:void(0);" title="Ок" class="btn-header ok btn btn-default btn-xs" style="width: 30px; font-size: 16px; border: none;"><i class="fa fa-times white nopadding"></i></a>
+        </div>
+      </div>
+      <% if (context) { %>
+        <div class="modal-context">
+            <% if (_.isArray(context)) { %>
+                  <% _(context).each(function(item) { %>
+                      <span><%= item %></span> 
+                  <% }) %> 
+            <% } else { %>
+                  <span><%= context %></span>
+            <% } %>
+        </div>
+      <% } %>
+      <div class="modal-body"><%= content %></div>
+      <% if (showFooter) { %>
+        <div class="modal-footer">
+          <a href="javascript:void(0);" class="btn ok btn-primary"><%= okText %></a>
+        </div>
+      <% } %>
+  </div>
+</div>

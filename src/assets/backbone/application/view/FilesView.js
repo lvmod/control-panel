@@ -67,55 +67,16 @@ var FilesView = Backbone.View.extend({
     createFolder: function () {
         var context = this;
 
-        var view = new FolderNameModal({model: context.model});
-        var modal = new Backbone.BootstrapModal({
-            content: view,
-            title: 'Укажите имя папки',
-            okText: "Сохранить",
-            cancelText: "Отмена",
-            animate: true
-        }).open(function () {
-            var name = $('#folder-name', view.$el).val();
-            var folder = new FileModel({
-//                id: "1",
-                parent: context.model.get("id"),
-                name: name,
-                type: "1",
-                isfolder: "1",
-                description: ""
-            });
-
-            folder.save({}, {
-                success: function (model, response, options) {
-                    if (response.error) {
-                        alert(response.error);
-                    } else {
-                        //Можно делать fetch, но будут перезапрашиваться все данные с сервера, 
-                        //быстрее добавить в коллекцию один вставляемый элемент и перерисовать
-//                        context.model.fetch();
-                        context.collection.add(response, {silent: true});
-
-
-                        context.model.set("files", [], {silent: true});
-                        context.model.set("files", context.collection.toJSON(), {silent: true});
-                        context.render();
-                    }
-                },
-                error: function (model, xhr, options) {
-                    alert("Ошибка создания папки");
-                }
-            });
-        });
-
-        //Утанавливаем z-index иначе текущий диалог 
-        //всплывает за открытими диалогами summernote
-        modal.$el.css('z-index', 1500);
-
-        //Удаление данных диалога, после закрытия
-        modal.$el.on('hidden.bs.modal', function () {
-            modal.remove();
-        });
-
+        var view = new FolderNameModal({parentView: context, model: new FileModel({
+                            parent: context.model.get("id"),
+                            name: "",
+                            type: "1",
+                            isfolder: "1",
+                            description: ""
+                        })});
+        Utils.showSimpleModalBackboneView(view, "Укажите имя папки", function (model, response, options) {
+            view.save();
+        }, null, {dialogClass: "",cancelText: "Отмена", allowCancel: true});
     },
     deleteFile: function () {
         var context = this;

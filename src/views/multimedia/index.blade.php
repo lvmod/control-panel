@@ -30,6 +30,7 @@
     <script type="text/javascript" src="/vendor/control-panel/backbone/application/view/FilesView.js"></script>
     <script type="text/javascript" src="/vendor/control-panel/backbone/application/view/ArticleFilesView.js"></script>
     <script type="text/javascript" src="/vendor/control-panel/backbone/application/view/FolderNameModal.js"></script>
+    <script type="text/javascript" src="/vendor/control-panel/backbone/application/view/FileLinkModal.js"></script>
     <!-- END APPLICATION SCRIPTS -->
 
     <div id="application"></div>

@@ -1,21 +1,48 @@
 <div class="modal-dialog <%= dialogClass %>"><div class="modal-content">
-<% if (title) { %>
-  <div class="modal-header">
-    <% if (allowCancel) { %>
-      <a class="close">&times;</a>
-    <% } %>
-    <h4><%= title %></h4>
-  </div>
-<% } %>
-<div class="modal-body"><%= content %></div>
-<% if (showFooter) { %>
-  <div class="modal-footer">
-    <% if (allowCancel) { %>
-      <% if (cancelText) { %>
-        <a href="#" class="btn cancel"><%= cancelText %></a>
+  <% if (title) { %>
+    <div class="modal-header">
+      <h4 style="display: inline"><%= title %></h4>
+      <div class="header-actions pull-right" style="display: inline">
+  
+          <% if (allowCancel) { %>
+              <a href="javascript:void(0);" title="Отмена" class="btn-header cancel btn btn-default btn-xs" style="width: 30px; font-size: 16px;"><i class="fa fa-times white nopadding"></i></a>
+          <% } %>
+          
+          <% if (okText.toLowerCase() == 'сохранить') { %>
+              <a href="javascript:void(0);" title="Сохранить" class="btn-header ok btn btn-primary btn-xs" style="width: 30px; font-size: 16px;"><i class="fa fa-save white nopadding"></i></a>
+          <% } else { %>
+              <a href="javascript:void(0);" title="Ок" class="btn-header ok btn btn-primary btn-xs" style="width: 30px; font-size: 16px;"><i class="fa fa-check white nopadding"></i></a>
+          <% } %>
+          
+          
+  
+      </div>
+       <% if (allowCancel) { %>
+        <!--<a class="close">&times;</a>-->
       <% } %>
-    <% } %>
-    <a href="#" class="btn ok btn-primary"><%= okText %></a>
-  </div>
-<% } %>
-</div></div>
+    </div>
+  <% } %>
+  <% if (context) { %>
+    <div class="modal-context">
+        <% if (_.isArray(context)) { %>
+              <% _(context).each(function(item) { %>
+                  <span><%= item %></span> 
+              <% }) %> 
+        <% } else { %>
+              <span><%= context %></span>
+        <% } %>
+    </div>
+  <% } %>
+  <div class="modal-body"><%= content %></div>
+  <% if (showFooter) { %>
+    <div class="modal-footer">
+      <% if (allowCancel) { %>
+        <% if (cancelText) { %>
+          <a href="javascript:void(0);" class="btn cancel"><%= cancelText %></a>
+        <% } %>
+      <% } %>
+      <a href="javascript:void(0);" class="btn ok btn-primary"><%= okText %></a>
+    </div>
+  <% } %>
+  </div></div>
+  
