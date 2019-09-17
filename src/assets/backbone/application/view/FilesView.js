@@ -12,9 +12,9 @@ var FilesView = Backbone.View.extend({
         this.model = new FilesModel(options);
         if (this.model) {
             this.listenTo(this.model, 'change', this.render);
-//            if (this.model.get('name') !== "") {
+            //            if (this.model.get('name') !== "") {
             this.model.fetch();
-//            }
+            //            }
         }
     },
     render: function () {
@@ -35,7 +35,7 @@ var FilesView = Backbone.View.extend({
                     item.set('default_preview', filePathMin + item.get('file_name'));
                 }
                 var container = $('.object-container', context.$el);
-                var view = new FileView({model: item});
+                var view = new FileView({ model: item });
                 view.render();
                 container.append(view.el);
 
@@ -44,7 +44,7 @@ var FilesView = Backbone.View.extend({
                 context.listenTo(view, 'fm-click', function (file) {
                     if (file.isfolder == 1) {
                         if (window.fmApp.historyEnable && window.fmRouter) {
-                            window.fmRouter.navigate(""+file.id, {trigger: true});
+                            window.fmRouter.navigate("" + file.id, { trigger: true });
                         } else {
                             context.model.set("id", file.id);
                             this.model.fetch();
@@ -53,8 +53,8 @@ var FilesView = Backbone.View.extend({
                 });
             });
             context.listenTo(context.collection, 'change sort remove', function () {
-                context.model.set("files", [], {silent: true});
-                context.model.set("files", context.collection.toJSON(), {silent: true});
+                context.model.set("files", [], { silent: true });
+                context.model.set("files", context.collection.toJSON(), { silent: true });
                 context.render();
             });
 
@@ -67,40 +67,55 @@ var FilesView = Backbone.View.extend({
     createFolder: function () {
         var context = this;
 
-        var view = new FolderNameModal({parentView: context, model: new FileModel({
-                            parent: context.model.get("id"),
-                            name: "",
-                            type: "1",
-                            isfolder: "1",
-                            description: ""
-                        })});
+        var view = new FolderNameModal({
+            parentView: context, model: new FileModel({
+                parent: context.model.get("id"),
+                name: "",
+                type: "1",
+                isfolder: "1",
+                description: ""
+            })
+        });
         Utils.showSimpleModalBackboneView(view, "Укажите имя папки", function () {
             view.save();
-        }, null, {dialogClass: "",cancelText: "Отмена", allowCancel: true});
+        }, null, { dialogClass: "", cancelText: "Отмена", allowCancel: true });
     },
     deleteFile: function () {
         var context = this;
-        $("input[type='checkbox']:checked", this.$el).closest("td").each(function (idx, el) {
-            var deletedFileId = $(el).data("id");
-            if (deletedFileId) {
-                var file = context.collection.get(deletedFileId);
-                if (file) {
-                    file.destroy({
-                        success: function (model, response, options) {
-                            if (response.error) {
-                                alert('Ошибка удаления объекта "' + file.get('name') + '". ' + response.error);
-                            } else {
-                                context.collection.remove(file);
+        if (context.$("input[type='checkbox']:checked").length) {
+            swal({
+                title: "Удалить?",
+                text: "",
+                type: "warning",
+                showCancelButton: true,
+                confirmButtonColor: "#DD6B55",
+                confirmButtonText: "Да, удалить!",
+                cancelButtonText: "Отмена"
+            },
+                function () {
+                    context.$("input[type='checkbox']:checked").closest("td").each(function (idx, el) {
+                        var deletedFileId = $(el).data("id");
+                        if (deletedFileId) {
+                            var file = context.collection.get(deletedFileId);
+                            if (file) {
+                                file.destroy({
+                                    success: function (model, response, options) {
+                                        if (response.error) {
+                                            alert('Ошибка удаления объекта "' + file.get('name') + '". ' + response.error);
+                                        } else {
+                                            context.collection.remove(file);
+                                        }
+                                    },
+                                    error: function (model, xhr, options) {
+                                        alert('Ошибка удаления объекта "' + file.get('name') + '"');
+                                    }
+                                });
+
                             }
-                        },
-                        error: function (model, xhr, options) {
-                            alert('Ошибка удаления объекта "' + file.get('name') + '"');
                         }
                     });
-
-                }
-            }
-        });
+                });
+        }
     },
     uploadFile: function () {                   //Загрузка файла
         var context = this;
@@ -266,7 +281,7 @@ var FilesView = Backbone.View.extend({
                 str = 'KB';
             }
 
-            return {size: size, str: size + ' ' + str};
+            return { size: size, str: size + ' ' + str };
 
         }
 
@@ -337,8 +352,8 @@ var FilesView = Backbone.View.extend({
                 return {
                     result: false,
                     message: 'Максимальный размер для файла ' + data.file.name +
-                            ' составляет ' + getSizeFromByte(uploadMaxFilesizeByte).str +
-                            '. На данный момент его размер ' + getSizeFromByte(data.file.size).str
+                        ' составляет ' + getSizeFromByte(uploadMaxFilesizeByte).str +
+                        '. На данный момент его размер ' + getSizeFromByte(data.file.size).str
                 };
             }
 
@@ -417,17 +432,17 @@ var FilesView = Backbone.View.extend({
                     var myXhr = $.ajaxSettings.xhr();
                     if (myXhr.upload) { // Check if upload property exists
                         myXhr.upload.addEventListener('progress',
-                                function progressHandlingFunction(e) {
-                                    if (e.lengthComputable) {
-                                        if (e.total) {
-                                            var curr = (e.loaded / e.total) * 100;
-                                            if (progressBar) {
-                                                $(progressBar).css('width', curr + '%').html(Number.parseInt(curr) + '%');
-                                            }
+                            function progressHandlingFunction(e) {
+                                if (e.lengthComputable) {
+                                    if (e.total) {
+                                        var curr = (e.loaded / e.total) * 100;
+                                        if (progressBar) {
+                                            $(progressBar).css('width', curr + '%').html(Number.parseInt(curr) + '%');
                                         }
                                     }
-                                },
-                                false);
+                                }
+                            },
+                            false);
                     }
                     return myXhr;
                 },
