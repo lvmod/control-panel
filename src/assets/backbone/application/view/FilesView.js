@@ -74,7 +74,7 @@ var FilesView = Backbone.View.extend({
                             isfolder: "1",
                             description: ""
                         })});
-        Utils.showSimpleModalBackboneView(view, "Укажите имя папки", function (model, response, options) {
+        Utils.showSimpleModalBackboneView(view, "Укажите имя папки", function () {
             view.save();
         }, null, {dialogClass: "",cancelText: "Отмена", allowCancel: true});
     },
