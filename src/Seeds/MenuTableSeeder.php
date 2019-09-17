@@ -23,7 +23,12 @@ class MenuTableSeeder extends Seeder
         $object->place_type = Menu::$PLACE_TYPE_FIRST;
         $object->save();
         
-        
+        $object = new Menu();
+        $object->title = "Файлы";
+        $object->icon = "fa fa-folder-open";
+        $object->path = "/control/files";
+        $object->save();
+
         $object = new Menu();
         $object->title = "Материалы";
         $object->icon = "fa fa-files-o";
