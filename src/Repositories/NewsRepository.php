@@ -14,7 +14,7 @@ class NewsRepository {
      * @return Collection
      */
     public function find() {
-        return News::all();
+        return News::with('author')->with('category')->orderBy('posted', 'desc')->get();
     }
 
      /**
@@ -24,7 +24,7 @@ class NewsRepository {
      * @return Collection
      */
     public function forUser(User $user) {
-        return $user->news()
+        return $user->news()->with('category')
                         ->orderBy('created_at', 'asc')
                         ->get();
     }

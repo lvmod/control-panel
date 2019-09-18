@@ -40,6 +40,15 @@ class NewsController extends Controller
         ]);
     }
 
+    public function view(Request $request, News $news)
+    {
+        // var_dump(json_encode(app()->controlMenu->breadcrumb()));
+        // die();
+        return view('control::news.view', [
+            'news' => $news,
+        ]);
+    }
+
     public function create(Request $request)
     {
         return view('control::news.create', ['category' => $this->category->find()]);

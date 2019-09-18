@@ -7,6 +7,7 @@ Route::group(['prefix' => 'control', 'namespace' => 'Lvmod\ControlPanel\Controll
 
     Route::group(['prefix' => 'news'], function () {
         Route::get('/', 'NewsController@index');
+        Route::get('/view/{news}', 'NewsController@view');
         Route::get('create', 'NewsController@create');
         Route::get('edit/{news}', 'NewsController@edit');
         Route::post('store', 'NewsController@store');
