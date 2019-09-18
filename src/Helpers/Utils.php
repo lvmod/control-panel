@@ -259,4 +259,42 @@ class Utils
             return round($size);
         }
     }
+
+    public function getPaginatorLinks($pageNumber, $totalCount, $showCount) {
+        $middle = intval($showCount / 2);
+
+        //Левая граница
+        $left = $pageNumber - $middle;
+        //Правая граница
+        $right = $pageNumber + $middle;
+
+        //Определяем на сколько правая граница выходит за пределы количества элементов
+        $rtc = $right - $totalCount;
+        if ($rtc > 0) {
+            //Корректируем левую границу
+            $left -= $rtc;
+            //Корректируем правую границу
+            $right = $totalCount;
+        }
+
+        //Определяем на сколько левая граница меньше 1
+        $ltc = 1 + $left;
+        if ($ltc <= 1) {
+            //Корректируем правую границу
+            $right += 1 + abs($left);
+            if ($right > $totalCount) {
+                $right = $totalCount;
+            }
+            //Корректируем левую границу
+            $left = 1;
+        }
+
+        return [
+            'start' => $left, 
+            'end' => $right, 
+            'pageNumber'=> $pageNumber,
+            'showCount'=> $showCount,
+            'totalCount'=> $totalCount
+        ];
+    }
 }
