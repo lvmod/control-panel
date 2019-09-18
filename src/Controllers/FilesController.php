@@ -267,6 +267,11 @@ class FilesController extends Controller
 
     public function links(Request $request, Multimedia $file)
     {
+        return $file->users;
+    }
+
+    public function saveLinks(Request $request, Multimedia $file)
+    {
         $data = json_decode($request->getContent());
         if (!$data) {
             return ['error' => 'Ошибка установки связи'];

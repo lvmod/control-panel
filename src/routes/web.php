@@ -20,9 +20,10 @@ Route::group(['prefix' => 'control', 'namespace' => 'Lvmod\ControlPanel\Controll
         Route::get('file/{id?}', 'FilesController@file');
         Route::get('download/{file}', 'FilesController@download');
         Route::post('file', 'FilesController@newfolder');
-        Route::post('links/{file}', 'FilesController@links');
         Route::post('upload/{id?}', 'FilesController@upload');
         Route::delete('file/{id}', 'FilesController@delete');
+        Route::get('links/{file}', 'FilesController@links');
+        Route::post('links/{file}', 'FilesController@saveLinks');
     });
 
     Route::group(['prefix' => 'user'], function () {
