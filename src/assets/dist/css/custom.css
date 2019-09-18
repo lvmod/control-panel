@@ -1,3 +1,21 @@
+.page-link {
+    position: relative;
+    display: block;
+    padding: .5rem .75rem;
+    margin-left: -1px;
+    line-height: 1.25;
+    color: #395c6d;
+    background-color: #fff;
+    border: 1px solid #ddd;
+  }
+  
+  .page-item.active .page-link {
+    z-index: 2;
+    color: #fff;
+    background-color:#395c6d;
+    border-color: #395c6d;
+  }
+
 .treeview-menu>li {
     margin: 0 0 0 10px;
 }
