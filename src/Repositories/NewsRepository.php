@@ -4,6 +4,7 @@ namespace Lvmod\ControlPanel\Repositories;
 
 use App\User;
 use Lvmod\ControlPanel\Models\News;
+use Illuminate\Pagination\Paginator;
 
 class NewsRepository {
 
@@ -27,8 +28,19 @@ class NewsRepository {
         if($count < 1 || $count > 200) {
             $count = 15;
         }
-
-        return News::with('author')->with('category')->orderBy('posted', 'desc')->paginate($count)->appends(['count' => (app()->request->count)?$count:null]);
+        $news = News::with('author')->with('category')->orderBy('posted', 'desc')->paginate($count)->appends(['count' => (app()->request->count)?$count:null]);
+        if($news->currentPage() > $news->total()) {
+            Paginator::currentPageResolver(function () use ($news) {
+                return $news->total();
+            });
+            $news = News::with('author')->with('category')->orderBy('posted', 'desc')->paginate($count)->appends(['count' => (app()->request->count)?$count:null]);
+        } else if($news->currentPage() < 1) {
+            Paginator::currentPageResolver(function () {
+                return 1;
+            });
+            $news = News::with('author')->with('category')->orderBy('posted', 'desc')->paginate($count)->appends(['count' => (app()->request->count)?$count:null]);
+        }
+        return $news;
     }
 
      /**
