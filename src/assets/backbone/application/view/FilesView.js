@@ -12,6 +12,7 @@ var FilesView = Backbone.View.extend({
         this.model = new FilesModel(options);
         if (this.model) {
             this.listenTo(this.model, 'change', this.render);
+            this.listenTo(this.model, 'sync', this.render);
             //            if (this.model.get('name') !== "") {
             this.model.fetch();
             //            }
