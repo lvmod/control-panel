@@ -1,34 +1,19 @@
-<div class="box" style="border-top: none;">
-    <div class="box-header no-padding">
-        <button type="button" class="multimedia-add btn btn-default" style="margin-bottom: 10px">
-            <i class="fa fa-plus"></i>
-        </button>
-    </div>
-</div>
-<!-- /.box-header -->
-<div class="box-body no-padding">
-    <% if(image && image.type && image.type.viewer==="image") { %>
-    <table class="table table-condensed">
-        <tr>
-            <th>Файл</th>
-            <th style="width: 130px">Действия</th>
-        </tr>
-        <% _.each(data, function(item){ %>
-        <tr data-multimedia="<%= item['multimedia_id'] %>">
-            <td>
-                <i class="fa fa-comment-o pr-5"></i>
-                <a href="/control/files/download/<%= item['multimedia_id'] %>"><%= item['name'] %></a>
-            </td>
-            <td>
-                <div class="btn-group">
-                    <button type="button" class="multimedia-remove btn btn-danger"><i class="fa fa-remove"></i></button>
-                </div>
-            </td>
-        </tr>
-        <% }); %>
-    </table>
-    <% } %>
+Главное изображение: 
+<% if(!image || !image.type || !image.type.viewer==="image") { %>
+<button type="button" class="multimedia-add btn btn-default" style="padding: 2px 8px;">
+    <i class="fa fa-plus"></i>
+</button>
+<% } else {%>
 
-</div>
-<!-- /.box-body -->
-</div>
+<button type="button" class="multimedia-remove btn btn-danger" style="padding: 2px 8px;">
+    <i class="fa fa-remove"></i>
+</button>
+
+<table class="table table-condensed" style="margin-top: 10px">
+    <tr data-multimedia="<%= image['multimedia_id'] %>">
+        <td>
+            <img height=150 src="<%= image.default_preview||image.type.default_preview %>" />
+        </td>
+    </tr>
+</table>
+<% } %>

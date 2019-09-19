@@ -41,9 +41,6 @@
 
                                         <br>
                                         <br>
-                                        <h5>
-                                            Главное изображение:
-                                        </h5>
                                         <div class="basic-image-box"></div>
                                         <script type="text/javascript">
                                             $(function () {
@@ -55,7 +52,6 @@
                                             });
                                         </script>
 
-                                        <br>
                                         <br>
                                         <input type="checkbox" name="visible" id="visible" class="minimal" {{ old('visible', $news->visible)?'checked':'' }}>
                                         Отображать новость на сайте

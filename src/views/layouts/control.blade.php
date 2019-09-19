@@ -78,7 +78,6 @@
     <script type="text/javascript" src="/vendor/control-panel/backbone/application/helper/TemplateManager.js"></script>
     <script type="text/javascript" src="/vendor/control-panel/backbone/application/model/FileModel.js"></script>
     <script type="text/javascript" src="/vendor/control-panel/backbone/application/model/FilesModel.js"></script>
-    <script type="text/javascript" src="/vendor/control-panel/backbone/application/model/ImageFileModel.js"></script>
     <script type="text/javascript" src="/vendor/control-panel/backbone/application/model/ArticleFilesModel.js"></script>
     <script type="text/javascript" src="/vendor/control-panel/backbone/application/collection/FileCollection.js"></script>
     <script type="text/javascript" src="/vendor/control-panel/backbone/application/view/FileView.js"></script>
