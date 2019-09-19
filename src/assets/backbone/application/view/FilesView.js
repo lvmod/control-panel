@@ -9,7 +9,8 @@ var FilesView = Backbone.View.extend({
         "click .delete-file": "deleteFile"
     },
     initialize: function (options) {
-        this.model = new FilesModel(options);
+        this.options = options || {};
+        this.model = new FilesModel(options, {type: this.options.type, viewer: this.options.viewer});
         if (this.model) {
             this.listenTo(this.model, 'change', this.render);
             this.listenTo(this.model, 'sync', this.render);
@@ -17,6 +18,7 @@ var FilesView = Backbone.View.extend({
             this.model.fetch();
             //            }
         }
+        // window.t = this;
     },
     render: function () {
         TemplateManager.render(this, this.template, this.model.toJSON(), function (context, template, data) {
@@ -50,6 +52,15 @@ var FilesView = Backbone.View.extend({
                             context.model.set("id", file.id);
                             this.model.fetch();
                         }
+                    } else {
+                        if(context.options.single) {
+                            //Режим выбора одного файла
+                            context.$('td[data-id] input[type="checkbox"]').iCheck('uncheck')
+                            context.$('td[data-id="'+file.id+'"] input[type="checkbox"]').iCheck('check')
+                        } else {console.log("sdf")
+                            //Режим выбора множества файлов
+                            context.$('td[data-id="'+file.id+'"] input[type="checkbox"]').iCheck('toggle')
+                        }
                     }
                 });
             });
@@ -64,6 +75,25 @@ var FilesView = Backbone.View.extend({
     },
     fmRefresh: function () {
         this.model.fetch();
+    },
+    files: function () {
+        var context = this;
+        var result = [];
+        if (context.$("input[type='checkbox']:checked").length) {
+            context.$("input[type='checkbox']:checked").closest("td").each(function (idx, el) {
+                var fileId = $(el).data("id");
+                if (fileId) {
+                    var file = context.collection.get(fileId);
+                    if (file) {
+                        result.push(file);
+                        if(context.options.single) {
+                            return result;
+                        }
+                    }
+                }
+            });
+        }
+        return result;
     },
     createFolder: function () {
         var context = this;

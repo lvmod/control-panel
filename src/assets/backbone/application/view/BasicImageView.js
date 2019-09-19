@@ -30,7 +30,9 @@ var BasicImageView = Backbone.View.extend({
     },
     multimediaAdd: function () {
         var context = this;
-        var fm = new FileManagerDialogView({id: "0"});
+        var fm = new FileManagerDialogView({single: true, viewer: "image", success: function(files){
+            console.log(files);
+        }});
 
         // showFileManagerObjectDialog(function (files) {
         //     var articleId = Utils.getObjectValue(context, "options.id");
