@@ -57,6 +57,10 @@
                                         Отображать новость на сайте
 
                                         <br>
+                                        <input type="checkbox" name="inline" id="inline" class="minimal" {{ old('inline', $news->inline)?'checked':'' }}>
+                                        Выводить полностью
+
+                                        <br>
                                         <br>
                                         <div>
                                             <input type="submit" name="submit" class="btn btn-primary" value="Сохранить"> 

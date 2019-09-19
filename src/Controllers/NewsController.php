@@ -72,6 +72,7 @@ class NewsController extends Controller
         $news->title = $request->title;
         $news->posted = \Carbon\Carbon::parse($request->posted)->toDateString();
         $news->visible = !!$request->visible;
+        $news->inline = !!$request->inline;
         $news->body = $request->body;
         $news->author_id = $request->user()->id;
         $news->category_id = $request->category;
@@ -93,6 +94,7 @@ class NewsController extends Controller
         $news->title = $request->title;
         $news->posted = \Carbon\Carbon::parse($request->posted)->toDateString();
         $news->visible = !!$request->visible;
+        $news->inline = !!$request->inline;
         $news->body = $request->body;
         $news->author_id = $request->user()->id;
         $news->category_id = $request->category;

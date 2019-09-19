@@ -41,8 +41,25 @@
 
                                         <br>
                                         <br>
+                                        <div class="basic-image-box"></div>
+                                        <script type="text/javascript">
+                                            $(function () {
+                                                var basicImage = new BasicImageView({
+                                                    el: $('.basic-image-box'),
+                                                    id: {{ old('multimedia', 0) }},
+                                                    inputName: 'multimedia'
+                                                });
+                                            });
+                                        </script>
+
+                                        <br>
+                                        <br>
                                         <input type="checkbox" name="visible" id="visible" class="minimal" {{ old('visible')?'checked':'' }}>
                                         Отображать новость на сайте
+
+                                        <br>
+                                        <input type="checkbox" name="inline" id="inline" class="minimal" {{ old('inline')?'checked':'' }}>
+                                        Выводить полностью
 
                                         <br>
                                         <br>
