@@ -12,6 +12,8 @@ class Multimedia extends Model {
      * Временное поле для хранения пути файла. Не сохраняется в базе данных
      */
     public $path;
+    public $pathMin;
+    protected $appends = ['path', 'pathMin'];
 
     protected $table = 'multimedia';
 
@@ -40,6 +42,16 @@ class Multimedia extends Model {
 
     public function news() {
         return $this->hasMany('Lvmod\ControlPanel\Models\News');
+    }
+
+    public function getPathAttribute()
+    {
+        return $this->path;
+    }
+
+    public function getPathMinAttribute()
+    {
+        return $this->pathMin;
     }
 
 }

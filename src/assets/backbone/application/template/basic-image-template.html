@@ -1,18 +1,21 @@
 Главное изображение: 
-<% if(!image || !image.type || !image.type.viewer==="image") { %>
+<% if(!image || !image.id || !image.type || !image.type.viewer==="image") { %>
+<input type="hidden" name="<%= inputName %>" value="0">
 <button type="button" class="multimedia-add btn btn-default" style="padding: 2px 8px;">
     <i class="fa fa-plus"></i>
 </button>
 <% } else {%>
+
+<input type="hidden" name="<%= inputName %>" value="<%= image.id %>">
 
 <button type="button" class="multimedia-remove btn btn-danger" style="padding: 2px 8px;">
     <i class="fa fa-remove"></i>
 </button>
 
 <table class="table table-condensed" style="margin-top: 10px">
-    <tr data-multimedia="<%= image['multimedia_id'] %>">
+    <tr data-multimedia="<%= image.id %>">
         <td>
-            <img height=150 src="<%= image.default_preview||image.type.default_preview %>" />
+            <img height=150 src="<%= image.default_preview||image.pathMin||image.path||image.type.default_preview %>" />
         </td>
     </tr>
 </table>

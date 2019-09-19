@@ -9,7 +9,7 @@ var BasicImageView = Backbone.View.extend({
     initialize: function (options) {
         this.$el = this.$el || $(".article-files-box");
         this.options = options || {};
-
+        this.options.inputName = this.options.inputName||'multimedia';
         this.model = new FileModel({id: this.options.id});
         if (this.model.id) {
             this.listenTo(this.model, 'change', this.render);
@@ -20,7 +20,7 @@ var BasicImageView = Backbone.View.extend({
         this.render();
     },
     render: function () {
-        TemplateManager.render(this, this.template, { image: this.model.toJSON() }, function (context, template, data) {
+        TemplateManager.render(this, this.template, { image: this.model.toJSON(), inputName: this.options.inputName}, function (context, template, data) {
             
         });
         return this;

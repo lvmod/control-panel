@@ -106,6 +106,29 @@ class FilesController extends Controller
         ];
     }
 
+    /**
+     * Отображает файлы.
+     * Допустимые параметры запроса:
+     * type - список типов из таблицы multimedia_type разделенных запятыми
+     * viewer - значение поля viewer из таблицы multimedia_type
+     */
+    public function file(Request $request, $id)
+    {
+        if (!$id) {
+            abort(404);
+        }
+
+        $f = $this->media->byId($id);
+        if(!$f) {
+            abort(404);
+        }
+        $f->path = '/files/'.$this->uploadfiles . "/".$f->file_name;
+        if($f->type->makepreview) {
+            $f->pathMin = '/files/'.$this->uploadfiles . "_min/".$f->file_name;
+        }
+        return $f;
+    }
+
     public function newfolder(Request $request)
     {
         $data = json_decode($request->getContent());

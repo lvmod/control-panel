@@ -45,9 +45,9 @@
                                         <script type="text/javascript">
                                             $(function () {
                                                 var basicImage = new BasicImageView({
-                                                    table: 'news',
-                                                    id: {{ $news->multimedia_id?:0 }},
-                                                    el: $('.basic-image-box')
+                                                    el: $('.basic-image-box'),
+                                                    id: {{ old('multimedia', $news->multimedia_id?:0) }},
+                                                    inputName: 'multimedia'
                                                 });
                                             });
                                         </script>
