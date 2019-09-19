@@ -31,7 +31,12 @@ var BasicImageView = Backbone.View.extend({
     multimediaAdd: function () {
         var context = this;
         var fm = new FileManagerDialogView({single: true, viewer: "image", success: function(files){
-            console.log(files);
+            if(files && files.length) {
+                file = files[0];
+                if(file && !file.get("isfolder")) {
+                    console.log(file.toJSON());
+                }
+            }
         }});
 
         // showFileManagerObjectDialog(function (files) {
