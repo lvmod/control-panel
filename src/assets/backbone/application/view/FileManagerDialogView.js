@@ -10,7 +10,7 @@ var FileManagerDialogView = Backbone.View.extend({
             TemplateManager.render(this, this.template, {}, function (context, template, data) {
                 var container = $('.files-container', context.$el);
                 var fm = new FilesView({id: "0", single: context.options.single, viewer: context.options.viewer});
-                Utils.showSimpleModalBackboneView(fm, "Укажите имя папки", function () {
+                Utils.showSimpleModalBackboneView(fm, "Выбор файлов", function () {
                     if (_.isFunction(context.options.success)) {
                         context.options.success.apply(this, [fm.files()]);
                     }

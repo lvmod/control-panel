@@ -55,11 +55,11 @@ var FilesView = Backbone.View.extend({
                     } else {
                         if(context.options.single) {
                             //Режим выбора одного файла
-                            context.$('td[data-id] input[type="checkbox"]').iCheck('uncheck')
-                            context.$('td[data-id="'+file.id+'"] input[type="checkbox"]').iCheck('check')
-                        } else {console.log("sdf")
+                            context.$('td[data-id] input[type="checkbox"]').iCheck('uncheck');
+                            context.$('td[data-id="'+file.id+'"] input[type="checkbox"]').iCheck('check');
+                        } else {
                             //Режим выбора множества файлов
-                            context.$('td[data-id="'+file.id+'"] input[type="checkbox"]').iCheck('toggle')
+                            context.$('td[data-id="'+file.id+'"] input[type="checkbox"]').iCheck('toggle');
                         }
                     }
                 });
