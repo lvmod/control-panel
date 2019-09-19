@@ -17,6 +17,7 @@ class CreateNewsTable extends Migration
             $table->increments('id');
             $table->integer('author_id')->unsigned()->index();
             $table->integer('category_id')->unsigned()->index();
+            $table->integer('multimedia_id')->unsigned()->nullable()->index();
             $table->string('title');
             $table->mediumText('body');
             $table->dateTime('created')->nullable();

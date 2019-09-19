@@ -50,6 +50,10 @@ class News extends Model {
         return $this->belongsTo('Lvmod\ControlPanel\Models\Category');
     }
     
+    public function multimedia() {
+        return $this->belongsTo('Lvmod\ControlPanel\Models\Multimedia');
+    }
+    
     
     /**
     * Атрибуты, которые должны быть преобразованы к базовым типам.
