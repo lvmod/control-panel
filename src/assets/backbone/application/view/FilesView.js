@@ -44,7 +44,7 @@ var FilesView = Backbone.View.extend({
                 //И если эти события должны приводит к изменению коллекции, то изменять коллекцию
                 context.listenTo(view, 'fm-click', function (file) {
                     if (file.isfolder == 1) {
-                        if (window.fmApp.historyEnable && window.fmRouter) {
+                        if (window.fmApp && window.fmApp.historyEnable && window.fmRouter) {
                             window.fmRouter.navigate("" + file.id, { trigger: true });
                         } else {
                             context.model.set("id", file.id);

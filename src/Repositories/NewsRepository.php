@@ -15,7 +15,7 @@ class NewsRepository {
      * @return Collection
      */
     public function find() {
-        return News::with('author')->with('category')->orderBy('posted', 'desc')->get();
+        return News::with('author')->with('category')->with('multimedia')->orderBy('posted', 'desc')->get();
     }
 
     /**
@@ -28,17 +28,17 @@ class NewsRepository {
         if($count < 1 || $count > 200) {
             $count = 15;
         }
-        $news = News::with('author')->with('category')->orderBy('posted', 'desc')->paginate($count)->appends(['count' => (app()->request->count)?$count:null]);
+        $news = News::with('author')->with('category')->with('multimedia')->orderBy('posted', 'desc')->paginate($count)->appends(['count' => (app()->request->count)?$count:null]);
         if($news->currentPage() > $news->total()) {
             Paginator::currentPageResolver(function () use ($news) {
                 return $news->total();
             });
-            $news = News::with('author')->with('category')->orderBy('posted', 'desc')->paginate($count)->appends(['count' => (app()->request->count)?$count:null]);
+            $news = News::with('author')->with('category')->with('multimedia')->orderBy('posted', 'desc')->paginate($count)->appends(['count' => (app()->request->count)?$count:null]);
         } else if($news->currentPage() < 1) {
             Paginator::currentPageResolver(function () {
                 return 1;
             });
-            $news = News::with('author')->with('category')->orderBy('posted', 'desc')->paginate($count)->appends(['count' => (app()->request->count)?$count:null]);
+            $news = News::with('author')->with('category')->with('multimedia')->orderBy('posted', 'desc')->paginate($count)->appends(['count' => (app()->request->count)?$count:null]);
         }
         return $news;
     }
@@ -50,7 +50,7 @@ class NewsRepository {
      * @return Collection
      */
     public function forUser(User $user) {
-        return $user->news()->with('category')
+        return $user->news()->with('category')->with('multimedia')
                         ->orderBy('created_at', 'asc')
                         ->get();
     }

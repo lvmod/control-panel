@@ -25,15 +25,21 @@ class MultimediaRepository
      * Получить все файлы в папке.
      *
      * @param  int  $parent_id
+     * @param  int  $fileTypes типы файлов из таблицы multimedia_type разделенные запятыми
+     * @param  int  $viewer значение поля viewer из таблицы multimedia_type
      * @return Collection
      */
-    public function byParent($parent_id, $fileTypes = '')
+    public function byParent($parent_id, $fileTypes = '', $viewer = '')
     {
         $query = Multimedia::with('type')->where('parent_id', $parent_id);
         if (!empty($fileTypes)) {
             $fileTypes = "'" . str_replace(",", "','", $fileTypes) . "'";
             $query->whereHas("type", function ($query) use ($fileTypes) {
                 $query->whereRaw("(name in (" . $fileTypes . ") or name = 'folder')");
+            });
+        } else if(!empty($viewer)) {
+            $query->whereHas("type", function ($query) use ($viewer) {
+                $query->whereRaw("(viewer = ? or name = 'folder')", $viewer);
             });
         }
 

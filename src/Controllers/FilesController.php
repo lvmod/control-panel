@@ -43,6 +43,12 @@ class FilesController extends Controller
         return view('control::multimedia.index');
     }
 
+    /**
+     * Отображает файлы.
+     * Допустимые параметры запроса:
+     * type - список типов из таблицы multimedia_type разделенных запятыми
+     * viewer - значение поля viewer из таблицы multimedia_type
+     */
     public function view(Request $request, $id)
     {
         if (!$id) {
@@ -50,7 +56,15 @@ class FilesController extends Controller
         }
 
         $current = $this->media->byId($id);
-        $files = $this->media->byParent($id);
+        $files = [];
+        if($request->type) {
+            $files = $this->media->byParent($id, $request->type);
+        } else if($request->viewer) {
+            $files = $this->media->byParent($id, '', $request->viewer);
+        } else {
+            $files = $this->media->byParent($id);
+        }
+
 
         //Добавляем переход к предыдущей папке
         // error_log($files);

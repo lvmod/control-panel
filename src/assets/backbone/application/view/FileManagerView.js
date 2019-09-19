@@ -1,6 +1,5 @@
-var ApplicationView = Backbone.View.extend({
-    el: $("#application"),
-    template: 'application-template',
+var FileManagerView = Backbone.View.extend({
+    template: 'file-manager-template',
 
     render: function () {
         if (!this.historyEnable) {
