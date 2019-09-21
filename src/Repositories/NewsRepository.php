@@ -15,7 +15,7 @@ class NewsRepository {
      * @return Collection
      */
     public function find() {
-        return News::with('author')->with('category')->with('multimedia')->orderBy('posted', 'desc')->get();
+        return News::with('author')->with('category')->with('multimedia')->orderBy('posted', 'desc')->orderBy('id', 'desc')->get();
     }
 
     /**
@@ -28,20 +28,46 @@ class NewsRepository {
         if($count < 1 || $count > 200) {
             $count = 15;
         }
-        $news = News::with('author')->with('category')->with('multimedia')->orderBy('posted', 'desc')->paginate($count)->appends(['count' => (app()->request->count)?$count:null]);
+        $news = News::with('author')->with('category')->with('multimedia')->orderBy('posted', 'desc')->orderBy('id', 'desc')->paginate($count)->appends(['count' => (app()->request->count)?$count:null]);
         if($news->currentPage() > $news->total()) {
             Paginator::currentPageResolver(function () use ($news) {
                 return $news->total();
             });
-            $news = News::with('author')->with('category')->with('multimedia')->orderBy('posted', 'desc')->paginate($count)->appends(['count' => (app()->request->count)?$count:null]);
+            $news = News::with('author')->with('category')->with('multimedia')->orderBy('posted', 'desc')->orderBy('id', 'desc')->paginate($count)->appends(['count' => (app()->request->count)?$count:null]);
         } else if($news->currentPage() < 1) {
             Paginator::currentPageResolver(function () {
                 return 1;
             });
-            $news = News::with('author')->with('category')->with('multimedia')->orderBy('posted', 'desc')->paginate($count)->appends(['count' => (app()->request->count)?$count:null]);
+            $news = News::with('author')->with('category')->with('multimedia')->orderBy('posted', 'desc')->orderBy('id', 'desc')->paginate($count)->appends(['count' => (app()->request->count)?$count:null]);
         }
         return $news;
     }
+
+        /**
+     * Получить все новости.
+     *
+     * @return Collection
+     */
+    public function findPublicPaginate() {
+        $count = app()->request->count?:15;
+        if($count < 1 || $count > 200) {
+            $count = 15;
+        }
+        $news = News::with('author')->with('category')->with('multimedia')->where('visible', true)->where('posted', '<=', \Carbon\Carbon::today())->orderBy('posted', 'desc')->orderBy('id', 'desc')->paginate($count)->appends(['count' => (app()->request->count)?$count:null]);
+        if($news->currentPage() > $news->total()) {
+            Paginator::currentPageResolver(function () use ($news) {
+                return $news->total();
+            });
+            $news = News::with('author')->with('category')->with('multimedia')->where('visible', true)->where('posted', '<=', \Carbon\Carbon::today())->orderBy('posted', 'desc')->orderBy('id', 'desc')->paginate($count)->appends(['count' => (app()->request->count)?$count:null]);
+        } else if($news->currentPage() < 1) {
+            Paginator::currentPageResolver(function () {
+                return 1;
+            });
+            $news = News::with('author')->with('category')->with('multimedia')->where('visible', true)->where('posted', '<=', \Carbon\Carbon::today())->orderBy('posted', 'desc')->orderBy('id', 'desc')->paginate($count)->appends(['count' => (app()->request->count)?$count:null]);
+        }
+        return $news;
+    }
+
 
      /**
      * Получить все новости заданного пользователя.
@@ -51,7 +77,7 @@ class NewsRepository {
      */
     public function forUser(User $user) {
         return $user->news()->with('category')->with('multimedia')
-                        ->orderBy('created_at', 'asc')
+                        ->orderBy('created_at', 'asc')->orderBy('id', 'desc')
                         ->get();
     }
 }

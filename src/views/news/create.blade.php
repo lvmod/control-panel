@@ -51,10 +51,13 @@
                                                 });
                                             });
                                         </script>
-
+                                        
                                         <br>
                                         <br>
-                                        <input type="checkbox" name="visible" id="visible" class="minimal" {{ old('visible')?'checked':'' }}>
+                                        <!-- Hidden нужен для инициализации чекбокса. Если новость создается то visible = null, 
+                                        а если пришла после проверки валидации, то visible либо "on" либо "0" -->
+                                        <input type="hidden" name="visible" value="0">
+                                        <input type="checkbox" name="visible" id="visible" class="minimal" {{ old('visible')||old('visible')===null?'checked':'' }}>
                                         Отображать новость на сайте
 
                                         <br>
