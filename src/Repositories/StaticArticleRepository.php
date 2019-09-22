@@ -64,7 +64,7 @@ class StaticArticleRepository {
     }
 
     public function byPath($path) {
-        return Role::with('author')->with('multimedia')->where('path', $path)->first();
+        return StaticArticle::with('author')->with('multimedia')->where('path', $path)->first();
     }
 
      /**

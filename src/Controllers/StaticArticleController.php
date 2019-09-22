@@ -73,7 +73,7 @@ class StaticArticleController extends Controller
     public function update(Request $request, StaticArticle $staticArticle)
     {
         $this->validate($request, [
-            'path' => 'required|unique:static_article',
+            // 'path' => 'required|unique:static_article',
             'title' => 'required|max:255',
             'body' => 'required',
         ]);
