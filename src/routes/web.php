@@ -15,6 +15,26 @@ Route::group(['prefix' => 'control', 'namespace' => 'Lvmod\ControlPanel\Controll
         Route::get('delete/{news}', 'NewsController@delete');
     });
 
+    Route::group(['prefix' => 'article'], function () {
+        Route::get('/', 'ArticleController@index');
+        Route::get('/view/{article}', 'ArticleController@view');
+        Route::get('create', 'ArticleController@create');
+        Route::get('edit/{article}', 'ArticleController@edit');
+        Route::post('store', 'ArticleController@store');
+        Route::post('update/{article}', 'ArticleController@update');
+        Route::get('delete/{article}', 'ArticleController@delete');
+    });
+
+    Route::group(['prefix' => 'static/article'], function () {
+        Route::get('/', 'StaticArticleController@index');
+        Route::get('/view/{staticArticle}', 'StaticArticleController@view');
+        Route::get('create', 'StaticArticleController@create');
+        Route::get('edit/{staticArticle}', 'StaticArticleController@edit');
+        Route::post('store', 'StaticArticleController@store');
+        Route::post('update/{staticArticle}', 'StaticArticleController@update');
+        Route::get('delete/{staticArticle}', 'StaticArticleController@delete');
+    });
+
     Route::group(['prefix' => 'files'], function () {
         Route::get('/', 'FilesController@index');
         Route::get('view/{id?}', 'FilesController@view');

@@ -50,6 +50,13 @@ class MenuTableSeeder extends Seeder
         $object->save();
         
         $object = new Menu();
+        $object->title = "Фиксированные статьи";
+        $object->icon = "fa fa-circle-o";
+        $object->path = "/control/static/article";
+        $object->parent_id = $materialId;
+        $object->save();
+        
+        $object = new Menu();
         $object->title = "Сайт";
         $object->icon = "fa fa-share";
         $object->target = "_blank";

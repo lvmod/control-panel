@@ -44,6 +44,14 @@ class Multimedia extends Model {
         return $this->hasMany('Lvmod\ControlPanel\Models\News');
     }
 
+    public function articles() {
+        return $this->hasMany('Lvmod\ControlPanel\Models\Article');
+    }
+
+    public function staticArticles() {
+        return $this->hasMany('Lvmod\ControlPanel\Models\StaticArticle');
+    }
+
     public function getPathAttribute()
     {
         return $this->path;
