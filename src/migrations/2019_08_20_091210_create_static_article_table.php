@@ -17,11 +17,12 @@ class CreateStaticArticleTable extends Migration
             $table->increments('id');
             $table->integer('author_id')->unsigned()->index();
             $table->integer('multimedia_id')->unsigned()->nullable()->index();
-            $table->string('path')->unique();
+            $table->string('path');
             $table->string('title');
             $table->mediumText('body');
             $table->timestamps();
             $table->softDeletes(); //Мягкое удаление https://laravel.ru/docs/v5/eloquent#%D0%BC%D1%8F%D0%B3%D0%BA%D0%BE%D0%B5
+            $table->unique(array('path', 'deleted_at'));
         });
     }
 

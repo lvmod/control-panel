@@ -44,7 +44,7 @@
                                         Ключевое слово - идентификатор статьи (англ.):
                                         </h5>
                                         <div>
-                                            <input type="text" name="path" id="path" class="form-control" value="{{ old('path', $staticArticle->title) }}"> </div>
+                                            <input type="text" name="path" id="path" class="form-control" value="{{ old('path', $staticArticle->path) }}"> </div>
                                         <br />
 
                                         <h5>

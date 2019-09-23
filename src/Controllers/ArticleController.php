@@ -56,19 +56,18 @@ class ArticleController extends Controller
         $this->validate($request, [
             'posted' => 'required',
             'title' => 'required|max:255',
-            'body' => 'required',
         ]);
 
         $article = new Article;
         $article->title = $request->title;
         $article->posted = \Carbon\Carbon::parse($request->posted)->toDateString();
         $article->visible = !!$request->visible;
-        $article->body = $request->body;
+        $article->body = ""; //$request->body;
         $article->author_id = $request->user()->id;
         $article->multimedia_id = $request->multimedia;
         $article->save();
 
-        return redirect('/control/article');
+        return redirect('/control/article/edit/'.$article->id);
     }
 
     public function update(Request $request, Article $article)

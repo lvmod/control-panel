@@ -19,7 +19,8 @@
     <div class="box box-widget">
         <div class='box-header with-border'>
             <div class='user-block'>
-                &nbsp
+            Ключевое слово - идентификатор статьи: <b>{{$item->path}}</b>
+
             </div><!-- /.user-block -->
             <div class='box-tools' style='padding-top: 5px'>
                 <a href="{{ url('/control/static/article/edit/'.$item->id) }}" class="btn btn-xs btn-default">Изменить</a>

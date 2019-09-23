@@ -54,22 +54,14 @@
                                         
                                         <br>
                                         <br>
-                                        <!-- Hidden нужен для инициализации чекбокса. Если новость создается то visible = null, 
-                                        а если пришла после проверки валидации, то visible либо "on" либо "0" -->
-                                        <input type="hidden" name="visible" value="0">
-                                        <input type="checkbox" name="visible" id="visible" class="minimal" {{ old('visible')||old('visible')===null?'checked':'' }}>
+                                        <input type="checkbox" name="visible" id="visible" class="minimal" {{ old('visible')?'checked':'' }}>
                                         Отображать новость на сайте
 
                                         <br>
                                         <input type="checkbox" name="inline" id="inline" class="minimal" {{ old('inline')?'checked':'' }}>
                                         Выводить полностью
 
-                                        <br>
-                                        <br>
-                                        <div>
-                                            <input type="submit" name="submit" class="btn btn-primary" value="Сохранить"> 
-                                            <a class="btn btn-default" href="/control/news">Отмена</a>
-                                        </div>
+                                        
                                     </div>
 
                                     <div class="col-lg-9">
@@ -78,16 +70,13 @@
                                         </h5>
                                         <div>
                                             <input type="text" name="title" id="title" class="form-control" value="{{ old('title') }}"> </div>
-
-                                        <br />
-                                        <div class="col-lg-12">
-                                            <div class="form-group">
-                                                <h5>
-                                                    Текст новости:
-                                                </h5>
-                                                <textarea name='body' class="form-control">{{ old('body') }}</textarea>
-                                            </div>
+                                            
+                                        <br>
+                                        <div>
+                                            <input type="submit" name="submit" class="btn btn-primary" value="Добавить текст новости"> 
+                                            <a class="btn btn-default" href="/control/news">Отмена</a>
                                         </div>
+                                       
                                     </div>
                                 </div>
                             </div>

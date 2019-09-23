@@ -45,18 +45,8 @@
                                         
                                         <br>
                                         <br>
-                                        <!-- Hidden нужен для инициализации чекбокса. Если статья создается то visible = null, 
-                                        а если пришла после проверки валидации, то visible либо "on" либо "0" -->
-                                        <input type="hidden" name="visible" value="0">
-                                        <input type="checkbox" name="visible" id="visible" class="minimal" {{ old('visible')||old('visible')===null?'checked':'' }}>
+                                        <input type="checkbox" name="visible" id="visible" class="minimal" {{ old('visible')?'checked':'' }}>
                                         Отображать статью на сайте
-
-                                        <br>
-                                        <br>
-                                        <div>
-                                            <input type="submit" name="submit" class="btn btn-primary" value="Сохранить"> 
-                                            <a class="btn btn-default" href="/control/article">Отмена</a>
-                                        </div>
                                     </div>
 
                                     <div class="col-lg-9">
@@ -67,13 +57,9 @@
                                             <input type="text" name="title" id="title" class="form-control" value="{{ old('title') }}"> </div>
 
                                         <br />
-                                        <div class="col-lg-12">
-                                            <div class="form-group">
-                                                <h5>
-                                                    Текст статьи:
-                                                </h5>
-                                                <textarea name='body' class="form-control">{{ old('body') }}</textarea>
-                                            </div>
+                                        <div>
+                                            <input type="submit" name="submit" class="btn btn-primary" value="Добавить текст статьи"> 
+                                            <a class="btn btn-default" href="/control/article">Отмена</a>
                                         </div>
                                     </div>
                                 </div>

@@ -54,26 +54,38 @@ class StaticArticleController extends Controller
     public function store(Request $request)
     {
         $this->validate($request, [
-            'path' => 'required|unique:static_article',
+            'path' => ['required', function ($attribute, $value, $fail) {
+                    $art = $this->staticArticle->byPath($value);
+                    //Если есть статья с таким же path и она не удалена, то ошибка
+                    if ($art && !$art->deleted_at) {
+                        $fail('Такое значение поля '.$attribute.' уже существует.');
+                    }
+                },
+            ],
             'title' => 'required|max:255',
-            'body' => 'required',
         ]);
 
         $staticArticle = new StaticArticle;
         $staticArticle->path = strtolower($request->path);
         $staticArticle->title = $request->title;
-        $staticArticle->body = $request->body;
+        $staticArticle->body = ""; //$request->body;
         $staticArticle->author_id = $request->user()->id;
         $staticArticle->multimedia_id = $request->multimedia;
         $staticArticle->save();
 
-        return redirect('/control/static/article');
+        return redirect('/control/static/article/edit/'.$staticArticle->id);
     }
 
     public function update(Request $request, StaticArticle $staticArticle)
     {
         $this->validate($request, [
-            // 'path' => 'required|unique:static_article',
+            'path' => ['required', function ($attribute, $value, $fail) use($staticArticle) {
+                    $art = $this->staticArticle->byPath($value);
+                    if ($art && $art->id != $staticArticle->id) {
+                        $fail('Такое значение поля '.$attribute.' уже существует.');
+                    }
+                },
+            ],
             'title' => 'required|max:255',
             'body' => 'required',
         ]);

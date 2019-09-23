@@ -65,7 +65,7 @@ class NewsController extends Controller
             'posted' => 'required',
             'category' => 'required',
             'title' => 'required|max:255',
-            'body' => 'required',
+            // 'body' => 'required',
         ]);
 
         $news = new News;
@@ -73,13 +73,13 @@ class NewsController extends Controller
         $news->posted = \Carbon\Carbon::parse($request->posted)->toDateString();
         $news->visible = !!$request->visible;
         $news->inline = !!$request->inline;
-        $news->body = $request->body;
+        $news->body = ""; //$request->body;
         $news->author_id = $request->user()->id;
         $news->category_id = $request->category;
         $news->multimedia_id = $request->multimedia;
         $news->save();
 
-        return redirect('/control/news');
+        return redirect('/control/news/edit/'.$news->id);
     }
 
     public function update(Request $request, News $news)

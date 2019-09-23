@@ -30,13 +30,7 @@
                                                 });
                                             });
                                         </script>
-                                        
-                                        <br>
-                                        <br>
-                                        <div>
-                                            <input type="submit" name="submit" class="btn btn-primary" value="Сохранить"> 
-                                            <a class="btn btn-default" href="/control/static/article">Отмена</a>
-                                        </div>
+
                                     </div>
 
                                     <div class="col-lg-9">
@@ -54,13 +48,9 @@
                                             <input type="text" name="title" id="title" class="form-control" value="{{ old('title') }}"> </div>
 
                                         <br />
-                                        <div class="col-lg-12">
-                                            <div class="form-group">
-                                                <h5>
-                                                    Текст статьи:
-                                                </h5>
-                                                <textarea name='body' class="form-control">{{ old('body') }}</textarea>
-                                            </div>
+                                        <div>
+                                            <input type="submit" name="submit" class="btn btn-primary" value="Добавить текст статьи"> 
+                                            <a class="btn btn-default" href="/control/static/article">Отмена</a>
                                         </div>
                                     </div>
                                 </div>
