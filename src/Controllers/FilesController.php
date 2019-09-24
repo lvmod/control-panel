@@ -296,8 +296,16 @@ class FilesController extends Controller
 
     public function delete(Request $request, $id)
     {
-        if (!$this->media->trash($id)) {
-            return ['error' => 'Ошибка удаления'];
+        try {
+            $this->media->trash($id);
+        } catch (\Illuminate\Database\QueryException $e) {
+            if(strpos($e->getMessage(), 'foreign key constraint fails') !== false){
+                return ['error' => 'Файл нельзя удалить так как он связан с другими объектами'];
+            } else {
+                return ['error' => $e->getMessage()];
+            }
+        } catch (\Exception $e) {
+            return ['error' => $e->getMessage()];
         }
         return [];
     }

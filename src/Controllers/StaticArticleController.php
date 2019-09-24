@@ -70,7 +70,7 @@ class StaticArticleController extends Controller
         $staticArticle->title = $request->title;
         $staticArticle->body = ""; //$request->body;
         $staticArticle->author_id = $request->user()->id;
-        $staticArticle->multimedia_id = $request->multimedia;
+        $staticArticle->multimedia_id = $request->multimedia?$request->multimedia:null;
         $staticArticle->save();
 
         return redirect('/control/static/article/edit/'.$staticArticle->id);
@@ -94,7 +94,7 @@ class StaticArticleController extends Controller
         $staticArticle->title = $request->title;
         $staticArticle->body = $request->body;
         $staticArticle->author_id = $request->user()->id;
-        $staticArticle->multimedia_id = $request->multimedia;
+        $staticArticle->multimedia_id = $request->multimedia?$request->multimedia:null;
         $staticArticle->save();
 
         return redirect('/control/static/article');

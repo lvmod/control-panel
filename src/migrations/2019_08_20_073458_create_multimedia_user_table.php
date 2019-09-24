@@ -15,8 +15,13 @@ class CreateMultimediaUserTable extends Migration
     {
         Schema::create('multimedia_user', function (Blueprint $table) {
             $table->increments('id');
+            
             $table->bigInteger('multimedia_id')->unsigned()->index();
-            $table->integer('user_id')->unsigned()->index();
+            $table->foreign('multimedia_id')->references('id')->on('multimedia')->onDelete('cascade');
+
+            $table->bigInteger('user_id')->unsigned()->index();
+            $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
+
             $table->timestamps();
         });
     }

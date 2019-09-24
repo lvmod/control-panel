@@ -17,7 +17,7 @@ class CreateCategoryTable extends Migration
             $table->increments('id');
             $table->string('name')->unique();
             $table->timestamps();
-            $table->softDeletes(); //Мягкое удаление https://laravel.ru/docs/v5/eloquent#%D0%BC%D1%8F%D0%B3%D0%BA%D0%BE%D0%B5
+            // $table->softDeletes(); //Мягкое удаление https://laravel.ru/docs/v5/eloquent#%D0%BC%D1%8F%D0%B3%D0%BA%D0%BE%D0%B5
         });
     }
 

@@ -167,7 +167,7 @@ class MultimediaRepository
     public function trash($id)
     {
         if (!$id) {
-            return 0;
+            throw new Exception('Не удалось определить удаляемый объект');
         }
 
         try {
@@ -198,9 +198,7 @@ class MultimediaRepository
             DB::commit();
         } catch (\Exception $e) {
             DB::rollback();
-            return 0;
+            throw $e;
         }
-
-        return $id;
     }
 }

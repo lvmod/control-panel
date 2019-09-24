@@ -15,15 +15,19 @@ class CreateArticleTable extends Migration
     {
         Schema::create('article', function (Blueprint $table) {
             $table->increments('id');
-            $table->integer('author_id')->unsigned()->index();
-            $table->integer('multimedia_id')->unsigned()->nullable()->index();
+            $table->bigInteger('author_id')->unsigned()->index();
+            $table->foreign('author_id')->references('id')->on('users');
+            
+            $table->bigInteger('multimedia_id')->unsigned()->nullable()->index();
+            $table->foreign('multimedia_id')->references('id')->on('multimedia');
+            
             $table->string('title');
             $table->mediumText('body');
             $table->dateTime('created')->nullable();
             $table->dateTime('posted')->nullable();
             $table->boolean('visible')->nullable()->index();
             $table->timestamps();
-            $table->softDeletes(); //Мягкое удаление https://laravel.ru/docs/v5/eloquent#%D0%BC%D1%8F%D0%B3%D0%BA%D0%BE%D0%B5
+            // $table->softDeletes(); //Мягкое удаление https://laravel.ru/docs/v5/eloquent#%D0%BC%D1%8F%D0%B3%D0%BA%D0%BE%D0%B5
         });
     }
 

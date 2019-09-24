@@ -64,7 +64,7 @@ class ArticleController extends Controller
         $article->visible = !!$request->visible;
         $article->body = ""; //$request->body;
         $article->author_id = $request->user()->id;
-        $article->multimedia_id = $request->multimedia;
+        $article->multimedia_id = $request->multimedia?$request->multimedia:null;
         $article->save();
 
         return redirect('/control/article/edit/'.$article->id);
@@ -83,7 +83,7 @@ class ArticleController extends Controller
         $article->visible = !!$request->visible;
         $article->body = $request->body;
         $article->author_id = $request->user()->id;
-        $article->multimedia_id = $request->multimedia;
+        $article->multimedia_id = $request->multimedia?$request->multimedia:null;
         $article->save();
 
         return redirect('/control/article');

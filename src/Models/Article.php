@@ -11,7 +11,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 class Article extends Model {
 
     //Мягкое удаление https://laravel.ru/docs/v5/eloquent#%D0%BC%D1%8F%D0%B3%D0%BA%D0%BE%D0%B5
-    use SoftDeletes;
+    // use SoftDeletes;
 
     /**
      * Связанная с моделью таблица.
@@ -32,7 +32,7 @@ class Article extends Model {
      *
      * @var array
      */
-    protected $dates = ['deleted_at'];
+    // protected $dates = ['deleted_at'];
 
     //Один ко многим (Обратное отношение)https://laravel.ru/docs/v5/eloquent-relationships#%D0%BE%D0%B4%D0%B8%D0%BD
     /**
