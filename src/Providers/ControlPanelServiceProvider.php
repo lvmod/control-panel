@@ -3,6 +3,7 @@
 namespace Lvmod\ControlPanel\Providers;
 
 use Illuminate\Support\ServiceProvider;
+use Illuminate\Database\Eloquent\Relations\Relation;
 
 class ControlPanelServiceProvider extends ServiceProvider
 {
@@ -13,6 +14,12 @@ class ControlPanelServiceProvider extends ServiceProvider
    */
   public function boot()
   {
+    Relation::morphMap([
+      'news' => 'Lvmod\ControlPanel\Models\News',
+      'article' => 'Lvmod\ControlPanel\Models\Article',
+      'static_article' => 'Lvmod\ControlPanel\Models\StaticArticle',
+    ]);
+
     // load routes
     $this->loadRoutesFrom(__DIR__ . '/../routes/web.php');
 

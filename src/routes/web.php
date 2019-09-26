@@ -42,6 +42,7 @@ Route::group(['prefix' => 'control', 'namespace' => 'Lvmod\ControlPanel\Controll
         Route::get('download/{file}', 'FilesController@download');
         Route::post('file', 'FilesController@newfolder');
         Route::post('upload/{id?}', 'FilesController@upload');
+        Route::post('upload-material', 'FilesController@uploadMaterial');
         Route::delete('file/{id}', 'FilesController@delete');
         Route::get('links/{file}', 'FilesController@links');
         Route::post('links/{file}', 'FilesController@saveLinks');

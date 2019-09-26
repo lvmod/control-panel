@@ -20,7 +20,8 @@ class CreateArticleTable extends Migration
             
             $table->bigInteger('multimedia_id')->unsigned()->nullable()->index();
             $table->foreign('multimedia_id')->references('id')->on('multimedia');
-            
+            $table->string('image')->nullable();
+
             $table->string('title');
             $table->mediumText('body');
             $table->dateTime('created')->nullable();

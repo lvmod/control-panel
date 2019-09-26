@@ -21,7 +21,8 @@ class CreateStaticArticleTable extends Migration
             
             $table->bigInteger('multimedia_id')->unsigned()->nullable()->index();
             $table->foreign('multimedia_id')->references('id')->on('multimedia');
-            
+            $table->string('image')->nullable();
+
             $table->string('path')->unique();
             $table->string('title');
             $table->mediumText('body');

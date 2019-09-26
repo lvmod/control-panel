@@ -16,6 +16,7 @@ class FilesController extends Controller
     protected $photopeople = "images/people";
     protected $disk = "media";
     protected $uploadfiles = "multimedia";
+    protected $materialsPath = "materials";
 
     /**
      * @var MultimediaRepository
@@ -57,9 +58,9 @@ class FilesController extends Controller
 
         $current = $this->media->byId($id);
         $files = [];
-        if($request->type) {
+        if ($request->type) {
             $files = $this->media->byParent($id, $request->type);
-        } else if($request->viewer) {
+        } else if ($request->viewer) {
             $files = $this->media->byParent($id, '', $request->viewer);
         } else {
             $files = $this->media->byParent($id);
@@ -99,8 +100,8 @@ class FilesController extends Controller
             'files' => $files,
             'id' => $id,
             'mediaType' => $this->mediaType->allExtension(),
-            'filePath' => '/files/'.$this->uploadfiles . "/",
-            'filePathMin' => '/files/'.$this->uploadfiles . "_min/",
+            'filePath' => '/files/' . $this->uploadfiles . "/",
+            'filePathMin' => '/files/' . $this->uploadfiles . "_min/",
             'uploadMaxFilesize' => app()->Utils->fileUploadMaxSize(),
             'path' => $this->media->getPathById($id),
         ];
@@ -119,12 +120,12 @@ class FilesController extends Controller
         }
 
         $f = $this->media->byId($id);
-        if(!$f) {
+        if (!$f) {
             abort(404);
         }
-        $f->path = '/files/'.$this->uploadfiles . "/".$f->file_name;
-        if($f->type->makepreview) {
-            $f->pathMin = '/files/'.$this->uploadfiles . "_min/".$f->file_name;
+        $f->path = '/files/' . $this->uploadfiles . "/" . $f->file_name;
+        if ($f->type->makepreview) {
+            $f->pathMin = '/files/' . $this->uploadfiles . "_min/" . $f->file_name;
         }
         return $f;
     }
@@ -176,7 +177,7 @@ class FilesController extends Controller
         } else {
             //Создание временной папки
             $tmpDir = '/tmp/';
-            Storage::disk($this->disk)->makeDirectory($tmpDir, $mode=0775);
+            Storage::disk($this->disk)->makeDirectory($tmpDir, $mode = 0775);
             $path = Storage::disk($this->disk)->path($tmpDir);
             //Получаем список файлов
             $files = $this->media->getAllById($file->id, true, true, $file->id);
@@ -190,14 +191,14 @@ class FilesController extends Controller
             }
 
             $filePath = $this->uploadfiles . "/";
-            
+
             if (!is_null($files) && is_array($files)) {
                 foreach ($files as $item) {
                     if (!$item->isfolder && Storage::disk($this->disk)->exists($filePath . $item['file_name'])) {
                         if (!empty($item->type->name) && !app()->Utils->endsWith(mb_strtolower($item->name, 'UTF-8'), mb_strtolower($item->type->name, 'UTF-8'))) {
                             $item['name'] .= '.' . $item->type->name;
                         }
-            
+
                         $zip->addFromString($item->path, Storage::disk($this->disk)->get($filePath . $item['file_name']));
                         // $zip->addFile( $path . '/public/' . $filePath . $item->file_name, iconv("UTF-8", "CP866", $item->path . $item->name));
                     } else if ($item['isfolder']) {
@@ -248,8 +249,8 @@ class FilesController extends Controller
         // Storage::deleteDirectory($directory);
         try {
             $file = $request->file('file');
-            if (!$file || !$file->getClientOriginalName()) {
-                return ['message' => 'Файл не выбран либо превышает допустимые ограничения по размеру'];
+            if (!$file || !$file->getClientOriginalName() || !$file->getSize()) {
+                return ['message' => 'Файл не выбран либо превышает допустимые ограничения по размеру ' . app()->Utils->fileUploadMaxSize()];
             }
 
             if ($this->media->byName($file->getClientOriginalName(), $id)) {
@@ -272,8 +273,8 @@ class FilesController extends Controller
             $newFullNameMin = $path . "_min/" . $newName;
 
             if ($type && $type->makepreview) {
-                if(!Storage::disk($this->disk)->exists($this->uploadfiles."_min")) {
-                   Storage::disk($this->disk)->makeDirectory($this->uploadfiles."_min", $mode=0775);
+                if (!Storage::disk($this->disk)->exists($this->uploadfiles . "_min")) {
+                    Storage::disk($this->disk)->makeDirectory($this->uploadfiles . "_min", $mode = 0775);
                 }
                 //Подобрать параметры ширины и высоты миниатюры
                 app()->Utils->img_resize($newFullName, $newFullNameMin, 200, 100);
@@ -294,12 +295,54 @@ class FilesController extends Controller
         return [];
     }
 
+    public function uploadMaterial(Request $request)
+    {
+        // Storage::disk('local')->put('avatars/1', "asdfasdf");
+        // var_dump(Storage::disk('local')->exists('avatars/1'));
+        // var_dump(Storage::disk('local')->get('avatars/1'));
+        // var_dump(Storage::disk('local')->url('avatars/1'));
+        // Storage::size('file1.jpg');
+        // Storage::lastModified('file1.jpg');
+        // Storage::delete('file.jpg');
+        // Storage::delete(['file1.jpg', 'file2.jpg']);
+        // Storage::makeDirectory($directory);
+        // Storage::deleteDirectory($directory);
+        try {
+            $type = $request->type;
+            $id = $request->id;
+            if (!$type || !$id) {
+                return ['error' => 'Не удалось определить материал'];
+            }
+
+            $file = $request->file('file');
+            if (!$file || !$file->getClientOriginalName() || !$file->getSize()) {
+                return ['error' => 'Файл не выбран либо превышает допустимые ограничения по размеру ' . app()->Utils->fileUploadMaxSize()];
+            }
+
+            $ftype = $this->mediaType->getTypeByFileName($file->getClientOriginalName());
+
+            if (!$ftype) {
+                return ['error' => 'Ошибка загрузки файла. Не поддерживаемый тип файла'];
+            }
+
+            $name = $file->getClientOriginalName();
+            $newName = md5(date('Y-m-d H:i:s')) . "_" . $name;
+            $path = $this->materialsPath . '/' . $type . '/' . $id;
+            $out = Storage::disk($this->disk)->putFileAs($path, $file, $newName);
+            return [
+                'url' => '/files/' . $out,
+            ];
+        } catch (\Exception $ex) {
+            return ['error' => 'Произошла ошибка во время загрузки файла. Возможно файл превышает допустимые ограничения по размеру ' . app()->Utils->fileUploadMaxSize()];
+        }
+    }
+
     public function delete(Request $request, $id)
     {
         try {
             $this->media->trash($id);
         } catch (\Illuminate\Database\QueryException $e) {
-            if(strpos($e->getMessage(), 'foreign key constraint fails') !== false){
+            if (strpos($e->getMessage(), 'foreign key constraint fails') !== false) {
                 return ['error' => 'Файл нельзя удалить так как он связан с другими объектами'];
             } else {
                 return ['error' => $e->getMessage()];

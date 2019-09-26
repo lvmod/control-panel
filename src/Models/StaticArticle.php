@@ -47,5 +47,9 @@ class StaticArticle extends Model {
     public function multimedia() {
         return $this->belongsTo('Lvmod\ControlPanel\Models\Multimedia');
     }
+    
+    public function materials() {
+        return $this->morphMany('Lvmod\ControlPanel\Models\Materials', 'own');
+    }
 
 }

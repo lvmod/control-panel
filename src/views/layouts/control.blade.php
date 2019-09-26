@@ -46,7 +46,7 @@
 
     <!-- Google Font -->
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700,300italic,400italic,600italic">
-    
+
     <link rel="stylesheet" href="/vendor/control-panel/dist/css/custom.css">
 
     <!-- jQuery 3 -->
@@ -654,29 +654,52 @@
                 plugins: 'filemanager, print preview fullpage importcss  searchreplace autolink directionality visualblocks visualchars fullscreen image link media template codesample table charmap hr pagebreak nonbreaking anchor toc insertdatetime advlist lists wordcount imagetools textpattern noneditable help charmap quickbars emoticons',
                 imagetools_cors_hosts: ['picsum.photos'],
                 menubar: 'file edit view insert format tools table tc help',
-                toolbar: 'undo redo | bold italic underline strikethrough | filemanager | fontselect fontsizeselect formatselect | alignleft aligncenter alignright alignjustify | outdent indent |  numlist bullist | forecolor backcolor removeformat | pagebreak | charmap emoticons | fullscreen  preview print | insertfile image media template link anchor codesample | a11ycheck ltr rtl | showcomments addcomment',           
+                toolbar: 'undo redo | bold italic underline strikethrough | filemanager | fontselect fontsizeselect formatselect | alignleft aligncenter alignright alignjustify | outdent indent |  numlist bullist | forecolor backcolor removeformat | pagebreak | charmap emoticons | fullscreen  preview print | insertfile image media template link anchor codesample | a11ycheck ltr rtl | showcomments addcomment',
+                imagetools_toolbar: " editimage imageoptions",
                 image_advtab: true,
+                automatic_uploads: true,
+                remove_script_host: false,
+                convert_urls: false,
+                relative_urls: false,
+                @if (isset($type) && $type && isset($id) && $id) 
+                images_upload_handler: function(blobInfo, success, failure) {
+                    formData = new FormData();
+                    formData.append('file', blobInfo.blob(), blobInfo.filename());
+                    formData.append('type', '{{$type}}');
+                    formData.append('id', '{{$id}}');
+                    $.ajax({
+                        url: '/control/files/upload-material',
+                        data: formData,
+                        processData: false,
+                        contentType: false,
+                        type: 'POST',
+                        success: function(data) {
+                            if (data && data.url) {
+                                success(data.url);
+                            } else {
+                                var message = "Ошибка загрузки изображения";
+                                if (data && data.error) {
+                                    message = data.error;
+                                }
+                                failure(message);
+                                var editor = tinymce.activeEditor;
+                                editor.selection.collapse();
+                                $(editor.dom.doc).find('img[src^="blob:"]').remove();
+                            }
+                        },
+                        error: function(jqXHR, textStatus, errorThrown) {
+                            failure("Ошибка загрузки изображения: " + textStatus);
+                            var editor = tinymce.activeEditor;
+                            editor.selection.collapse();
+                            $(editor.dom.doc).find('img[src^="blob:"]').remove();
+                        },
+                    });
+                },
+                @endif
+
                 content_css: [
                     '//fonts.googleapis.com/css?family=Lato:300,300i,400,400i',
                     '//www.tiny.cloud/css/codepen.min.css'
-                ],
-                link_list: [{
-                        title: 'My page 1',
-                        value: 'http://www.tinymce.com'
-                    },
-                    {
-                        title: 'My page 2',
-                        value: 'http://www.moxiecode.com'
-                    }
-                ],
-                image_list: [{
-                        title: 'My page 1',
-                        value: 'http://www.tinymce.com'
-                    },
-                    {
-                        title: 'My page 2',
-                        value: 'http://www.moxiecode.com'
-                    }
                 ],
                 image_class_list: [{
                         title: 'None',
@@ -689,29 +712,29 @@
                 ],
                 importcss_append: true,
                 height: 400,
-                file_picker_callback: function(callback, value, meta) {
-                    /* Provide file and text for the link dialog */
-                    if (meta.filetype === 'file') {
-                        callback('https://www.google.com/logos/google.jpg', {
-                            text: 'My text'
-                        });
-                    }
+                // file_picker_callback: function(callback, value, meta) {
+                //     /* Provide file and text for the link dialog */
+                //     if (meta.filetype === 'file') {
+                //         callback('https://www.google.com/logos/google.jpg', {
+                //             text: 'My text'
+                //         });
+                //     }
 
-                    /* Provide image and alt text for the image dialog */
-                    if (meta.filetype === 'image') {
-                        callback('https://www.google.com/logos/google.jpg', {
-                            alt: 'My alt text'
-                        });
-                    }
+                //     /* Provide image and alt text for the image dialog */
+                //     if (meta.filetype === 'image') {
+                //         callback('https://www.google.com/logos/google.jpg', {
+                //             alt: 'My alt text'
+                //         });
+                //     }
 
-                    /* Provide alternative source and posted for the media dialog */
-                    if (meta.filetype === 'media') {
-                        callback('movie.mp4', {
-                            source2: 'alt.ogg',
-                            poster: 'https://www.google.com/logos/google.jpg'
-                        });
-                    }
-                },
+                //     /* Provide alternative source and posted for the media dialog */
+                //     if (meta.filetype === 'media') {
+                //         callback('movie.mp4', {
+                //             source2: 'alt.ogg',
+                //             poster: 'https://www.google.com/logos/google.jpg'
+                //         });
+                //     }
+                // },
                 templates: [{
                         title: 'New Table',
                         description: 'creates a new table',

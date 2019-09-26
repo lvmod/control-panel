@@ -48,7 +48,11 @@ class StaticArticleController extends Controller
 
     public function edit(Request $request, StaticArticle $staticArticle)
     {
-        return view('control::static-article.edit', ['staticArticle' => $staticArticle]);
+        return view('control::static-article.edit', [
+            'type' => 'static-article',
+            'id' => $staticArticle->id,
+            'staticArticle' => $staticArticle
+            ]);
     }
 
     public function store(Request $request)

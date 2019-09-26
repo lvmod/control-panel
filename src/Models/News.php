@@ -54,6 +54,9 @@ class News extends Model {
         return $this->belongsTo('Lvmod\ControlPanel\Models\Multimedia');
     }
     
+    public function materials() {
+        return $this->morphMany('Lvmod\ControlPanel\Models\Materials', 'own');
+    }
     
     /**
     * Атрибуты, которые должны быть преобразованы к базовым типам.

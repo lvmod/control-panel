@@ -56,7 +56,22 @@ class NewsController extends Controller
 
     public function edit(Request $request, News $news)
     {
-        return view('control::news.edit', ['news' => $news, 'category' => $this->category->find()]);
+        // $material = new \Lvmod\ControlPanel\Models\Materials;
+        // $material->name = "sdfsdf";
+        // $material->type_id = 4;
+        // $material->is_main = true;
+        // $news->materials()->save($material);
+        // $news->materials()->saveMany([
+        //     new \Lvmod\ControlPanel\Models\Materials(['name' => 'A new name.', 'type_id' => 5]),
+        //     new \Lvmod\ControlPanel\Models\Materials(['name' => 'Another name.', 'type_id' => 6]),
+        // ]);
+        // return $news->materials;
+        
+        return view('control::news.edit', [
+            'type' => 'news',
+            'id' => $news->id,
+            'news' => $news, 
+            'category' => $this->category->find()]);
     }
 
     public function store(Request $request)
@@ -76,10 +91,10 @@ class NewsController extends Controller
         $news->body = ""; //$request->body;
         $news->author_id = $request->user()->id;
         $news->category_id = $request->category;
-        $news->multimedia_id = $request->multimedia?$request->multimedia:null;
+        $news->multimedia_id = $request->multimedia ? $request->multimedia : null;
         $news->save();
 
-        return redirect('/control/news/edit/'.$news->id);
+        return redirect('/control/news/edit/' . $news->id);
     }
 
     public function update(Request $request, News $news)
@@ -98,7 +113,7 @@ class NewsController extends Controller
         $news->body = $request->body;
         $news->author_id = $request->user()->id;
         $news->category_id = $request->category;
-        $news->multimedia_id = $request->multimedia?$request->multimedia:null;
+        $news->multimedia_id = $request->multimedia ? $request->multimedia : null;
         $news->save();
 
         return redirect('/control/news');

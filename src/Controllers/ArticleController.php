@@ -48,7 +48,11 @@ class ArticleController extends Controller
 
     public function edit(Request $request, Article $article)
     {
-        return view('control::article.edit', ['article' => $article]);
+        return view('control::article.edit', [
+            'type' => 'article',
+            'id' => $article->id,
+            'article' => $article
+            ]);
     }
 
     public function store(Request $request)
