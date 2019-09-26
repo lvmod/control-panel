@@ -12,7 +12,7 @@
     "minimum-stability": "dev",
     "require": {
         "guzzlehttp/guzzle": "^6.3@dev",
-        "symfony/dom-crawler": "^5.0@dev"
+        "symfony/dom-crawler": "4.3.4"
     },
     "autoload": {
         "psr-4": {
