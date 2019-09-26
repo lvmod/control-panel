@@ -6,6 +6,7 @@ use Lvmod\ControlPanel\Models\Article;
 use Lvmod\ControlPanel\Repositories\ArticleRepository;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use Symfony\Component\DomCrawler\Crawler;
 
 class ArticleController extends Controller
 {
@@ -81,6 +82,14 @@ class ArticleController extends Controller
             'title' => 'required|max:255',
             'body' => 'required',
         ]);
+
+        // $crawler = new Crawler($request->body);
+
+        // $src = ($crawler->filter('img[src]')->each(function ($node) {
+        //      return $node->attr('src');
+        // }));
+        // return $src;
+        // return $src;
 
         $article->title = $request->title;
         $article->posted = \Carbon\Carbon::parse($request->posted)->toDateString();
