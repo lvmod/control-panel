@@ -87,7 +87,7 @@ class ArticleController extends Controller
             'body' => 'required',
         ]);
 
-        //Удаление не используемого материала
+        //Удаление неиспользуемого материала
         try {
             $crawler = new Crawler($request->body);
             $src = ($crawler->filter('img[src]')->each(function ($node) {
