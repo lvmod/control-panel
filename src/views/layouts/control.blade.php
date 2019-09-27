@@ -701,77 +701,47 @@
                     '//fonts.googleapis.com/css?family=Lato:300,300i,400,400i',
                     '//www.tiny.cloud/css/codepen.min.css'
                 ],
-                content_style: '.indent10 { text-indent: 10px; }' +
-                    '.indent20 { text-indent: 20px; }' +
-                    '.indent30 { text-indent: 30px; }' +
-                    '.indent40 { text-indent: 40px; }' +
-                    '.indent50 { text-indent: 50px; }' +
-                    '.pmargin10 { margin: 10px 0!important; }' +
-                    '.pmargin20 { margin: 20px 0!important; }' +
-                    '.mce-annotation { background: #fff0b7; } .tc-active-annotation {background: #ffe168; color: black; }',
-                formats: {
-                    indent10: {
-                        selector: 'p,h1,h2,h3,h4,h5,h6,td,th,div,ul,ol,li,table',
-                        classes: 'indent10'
-                    },
-                    indent20: {
-                        selector: 'p,h1,h2,h3,h4,h5,h6,td,th,div,ul,ol,li,table',
-                        classes: 'indent20'
-                    },
-                    indent30: {
-                        selector: 'p,h1,h2,h3,h4,h5,h6,td,th,div,ul,ol,li,table',
-                        classes: 'indent30'
-                    },
-                    indent40: {
-                        selector: 'p,h1,h2,h3,h4,h5,h6,td,th,div,ul,ol,li,table',
-                        classes: 'indent40'
-                    },
-                    indent50: {
-                        selector: 'p,h1,h2,h3,h4,h5,h6,td,th,div,ul,ol,li,table',
-                        classes: 'indent50'
-                    },
-                    pmargin10: {
-                        selector: 'p,h1,h2,h3,h4,h5,h6,td,th,div,ul,ol,li,table',
-                        classes: 'pmargin10'
-                    },
-                    pmargin20: {
-                        selector: 'p,h1,h2,h3,h4,h5,h6,td,th,div,ul,ol,li,table',
-                        classes: 'pmargin20'
-                    },
-                },
+                content_style: '.mce-annotation { background: #fff0b7; } .tc-active-annotation {background: #ffe168; color: black; }',
                 style_formats: [{
                         title: 'Отступ'
                     },
                     {
                         title: '10',
-                        format: 'indent10'
+                        selector: 'p,h1,h2,h3,h4,h5,h6,td,th,div,ul,ol,li,table',
+                        styles: { 'text-indent': '10px' }
                     },
                     {
                         title: '20',
-                        format: 'indent20'
+                        selector: 'p,h1,h2,h3,h4,h5,h6,td,th,div,ul,ol,li,table',
+                        styles: { 'text-indent': '20px' }
                     },
                     {
                         title: '30',
-                        format: 'indent30'
+                        selector: 'p,h1,h2,h3,h4,h5,h6,td,th,div,ul,ol,li,table',
+                        styles: { 'text-indent': '30px' }
                     },
                     {
                         title: '40',
-                        format: 'indent40'
+                        selector: 'p,h1,h2,h3,h4,h5,h6,td,th,div,ul,ol,li,table',
+                        styles: { 'text-indent': '40px' }
                     },
                     {
                         title: '50',
-                        format: 'indent50'
+                        selector: 'p,h1,h2,h3,h4,h5,h6,td,th,div,ul,ol,li,table',
+                        styles: { 'text-indent': '50px' }
                     },
                     {
                         title: 'Интервал между абзацами'
                     },
                     {
-                        title: '10',
-                        format: 'pmargin10'
+                        title: 'Интервал 10',
+                        selector: 'p,h1,h2,h3,h4,h5,h6,td,th,div,ul,ol,li,table',
+                        styles: { 'margin': '10px 0' }
                     },
                     {
-                        title: '20',
-                        format: 'pmargin20'
+                        title: 'Интервал 20',
+                        selector: 'p,h1,h2,h3,h4,h5,h6,td,th,div,ul,ol,li,table',
+                        styles: { 'margin': '20px 0' }
                     },
                     {
                         title: 'Формат изображения'
