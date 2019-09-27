@@ -4,8 +4,14 @@ namespace Lvmod\ControlPanel\Helpers;
 
 use Illuminate\Support\Facades\DB;
 
+use Symfony\Component\DomCrawler\Crawler;
+use Illuminate\Support\Facades\Storage;
+
 class Utils
 {
+
+    protected $disk = "media";
+    protected $materialsPath = "materials";
 
     /**
      * Возвращает массив options для элемента отображения выпадающего списка
@@ -297,4 +303,46 @@ class Utils
             'totalCount'=> $totalCount
         ];
     }
+
+    /**
+     * Удаление неиспользуемого материала
+     */
+    public function deleteNotUseMaterials($material_type, $material_id, $material_body) {
+        try {
+            $crawler = new Crawler($material_body);
+            $srcList = ($crawler->filter('img[src]')->each(function ($node) {
+                $path = $node->attr('src');
+                if ($path) {
+                    return basename($path);
+                }
+                return;
+            }));
+            $indoc = [];
+            foreach ($srcList as $value) {
+                if ($value) {
+                    $indoc[$value] =  $value;
+                }
+            }
+            $files = Storage::disk($this->disk)->files($this->materialsPath . '/' . $material_type . '/' . $material_id);
+            foreach ($files as $file) {
+                if (!array_key_exists(basename($file), $indoc)) {
+                    Storage::disk($this->disk)->delete($file);
+                }
+            }
+        } catch (\Exception $ex) {
+            //throw $th;
+        }
+    }
+
+    /**
+     * Удаление папки материала
+     */
+    public function deleteMaterialsFolder($material_type, $material_id) {
+        try {
+            Storage::disk($this->disk)->deleteDirectory($this->materialsPath . '/' . $material_type . '/' . $material_id);
+        } catch (\Exception $ex) {
+            //throw $th;
+        }
+    }    
+
 }

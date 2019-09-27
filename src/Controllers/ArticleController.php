@@ -6,15 +6,9 @@ use Lvmod\ControlPanel\Models\Article;
 use Lvmod\ControlPanel\Repositories\ArticleRepository;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-use Symfony\Component\DomCrawler\Crawler;
-use Illuminate\Support\Facades\Storage;
 
 class ArticleController extends Controller
 {
-
-    protected $disk = "media";
-    protected $materialsPath = "materials";
-
     /**
      * Экземпляр ArticleRepository.
      *
@@ -87,32 +81,6 @@ class ArticleController extends Controller
             'body' => 'required',
         ]);
 
-        //Удаление неиспользуемого материала
-        try {
-            $crawler = new Crawler($request->body);
-            $src = ($crawler->filter('img[src]')->each(function ($node) {
-                $path = $node->attr('src');
-                if ($path) {
-                    return basename($path);
-                }
-                return;
-            }));
-            $indoc = [];
-            foreach ($src as $value) {
-                if ($value) {
-                    $indoc[basename($value)] =  $value;
-                }
-            }
-            $files = Storage::disk($this->disk)->files($this->materialsPath . '/' . 'article' . '/' . $article->id);
-            foreach ($files as $file) {
-                if (!array_key_exists(basename($file), $indoc)) {
-                    Storage::disk($this->disk)->delete($file);
-                }
-            }
-        } catch (\Exception $ex) {
-            //throw $th;
-        }
-
         $article->title = $request->title;
         $article->posted = \Carbon\Carbon::parse($request->posted)->toDateString();
         $article->visible = !!$request->visible;
@@ -121,12 +89,19 @@ class ArticleController extends Controller
         $article->multimedia_id = $request->multimedia ? $request->multimedia : null;
         $article->save();
 
+        //Удаление неиспользуемого материала
+        app()->Utils->deleteNotUseMaterials('article', $article->id, $request->body);
+
         return redirect('/control/article');
     }
 
     public function delete(Request $request, Article $article)
     {
         $article->delete();
+
+        //Удаление папки материала
+        app()->Utils->deleteMaterialsFolder('article', $article->id);
+
         return redirect('/control/article');
     }
 }

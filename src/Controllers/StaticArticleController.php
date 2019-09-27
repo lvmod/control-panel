@@ -101,12 +101,19 @@ class StaticArticleController extends Controller
         $staticArticle->multimedia_id = $request->multimedia?$request->multimedia:null;
         $staticArticle->save();
 
+        //Удаление неиспользуемого материала
+        app()->Utils->deleteNotUseMaterials('static-article', $staticArticle->id, $request->body);
+
         return redirect('/control/static/article');
     }
 
     public function delete(Request $request, StaticArticle $staticArticle)
     {
         $staticArticle->delete();
+
+        //Удаление папки материала
+        app()->Utils->deleteMaterialsFolder('static-article', $staticArticle->id);
+
         return redirect('/control/static/article');
     }
 }

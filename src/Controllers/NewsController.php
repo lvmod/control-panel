@@ -116,12 +116,19 @@ class NewsController extends Controller
         $news->multimedia_id = $request->multimedia ? $request->multimedia : null;
         $news->save();
 
+        //Удаление неиспользуемого материала
+        app()->Utils->deleteNotUseMaterials('news', $news->id, $request->body);
+
         return redirect('/control/news');
     }
 
     public function delete(Request $request, News $news)
     {
         $news->delete();
+
+        //Удаление папки материала
+        app()->Utils->deleteMaterialsFolder('news', $news->id);
+
         return redirect('/control/news');
     }
 }
