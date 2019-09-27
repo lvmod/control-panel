@@ -661,7 +661,7 @@
                 remove_script_host: false,
                 convert_urls: false,
                 relative_urls: false,
-                @if (isset($type) && $type && isset($id) && $id) 
+                @if(isset($type) && $type && isset($id) && $id)
                 images_upload_handler: function(blobInfo, success, failure) {
                     formData = new FormData();
                     formData.append('file', blobInfo.blob(), blobInfo.filename());
@@ -700,6 +700,77 @@
                 content_css: [
                     '//fonts.googleapis.com/css?family=Lato:300,300i,400,400i',
                     '//www.tiny.cloud/css/codepen.min.css'
+                ],
+                content_style: 
+                    '.indent10 { text-indent: 10px; }' +
+                    '.indent20 { text-indent: 20px; }' +
+                    '.indent30 { text-indent: 30px; }' +
+                    '.indent40 { text-indent: 40px; }' +
+                    '.indent50 { text-indent: 50px; }' +
+                    '.pmargin10 { margin: 10px 0!important; }' +
+                    '.pmargin20 { margin: 20px 0!important; }' +
+                    '.mce-annotation { background: #fff0b7; } .tc-active-annotation {background: #ffe168; color: black; }',
+                formats: {
+                    indent10: {
+                        selector: 'p,h1,h2,h3,h4,h5,h6,td,th,div,ul,ol,li,table,img',
+                        classes: 'indent10'
+                    },
+                    indent20: {
+                        selector: 'p,h1,h2,h3,h4,h5,h6,td,th,div,ul,ol,li,table,img',
+                        classes: 'indent20'
+                    },
+                    indent30: {
+                        selector: 'p,h1,h2,h3,h4,h5,h6,td,th,div,ul,ol,li,table,img',
+                        classes: 'indent30'
+                    },
+                    indent40: {
+                        selector: 'p,h1,h2,h3,h4,h5,h6,td,th,div,ul,ol,li,table,img',
+                        classes: 'indent40'
+                    },
+                    indent50: {
+                        selector: 'p,h1,h2,h3,h4,h5,h6,td,th,div,ul,ol,li,table,img',
+                        classes: 'indent50'
+                    },
+                    pmargin10: {
+                        selector: 'p,h1,h2,h3,h4,h5,h6,td,th,div,ul,ol,li,table,img',
+                        classes: 'pmargin10'
+                    },
+                    pmargin20: {
+                        selector: 'p,h1,h2,h3,h4,h5,h6,td,th,div,ul,ol,li,table,img',
+                        classes: 'pmargin20'
+                    },
+                },
+                style_formats: [
+                    { title: 'Отступ' },
+                    {
+                        title: '10',
+                        format: 'indent10'
+                    },
+                    {
+                        title: '20',
+                        format: 'indent20'
+                    },
+                    {
+                        title: '30',
+                        format: 'indent30'
+                    },
+                    {
+                        title: '40',
+                        format: 'indent40'
+                    },
+                    {
+                        title: '50',
+                        format: 'indent50'
+                    },
+                    { title: 'Интервал между абзацами' },
+                    {
+                        title: '10',
+                        format: 'pmargin10'
+                    },                    
+                    {
+                        title: '20',
+                        format: 'pmargin20'
+                    },                    
                 ],
                 image_class_list: [{
                         title: 'None',
@@ -758,9 +829,7 @@
                 quickbars_selection_toolbar: 'bold italic | quicklink h2 h3 blockquote quickimage quicktable',
                 noneditable_noneditable_class: "mceNonEditable",
                 toolbar_drawer: 'sliding',
-                content_style: ".mymention{ color: green; }",
                 contextmenu: "link image imagetools table",
-                content_style: '.mce-annotation { background: #fff0b7; } .tc-active-annotation {background: #ffe168; color: black; }'
             });
         })
     </script>
