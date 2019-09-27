@@ -701,8 +701,7 @@
                     '//fonts.googleapis.com/css?family=Lato:300,300i,400,400i',
                     '//www.tiny.cloud/css/codepen.min.css'
                 ],
-                content_style: 
-                    '.indent10 { text-indent: 10px; }' +
+                content_style: '.indent10 { text-indent: 10px; }' +
                     '.indent20 { text-indent: 20px; }' +
                     '.indent30 { text-indent: 30px; }' +
                     '.indent40 { text-indent: 40px; }' +
@@ -712,36 +711,37 @@
                     '.mce-annotation { background: #fff0b7; } .tc-active-annotation {background: #ffe168; color: black; }',
                 formats: {
                     indent10: {
-                        selector: 'p,h1,h2,h3,h4,h5,h6,td,th,div,ul,ol,li,table,img',
+                        selector: 'p,h1,h2,h3,h4,h5,h6,td,th,div,ul,ol,li,table',
                         classes: 'indent10'
                     },
                     indent20: {
-                        selector: 'p,h1,h2,h3,h4,h5,h6,td,th,div,ul,ol,li,table,img',
+                        selector: 'p,h1,h2,h3,h4,h5,h6,td,th,div,ul,ol,li,table',
                         classes: 'indent20'
                     },
                     indent30: {
-                        selector: 'p,h1,h2,h3,h4,h5,h6,td,th,div,ul,ol,li,table,img',
+                        selector: 'p,h1,h2,h3,h4,h5,h6,td,th,div,ul,ol,li,table',
                         classes: 'indent30'
                     },
                     indent40: {
-                        selector: 'p,h1,h2,h3,h4,h5,h6,td,th,div,ul,ol,li,table,img',
+                        selector: 'p,h1,h2,h3,h4,h5,h6,td,th,div,ul,ol,li,table',
                         classes: 'indent40'
                     },
                     indent50: {
-                        selector: 'p,h1,h2,h3,h4,h5,h6,td,th,div,ul,ol,li,table,img',
+                        selector: 'p,h1,h2,h3,h4,h5,h6,td,th,div,ul,ol,li,table',
                         classes: 'indent50'
                     },
                     pmargin10: {
-                        selector: 'p,h1,h2,h3,h4,h5,h6,td,th,div,ul,ol,li,table,img',
+                        selector: 'p,h1,h2,h3,h4,h5,h6,td,th,div,ul,ol,li,table',
                         classes: 'pmargin10'
                     },
                     pmargin20: {
-                        selector: 'p,h1,h2,h3,h4,h5,h6,td,th,div,ul,ol,li,table,img',
+                        selector: 'p,h1,h2,h3,h4,h5,h6,td,th,div,ul,ol,li,table',
                         classes: 'pmargin20'
                     },
                 },
-                style_formats: [
-                    { title: 'Отступ' },
+                style_formats: [{
+                        title: 'Отступ'
+                    },
                     {
                         title: '10',
                         format: 'indent10'
@@ -762,15 +762,44 @@
                         title: '50',
                         format: 'indent50'
                     },
-                    { title: 'Интервал между абзацами' },
+                    {
+                        title: 'Интервал между абзацами'
+                    },
                     {
                         title: '10',
                         format: 'pmargin10'
-                    },                    
+                    },
                     {
                         title: '20',
                         format: 'pmargin20'
-                    },                    
+                    },
+                    {
+                        title: 'Формат изображения'
+                    },
+                    {
+                        title: 'Без оптекания',
+                        selector: 'img',
+                        styles: {
+                            'float': 'none',
+                        }
+                    },
+                    {
+                        title: 'Текст справа',
+                        selector: 'img',
+                        styles: {
+                            'float': 'left',
+                            'margin': '0 10px 0 0'
+                        }
+                    },
+                    {
+                        title: 'Текст слева',
+                        selector: 'img',
+                        styles: {
+                            'float': 'right',
+                            'margin': '10px 0 0 0'
+                        }
+                    },
+
                 ],
                 image_class_list: [{
                         title: 'None',
