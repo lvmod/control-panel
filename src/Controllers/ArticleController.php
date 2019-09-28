@@ -67,7 +67,6 @@ class ArticleController extends Controller
         $article->visible = !!$request->visible;
         $article->body = ""; //$request->body;
         $article->author_id = $request->user()->id;
-        $article->multimedia_id = $request->multimedia ? $request->multimedia : null;
         $article->save();
 
         return redirect('/control/article/edit/' . $article->id);
@@ -87,10 +86,11 @@ class ArticleController extends Controller
         $article->body = $request->body;
         $article->author_id = $request->user()->id;
         $article->multimedia_id = $request->multimedia ? $request->multimedia : null;
+        $article->image = $request->image;
         $article->save();
 
         //Удаление неиспользуемого материала
-        app()->Utils->deleteNotUseMaterials('article', $article->id, $request->body);
+        app()->Utils->deleteNotUseMaterials('article', $article->id, $request->body, [$request->image]);
 
         return redirect('/control/article');
     }

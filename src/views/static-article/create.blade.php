@@ -17,21 +17,6 @@
 
                             <div class="panel-body">
                                 <div class="row">
-                                    <div class="col-lg-3">
-
-                                        <br>
-                                        <div class="basic-image-box"></div>
-                                        <script type="text/javascript">
-                                            $(function () {
-                                                var basicImage = new BasicImageView({
-                                                    el: $('.basic-image-box'),
-                                                    id: {{ old('multimedia', 0) }},
-                                                    inputName: 'multimedia'
-                                                });
-                                            });
-                                        </script>
-
-                                    </div>
 
                                     <div class="col-lg-9">
                                     <h5>

@@ -39,18 +39,24 @@
                                             @endforeach
                                         </select>
 
+                                        @if(isset($type) && $type && isset($id) && $id)
                                         <br>
                                         <br>
                                         <div class="basic-image-box"></div>
                                         <script type="text/javascript">
                                             $(function () {
                                                 var basicImage = new BasicImageView({
+                                                    materialType: '{{$type}}',
+                                                    materialId: '{{$id}}',
                                                     el: $('.basic-image-box'),
                                                     id: {{ old('multimedia', $news->multimedia_id?:0) }},
-                                                    inputName: 'multimedia'
+                                                    imageUrl: '{{ old("image", $news->image) }}',
+                                                    multimediaInputName: 'multimedia',
+                                                    urlInputName: 'image'
                                                 });
                                             });
                                         </script>
+                                        @endif
 
                                         <br>
                                         <input type="checkbox" name="visible" id="visible" class="minimal" {{ old('visible', $news->visible)?'checked':'' }}>

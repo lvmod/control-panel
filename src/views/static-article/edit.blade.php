@@ -19,17 +19,23 @@
                                 <div class="row">
                                     <div class="col-lg-3">
 
+                                        @if(isset($type) && $type && isset($id) && $id)
                                         <br>
                                         <div class="basic-image-box"></div>
                                         <script type="text/javascript">
                                             $(function () {
                                                 var basicImage = new BasicImageView({
+                                                    materialType: '{{$type}}',
+                                                    materialId: '{{$id}}',
                                                     el: $('.basic-image-box'),
                                                     id: {{ old('multimedia', $staticArticle->multimedia_id?:0) }},
-                                                    inputName: 'multimedia'
+                                                    imageUrl: '{{ old("image", $staticArticle->image) }}',
+                                                    multimediaInputName: 'multimedia',
+                                                    urlInputName: 'image'
                                                 });
                                             });
                                         </script>
+                                        @endif
 
                                         <br>
                                         <br>

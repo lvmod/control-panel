@@ -91,7 +91,6 @@ class NewsController extends Controller
         $news->body = ""; //$request->body;
         $news->author_id = $request->user()->id;
         $news->category_id = $request->category;
-        $news->multimedia_id = $request->multimedia ? $request->multimedia : null;
         $news->save();
 
         return redirect('/control/news/edit/' . $news->id);
@@ -114,10 +113,11 @@ class NewsController extends Controller
         $news->author_id = $request->user()->id;
         $news->category_id = $request->category;
         $news->multimedia_id = $request->multimedia ? $request->multimedia : null;
+        $news->image = $request->image;
         $news->save();
 
         //Удаление неиспользуемого материала
-        app()->Utils->deleteNotUseMaterials('news', $news->id, $request->body);
+        app()->Utils->deleteNotUseMaterials('news', $news->id, $request->body, [$request->image]);
 
         return redirect('/control/news');
     }

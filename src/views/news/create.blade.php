@@ -38,19 +38,6 @@
                                             <option value="{{$item->id}}" {{($item->id==old('category'))?'selected':''}}>{{$item->name}}</option>
                                             @endforeach
                                         </select>
-
-                                        <br>
-                                        <br>
-                                        <div class="basic-image-box"></div>
-                                        <script type="text/javascript">
-                                            $(function () {
-                                                var basicImage = new BasicImageView({
-                                                    el: $('.basic-image-box'),
-                                                    id: {{ old('multimedia', 0) }},
-                                                    inputName: 'multimedia'
-                                                });
-                                            });
-                                        </script>
                                         
                                         <br>
                                         <br>

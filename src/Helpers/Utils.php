@@ -307,20 +307,23 @@ class Utils
     /**
      * Удаление неиспользуемого материала
      */
-    public function deleteNotUseMaterials($material_type, $material_id, $material_body) {
+    public function deleteNotUseMaterials($material_type, $material_id, $material_body, $anotherFiles=[]) {
         try {
             $crawler = new Crawler($material_body);
             $srcList = ($crawler->filter('img[src]')->each(function ($node) {
                 $path = $node->attr('src');
                 if ($path) {
-                    return basename($path);
+                    return $path;
                 }
                 return;
             }));
+
+            $srcList = array_merge($srcList, $anotherFiles);
             $indoc = [];
             foreach ($srcList as $value) {
                 if ($value) {
-                    $indoc[$value] =  $value;
+                    $n = basename($value);
+                    $indoc[$n] = $n;
                 }
             }
             $files = Storage::disk($this->disk)->files($this->materialsPath . '/' . $material_type . '/' . $material_id);

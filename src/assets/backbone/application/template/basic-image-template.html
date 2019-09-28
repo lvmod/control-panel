@@ -1,29 +1,48 @@
 Главное изображение: 
-<% if(!image || !image.id || !image.type || !image.type.viewer==="image") { %>
-<input type="hidden" name="<%= inputName %>" value="0">
-<div class="btn-group">
-    <button type="button" class="multimedia-add btn btn-sm btn-default"><i class="fa fa-plus"></i></button>
-    <button type="button" class="btn btn-sm btn-default dropdown-toggle" data-toggle="dropdown">
-      <span class="caret"></span>
-      <span class="sr-only">Toggle Dropdown</span>
+<% if(image && image.id && image.type && image.type.viewer==="image") { %>
+    <input type="hidden" name="<%= multimediaInputName %>" value="<%= image.id %>">
+    <input type="hidden" name="<%= urlInputName %>" value="">
+
+    <button type="button" class="multimedia-remove btn btn-danger" style="padding: 2px 8px;">
+        <i class="fa fa-remove"></i>
     </button>
-    <ul class="dropdown-menu" role="menu">
-      <li><a href="#" class="multimedia-add" >Файловый менеджер</a></li>
-    </ul>
-  </div>
+    
+    <table class="table table-condensed" style="margin-top: 10px">
+        <tr data-multimedia="<%= image.id %>">
+            <td>
+                <img style="width: 100%" src="<%= image.default_preview||image.pathMin||image.path||image.type.default_preview %>" />
+            </td>
+        </tr>
+    </table>
+<% } else if(imageUrl) {%>
+    <input type="hidden" name="<%= multimediaInputName %>" value="0">
+    <input type="hidden" name="<%= urlInputName %>" value="<%= imageUrl %>">
+
+    <button type="button" class="multimedia-remove btn btn-danger" style="padding: 2px 8px;">
+        <i class="fa fa-remove"></i>
+    </button>
+    
+    <table class="table table-condensed" style="margin-top: 10px">
+        <tr data-multimedia="0">
+            <td>
+                <img style="width: 100%" src="<%= imageUrl %>" />
+            </td>
+        </tr>
+    </table>
 <% } else {%>
+    <input type="hidden" name="<%= multimediaInputName %>" value="0">
+    <input type="hidden" name="<%= urlInputName %>" value="">
 
-<input type="hidden" name="<%= inputName %>" value="<%= image.id %>">
+    <div class="btn-group">
+        <input id="fileInputBaseImage" type="file" name="fileInputBaseImage" style="display: none;" />
+        <button type="button" class="multimedia-add-file-input btn btn-sm btn-default"><i class="fa fa-plus"></i></button>
+        <button type="button" class="btn btn-sm btn-default dropdown-toggle" data-toggle="dropdown">
+          <span class="caret"></span>
+          <span class="sr-only">Toggle Dropdown</span>
+        </button>
+        <ul class="dropdown-menu" role="menu">
+          <li><a href="#" class="multimedia-add" >Файловый менеджер</a></li>
+        </ul>
+      </div>
 
-<button type="button" class="multimedia-remove btn btn-danger" style="padding: 2px 8px;">
-    <i class="fa fa-remove"></i>
-</button>
-
-<table class="table table-condensed" style="margin-top: 10px">
-    <tr data-multimedia="<%= image.id %>">
-        <td>
-            <img style="width: 100%" src="<%= image.default_preview||image.pathMin||image.path||image.type.default_preview %>" />
-        </td>
-    </tr>
-</table>
 <% } %>

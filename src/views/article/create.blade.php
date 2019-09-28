@@ -27,21 +27,7 @@
                                                 <i class="fa fa-calendar"></i>
                                             </div>
                                             <input name="posted" id="posted" autocomplete="off" type="text" class="datepicker form-control pull-right" value="{{ old('posted', \Carbon\Carbon::now()->format('d.m.Y')) }}">
-                                        </div>
-                                        <br />
-
-                                        <br>
-                                        <br>
-                                        <div class="basic-image-box"></div>
-                                        <script type="text/javascript">
-                                            $(function () {
-                                                var basicImage = new BasicImageView({
-                                                    el: $('.basic-image-box'),
-                                                    id: {{ old('multimedia', 0) }},
-                                                    inputName: 'multimedia'
-                                                });
-                                            });
-                                        </script>
+                                        </div>                                    
                                         
                                         <br>
                                         <br>
