@@ -40,6 +40,11 @@ class NewsController extends Controller
         ]);
     }
 
+    public function getFillBaseImage(Request $request)
+    {
+        return $this->news->findFillBaseImagePaginate();
+    }
+
     public function view(Request $request, News $news)
     {
         // var_dump(json_encode(app()->controlMenu->breadcrumb()));

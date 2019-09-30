@@ -1,0 +1,7 @@
+<% if(material.multimedia && material.multimedia.file_name) { %>
+    <img style="width: 100%" src="<%= basePath+'/'+material.multimedia.file_name %>" />
+<% } else if(material.image) { %>
+   <img style="width: 100%" src="<%= material.image %>" />
+<% } %>
+
+<%= material.body %>

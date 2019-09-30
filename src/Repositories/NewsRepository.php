@@ -68,6 +68,42 @@ class NewsRepository {
         return $news;
     }
 
+    /**
+     * Получить все новости.
+     *
+     * @return Collection
+     */
+    public function findFillBaseImagePaginate() {
+        $count = app()->request->count?:15;
+        if($count < 1 || $count > 200) {
+            $count = 15;
+        }
+        $news = News::with('author')->with('category')->with('multimedia')->
+        where(function($q) {
+            $q->whereNotNull('multimedia_id')
+              ->orWhereNotNull('image');
+        })->orderBy('posted', 'desc')->orderBy('id', 'desc')->paginate($count)->appends(['count' => (app()->request->count)?$count:null]);
+        if($news->currentPage() > $news->total()) {
+            Paginator::currentPageResolver(function () use ($news) {
+                return $news->total();
+            });
+            $news = News::with('author')->with('category')->with('multimedia')->
+            where(function($q) {
+                $q->whereNotNull('multimedia_id', 'not', 'null')
+                  ->orWhereNotNull('image', 'not', 'null');
+            })->orderBy('posted', 'desc')->orderBy('id', 'desc')->paginate($count)->appends(['count' => (app()->request->count)?$count:null]);
+        } else if($news->currentPage() < 1) {
+            Paginator::currentPageResolver(function () {
+                return 1;
+            });
+            $news = News::with('author')->with('category')->with('multimedia')->
+            where(function($q) {
+                $q->whereNotNull('multimedia_id', 'not', 'null')
+                  ->orWhereNotNull('image', 'not', 'null');
+            })->orderBy('posted', 'desc')->orderBy('id', 'desc')->paginate($count)->appends(['count' => (app()->request->count)?$count:null]);
+        }
+        return $news;
+    }
 
      /**
      * Получить все новости заданного пользователя.

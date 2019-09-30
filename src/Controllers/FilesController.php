@@ -107,6 +107,10 @@ class FilesController extends Controller
         ];
     }
 
+    public function basePath(Request $request) {
+        return ['path'=>'/files/' . $this->uploadfiles];
+    }
+
     /**
      * Отображает файлы.
      * Допустимые параметры запроса:

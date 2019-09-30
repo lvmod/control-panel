@@ -7,6 +7,7 @@ Route::group(['prefix' => 'control', 'namespace' => 'Lvmod\ControlPanel\Controll
 
     Route::group(['prefix' => 'news'], function () {
         Route::get('/', 'NewsController@index');
+        Route::get('/api/fillbaseimage', 'NewsController@getFillBaseImage');
         Route::get('/view/{news}', 'NewsController@view');
         Route::get('create', 'NewsController@create');
         Route::get('edit/{news}', 'NewsController@edit');
@@ -37,6 +38,7 @@ Route::group(['prefix' => 'control', 'namespace' => 'Lvmod\ControlPanel\Controll
 
     Route::group(['prefix' => 'files'], function () {
         Route::get('/', 'FilesController@index');
+        Route::get('basepath', 'FilesController@basePath');
         Route::get('view/{id?}', 'FilesController@view');
         Route::get('file/{id?}', 'FilesController@file');
         Route::get('download/{file}', 'FilesController@download');
