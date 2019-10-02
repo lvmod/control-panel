@@ -25,7 +25,7 @@ class Materials extends Model {
     protected $guarded = [];
 
     public function own() {
-        $this->morphTo();
+        return $this->morphTo();
     }
 
     public function type() {

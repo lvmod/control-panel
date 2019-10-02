@@ -39,7 +39,7 @@ class Article extends Model {
      * Получить автора статьи
      */
     public function author() {
-        return $this->belongsTo('App\User');
+        return $this->belongsTo('Lvmod\ControlPanel\Models\User');
     }
 
     //Один ко многим (Обратное отношение)https://laravel.ru/docs/v5/eloquent-relationships#%D0%BE%D0%B4%D0%B8%D0%BD

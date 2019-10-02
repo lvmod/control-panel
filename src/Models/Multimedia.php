@@ -37,7 +37,7 @@ class Multimedia extends Model {
     }
 
     public function users() {
-        return $this->belongsToMany('App\User', 'multimedia_user');
+        return $this->belongsToMany('Lvmod\ControlPanel\Models\User', 'multimedia_user');
     }
 
     public function news() {

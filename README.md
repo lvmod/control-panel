@@ -1,30 +1,10 @@
 # Админка
 Панель администрирования сайта (laravel)
 
-Подключение к проекту Laravel >= 5.3
+Подключение к проекту Laravel = 5.8
 
 #Устанавливаем пакет control-panel
 composer require lvmod/control-panel:dev-master --prefer-source
-
-В app/User.php добавить
-
-    /**
-     * Получить новости пользователя.
-     */
-    public function news() {
-        return $this->hasMany('Lvmod\ControlPanel\Models\News', 'author_id');
-    }
-
-    /**
-     * Роли, принадлежащие пользователю.
-     */
-    public function roles() {
-        return $this->belongsToMany('Lvmod\ControlPanel\Models\Role', 'role_user');
-    }
-
-    public function multimedia() {
-        return $this->belongsToMany('Lvmod\ControlPanel\Models\Multimedia', 'multimedia_user');
-    }
 
 #Выполнить команду копирования ресурсов
 php artisan vendor:publish --provider="Lvmod\ControlPanel\Providers\ControlPanelServiceProvider" --tag=public --force

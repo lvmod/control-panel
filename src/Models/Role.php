@@ -18,7 +18,7 @@ class Role extends Model {
      * Пользователи, принадлежащие роли.
      */
     public function users() {
-        return $this->belongsToMany('App\User', 'role_user');
+        return $this->belongsToMany('Lvmod\ControlPanel\Models\User', 'role_user');
     }
 
 }

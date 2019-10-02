@@ -49,10 +49,17 @@ class ControlPanelServiceProvider extends ServiceProvider
    * @return void
    */
   public function register()
-  { 
+  {
     app()->config["filesystems.disks.media"] = [
       'driver' => 'local',
-      'root' => public_path().'/files',
-  ];
+      'root' => public_path() . '/files',
+    ];
+
+    app()->config["auth.providers"] = [
+      'users' => [
+        'driver' => 'eloquent',
+        'model' => \Lvmod\ControlPanel\Models\User::class,
+      ],
+    ];
   }
 }
