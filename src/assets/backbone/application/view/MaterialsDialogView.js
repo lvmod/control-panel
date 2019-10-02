@@ -8,17 +8,16 @@ var MaterialsDialogView = Backbone.View.extend({
     render: function () {
         if (!this.historyEnable) {
             TemplateManager.render(this, this.template, {}, function (context, template, data) {
-                var fm = new MaterialsView({id: "0", single: context.options.single, viewer: context.options.viewer});
-                Utils.showSimpleModalBackboneView(fm, "Выбор материала", function () {
+                var mview = new MaterialsView({id: "0", single: context.options.single, viewer: context.options.viewer});
+                Utils.showSimpleModalBackboneView(mview, "Выбор материала", function () {
                     if (_.isFunction(context.options.success)) {
-                        var material = fm.material();
+                        var material = mview.material();
                         if(material) {
-                            console.log("Нужно сохранить вот это: ", material);
+                            context.options.success.apply(context, [material]);
                         }
-                        // context.options.success.apply(this, []);
                     }
                 }, null, { cancelText: "Отмена", allowCancel: true });
-                context.filesView = fm;
+                context.filesView = mview;
             });
         }
         return this;
