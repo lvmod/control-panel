@@ -18,6 +18,7 @@ Route::group(['prefix' => 'control', 'namespace' => 'Lvmod\ControlPanel\Controll
 
     Route::group(['prefix' => 'article'], function () {
         Route::get('/', 'ArticleController@index');
+        Route::get('/api/fillbaseimage', 'ArticleController@getFillBaseImage');
         Route::get('/view/{article}', 'ArticleController@view');
         Route::get('create', 'ArticleController@create');
         Route::get('edit/{article}', 'ArticleController@edit');
@@ -28,6 +29,7 @@ Route::group(['prefix' => 'control', 'namespace' => 'Lvmod\ControlPanel\Controll
 
     Route::group(['prefix' => 'static/article'], function () {
         Route::get('/', 'StaticArticleController@index');
+        Route::get('/api/fillbaseimage', 'StaticArticleController@getFillBaseImage');
         Route::get('/view/{staticArticle}', 'StaticArticleController@view');
         Route::get('create', 'StaticArticleController@create');
         Route::get('edit/{staticArticle}', 'StaticArticleController@edit');

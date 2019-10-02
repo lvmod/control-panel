@@ -34,6 +34,11 @@ class StaticArticleController extends Controller
         ]);
     }
 
+    public function getFillBaseImage(Request $request)
+    {
+        return $this->staticArticle->findFillBaseImagePaginate();
+    }
+
     public function view(Request $request, StaticArticle $staticArticle)
     {
         return view('control::static-article.view', [

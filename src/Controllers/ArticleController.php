@@ -33,6 +33,11 @@ class ArticleController extends Controller
         ]);
     }
 
+    public function getFillBaseImage(Request $request)
+    {
+        return $this->article->findFillBaseImagePaginate();
+    }
+
     public function view(Request $request, Article $article)
     {
         return view('control::article.view', [

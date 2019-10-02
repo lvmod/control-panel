@@ -13,10 +13,10 @@ use ZipArchive;
 
 class FilesController extends Controller
 {
-    protected $photopeople = "images/people";
-    protected $disk = "media";
-    protected $uploadfiles = "multimedia";
-    protected $materialsPath = "materials";
+    protected $disk;
+    protected $root;
+    protected $uploadfiles;
+    protected $materialsPath;
 
     /**
      * @var MultimediaRepository
@@ -37,6 +37,10 @@ class FilesController extends Controller
     {
         $this->media = $media;
         $this->mediaType = $mediaType;
+        $this->disk = config('controlpanel.media.disk');
+        $this->root = config('controlpanel.media.root');
+        $this->materialsPath = config('controlpanel.media.materialsPath');
+        $this->uploadfiles = config('controlpanel.media.uploadfiles');
     }
 
     public function index(Request $request)
@@ -100,15 +104,15 @@ class FilesController extends Controller
             'files' => $files,
             'id' => $id,
             'mediaType' => $this->mediaType->allExtension(),
-            'filePath' => '/files/' . $this->uploadfiles . "/",
-            'filePathMin' => '/files/' . $this->uploadfiles . "_min/",
+            'filePath' => '/'.$this->root.'/' . $this->uploadfiles . "/",
+            'filePathMin' => '/'.$this->root.'/' . $this->uploadfiles . "_min/",
             'uploadMaxFilesize' => app()->Utils->fileUploadMaxSize(),
             'path' => $this->media->getPathById($id),
         ];
     }
 
     public function basePath(Request $request) {
-        return ['path'=>'/files/' . $this->uploadfiles];
+        return ['path'=>'/'.$this->root.'/' . $this->uploadfiles];
     }
 
     /**
@@ -127,9 +131,9 @@ class FilesController extends Controller
         if (!$f) {
             abort(404);
         }
-        $f->path = '/files/' . $this->uploadfiles . "/" . $f->file_name;
+        $f->path = '/'.$this->root.'/' . $this->uploadfiles . "/" . $f->file_name;
         if ($f->type->makepreview) {
-            $f->pathMin = '/files/' . $this->uploadfiles . "_min/" . $f->file_name;
+            $f->pathMin = '/'.$this->root.'/' . $this->uploadfiles . "_min/" . $f->file_name;
         }
         return $f;
     }
@@ -334,7 +338,7 @@ class FilesController extends Controller
             $path = $this->materialsPath . '/' . $type . '/' . $id;
             $out = Storage::disk($this->disk)->putFileAs($path, $file, $newName);
             return [
-                'url' => '/files/' . $out,
+                'url' => '/'.$this->root.'/' . $out,
             ];
         } catch (\Exception $ex) {
             return ['error' => 'Произошла ошибка во время загрузки файла. Возможно файл превышает допустимые ограничения по размеру ' . app()->Utils->fileUploadMaxSize()];

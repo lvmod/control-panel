@@ -15,15 +15,19 @@ var MaterialsView = Backbone.View.extend({
         }
 
         this.news = $.getJSONSync("/control/news/api/fillbaseimage");
+        this.article = $.getJSONSync("/control/article/api/fillbaseimage");
+        this.staticArticle = $.getJSONSync("/control/static/article/api/fillbaseimage");
     },
     render: function () {
-        TemplateManager.render(this, this.template, {news: this.news, basePath: this.basePath}, function (context, template, data) {
+        TemplateManager.render(this, this.template, {basePath: this.basePath, news: this.news, article: this.article, staticArticle: this.staticArticle}, function (context, template, data) {
             PluginsManager.iCheck(context);
         });
         return this;
     },
     events: {
         "click .tr-materials-news": "trMaterialNewsClick",
+        "click .tr-materials-article": "trMaterialArticleClick",
+        "click .tr-materials-static-article": "trMaterialStaticArticleClick",
         'ifClicked .checkbox-material': "checkboxClick",
     },
     checkboxClick: function(e) {
@@ -36,6 +40,26 @@ var MaterialsView = Backbone.View.extend({
         if(context.news && context.news.data && context.news.data[i]) {
             var fm = new MaterialView({material: context.news.data[i], basePath: context.basePath});
             Utils.showSimpleModalBackboneView(fm, context.news.data[i].title, function () {
+            }, null, { allowCancel: false });
+        }
+    },
+    trMaterialArticleClick: function(e) {
+        var context = this;
+        var i = $(e.currentTarget).data("i");
+
+        if(context.article && context.article.data && context.article.data[i]) {
+            var fm = new MaterialView({material: context.article.data[i], basePath: context.basePath});
+            Utils.showSimpleModalBackboneView(fm, context.article.data[i].title, function () {
+            }, null, { allowCancel: false });
+        }
+    },
+    trMaterialStaticArticleClick: function(e) {
+        var context = this;
+        var i = $(e.currentTarget).data("i");
+
+        if(context.staticArticle && context.staticArticle.data && context.staticArticle.data[i]) {
+            var fm = new MaterialView({material: context.staticArticle.data[i], basePath: context.basePath});
+            Utils.showSimpleModalBackboneView(fm, context.staticArticle.data[i].title, function () {
             }, null, { allowCancel: false });
         }
     },

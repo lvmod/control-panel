@@ -63,6 +63,37 @@ class ArticleRepository {
         return $article;
     }
 
+    public function findFillBaseImagePaginate() {
+        $count = app()->request->count?:15;
+        if($count < 1 || $count > 200) {
+            $count = 15;
+        }
+        $article = Article::with('author')->with('multimedia')->
+        where(function($q) {
+            $q->whereNotNull('multimedia_id')
+              ->orWhereNotNull('image');
+        })->orderBy('posted', 'desc')->orderBy('id', 'desc')->paginate($count)->appends(['count' => (app()->request->count)?$count:null]);
+        if($article->currentPage() > $article->total()) {
+            Paginator::currentPageResolver(function () use ($article) {
+                return $article->total();
+            });
+            $article = Article::with('author')->with('multimedia')->
+            where(function($q) {
+                $q->whereNotNull('multimedia_id')
+                  ->orWhereNotNull('image');
+            })->orderBy('posted', 'desc')->orderBy('id', 'desc')->paginate($count)->appends(['count' => (app()->request->count)?$count:null]);
+        } else if($article->currentPage() < 1) {
+            Paginator::currentPageResolver(function () {
+                return 1;
+            });
+            $article = Article::with('author')->with('multimedia')->
+            where(function($q) {
+                $q->whereNotNull('multimedia_id')
+                  ->orWhereNotNull('image');
+            })->orderBy('posted', 'desc')->orderBy('id', 'desc')->paginate($count)->appends(['count' => (app()->request->count)?$count:null]);
+        }
+        return $article;
+    }
 
      /**
      *

@@ -10,9 +10,18 @@ use Illuminate\Support\Facades\Storage;
 class Utils
 {
 
-    protected $disk = "media";
-    protected $materialsPath = "materials";
+    protected $disk;
+    protected $root;
+    protected $materialsPath;
+    protected $uploadfiles;
 
+    public function __construct()
+    { 
+        $this->disk = config('controlpanel.media.disk');
+        $this->root = config('controlpanel.media.root');
+        $this->materialsPath = config('controlpanel.media.materialsPath');
+        $this->uploadfiles = config('controlpanel.media.uploadfiles');
+    }
     /**
      * Возвращает массив options для элемента отображения выпадающего списка
      * @param array $arr входящий массив
@@ -347,5 +356,9 @@ class Utils
             //throw $th;
         }
     }    
+
+    public function basePath() {
+        return '/'.$this->root.'/' . $this->uploadfiles;
+    }
 
 }

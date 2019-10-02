@@ -50,11 +50,23 @@ class ControlPanelServiceProvider extends ServiceProvider
    */
   public function register()
   {
+    //Конфигурация панели управления
+    app()->config["controlpanel"] = [
+      'media' => [
+        'disk' => 'media',
+        'root' => 'files',
+        'uploadfiles' => 'multimedia',
+        'materialsPath' => 'materials',
+      ]
+    ];
+
+    //Конфигурация хранилища filesystems
     app()->config["filesystems.disks.media"] = [
       'driver' => 'local',
       'root' => public_path() . '/files',
     ];
 
+    //Указываем laravel использовать нашу модель User
     app()->config["auth.providers"] = [
       'users' => [
         'driver' => 'eloquent',

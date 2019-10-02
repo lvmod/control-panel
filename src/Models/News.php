@@ -67,4 +67,17 @@ class News extends Model {
     protected $casts = [
       'visible' => 'boolean',
     ];
+
+    public function baseImageUrl() {
+        if($this->multimedia && $this->multimedia->file_name) { 
+            return app()->Utils->basePath().'/'.$this->multimedia->file_name;
+        } else if($this->image) { 
+            return $this->image;
+        } 
+        return "";
+    }
+
+    public function getUrl() {
+        return "/control/news/edit/".$this->id;
+    }
 }
