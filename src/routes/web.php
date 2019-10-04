@@ -31,6 +31,7 @@ Route::group(['prefix' => 'control', 'namespace' => 'Lvmod\ControlPanel\Controll
         Route::get('/', 'StaticArticleController@index');
         Route::get('/api/fillbaseimage', 'StaticArticleController@getFillBaseImage');
         Route::get('/view/{staticArticle}', 'StaticArticleController@view');
+        Route::get('/path/edit/{path}', 'StaticArticleController@pathEdit');
         Route::get('create', 'StaticArticleController@create');
         Route::get('edit/{staticArticle}', 'StaticArticleController@edit');
         Route::post('store', 'StaticArticleController@store');

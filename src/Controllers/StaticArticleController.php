@@ -55,19 +55,21 @@ class StaticArticleController extends Controller
     {
         return view('control::static-article.edit', [
             'type' => 'static-article',
+            'pathReadonly' => false,
             'id' => $staticArticle->id,
             'staticArticle' => $staticArticle
-            ]);
+        ]);
     }
 
     public function store(Request $request)
     {
         $this->validate($request, [
-            'path' => ['required', function ($attribute, $value, $fail) {
+            'path' => [
+                'required', function ($attribute, $value, $fail) {
                     $art = $this->staticArticle->byPath($value);
                     //Если есть статья с таким же path и она не удалена, то ошибка
                     if ($art && !$art->deleted_at) {
-                        $fail('Такое значение поля '.$attribute.' уже существует.');
+                        $fail('Такое значение поля ' . $attribute . ' уже существует.');
                     }
                 },
             ],
@@ -81,16 +83,17 @@ class StaticArticleController extends Controller
         $staticArticle->author_id = $request->user()->id;
         $staticArticle->save();
 
-        return redirect('/control/static/article/edit/'.$staticArticle->id);
+        return redirect('/control/static/article/edit/' . $staticArticle->id);
     }
 
     public function update(Request $request, StaticArticle $staticArticle)
     {
         $this->validate($request, [
-            'path' => ['required', function ($attribute, $value, $fail) use($staticArticle) {
+            'path' => [
+                'required', function ($attribute, $value, $fail) use ($staticArticle) {
                     $art = $this->staticArticle->byPath($value);
                     if ($art && $art->id != $staticArticle->id) {
-                        $fail('Такое значение поля '.$attribute.' уже существует.');
+                        $fail('Такое значение поля ' . $attribute . ' уже существует.');
                     }
                 },
             ],
@@ -102,7 +105,7 @@ class StaticArticleController extends Controller
         $staticArticle->title = $request->title;
         $staticArticle->body = $request->body;
         $staticArticle->author_id = $request->user()->id;
-        $staticArticle->multimedia_id = $request->multimedia?$request->multimedia:null;
+        $staticArticle->multimedia_id = $request->multimedia ? $request->multimedia : null;
         $staticArticle->image = $request->image;
         $staticArticle->save();
 
@@ -110,6 +113,30 @@ class StaticArticleController extends Controller
         app()->Utils->deleteNotUseMaterials('static-article', $staticArticle->id, $request->body, [$request->image]);
 
         return redirect('/control/static/article');
+    }
+
+    public function pathEdit(Request $request, $path)
+    {
+        if (!$path) {
+            abort(404);
+        }
+
+        $staticArticle = $this->staticArticle->byPath($path);
+        if (!$staticArticle) {
+            $staticArticle = new StaticArticle;
+            $staticArticle->path = strtolower($path);
+            $staticArticle->title = "";
+            $staticArticle->body = ""; //$request->body;
+            $staticArticle->author_id = $request->user()->id;
+            $staticArticle->save();
+        }
+
+        return view('control::static-article.edit', [
+            'type' => 'static-article',
+            'pathReadonly' => true,
+            'id' => $staticArticle->id,
+            'staticArticle' => $staticArticle
+        ]);
     }
 
     public function delete(Request $request, StaticArticle $staticArticle)

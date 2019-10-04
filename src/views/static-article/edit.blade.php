@@ -41,7 +41,9 @@
                                         <br>
                                         <div>
                                             <input type="submit" name="submit" class="btn btn-primary" value="Сохранить"> 
+                                            @if(!$pathReadonly)
                                             <a class="btn btn-danger sw-alert-delete"  href="{{ url('/control/static/article/delete/'.$staticArticle->id) }}">Удалить</a>
+                                            @endif
                                             <a class="btn btn-default" href="/control/static/article">Отмена</a>
                                         </div>
                                     </div>
@@ -50,7 +52,7 @@
                                         Ключевое слово - идентификатор статьи (англ.):
                                         </h5>
                                         <div>
-                                            <input type="text" name="path" id="path" class="form-control" value="{{ old('path', $staticArticle->path) }}"> </div>
+                                            <input type="text" {{ $pathReadonly?"readonly":"" }} name="path" id="path" class="form-control" value="{{ old('path', $staticArticle->path) }}"> </div>
                                         <br />
 
                                         <h5>
