@@ -10,7 +10,10 @@ class Menu {
     protected $breadcrumb = []; 
     
     public function __construct() {
-        $menu = DB::table('menu')->get();
+        $menu = DB::table('menu')->where(function($q) {
+            $q->where('unvisible', 'false')
+              ->orWhereNull('unvisible');
+        })->get();
         $this->menu = $this->build($menu);
     }
 

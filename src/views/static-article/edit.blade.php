@@ -9,7 +9,7 @@
         <div class="box-body">
             <div class="row">
                 <div class="col-lg-12">
-                    <form action="{{ url('/control/static/article/update/'.$staticArticle->id) }}" method="POST" class="form-horizontal">
+                    <form action="{{ url('/control/static/article/update/'.$staticArticle->id.((isset($pathReadonly)&&$pathReadonly)?'?pathedit=true':'')) }}" method="POST" class="form-horizontal">
                         {{ csrf_field() }}
                         <div class="hpanel">
 
@@ -44,7 +44,7 @@
                                             @if(!$pathReadonly)
                                             <a class="btn btn-danger sw-alert-delete"  href="{{ url('/control/static/article/delete/'.$staticArticle->id) }}">Удалить</a>
                                             @endif
-                                            <a class="btn btn-default" href="/control/static/article">Отмена</a>
+                                            <a class="btn btn-default" href="{{ ((isset($pathReadonly)&&$pathReadonly)?'/control':'/control/static/article') }}">Отмена</a>
                                         </div>
                                     </div>
 

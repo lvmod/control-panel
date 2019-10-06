@@ -112,6 +112,9 @@ class StaticArticleController extends Controller
         //Удаление неиспользуемого материала
         app()->Utils->deleteNotUseMaterials('static-article', $staticArticle->id, $request->body, [$request->image]);
 
+        if($request->pathedit) {
+            return redirect('/control/static/article/path/edit/' . $staticArticle->path);
+        }
         return redirect('/control/static/article');
     }
 
