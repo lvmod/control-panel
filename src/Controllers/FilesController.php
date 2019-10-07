@@ -333,7 +333,7 @@ class FilesController extends Controller
                 return ['error' => 'Ошибка загрузки файла. Не поддерживаемый тип файла'];
             }
 
-            $name = $file->getClientOriginalName();
+            $name = hash('md5', $file->getClientOriginalName()).'.'.$ftype->name;
             $newName = md5(date('Y-m-d H:i:s')) . "_" . $name;
             $path = $this->materialsPath . '/' . $type . '/' . $id;
             $out = Storage::disk($this->disk)->putFileAs($path, $file, $newName);
