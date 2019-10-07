@@ -13,9 +13,6 @@ class CategoryTableSeeder extends Seeder
      */
     public function run()
     {
-        $object = new Category();
-        $object->name = "Общая";
-        $object->save();
-        
+        Category::firstOrCreate(['name' => 'Общая'], []);
     }
 }

@@ -13,55 +13,46 @@ class MenuTableSeeder extends Seeder
      */
     public function run()
     {
-        $object = new Menu();
-        $object->title = "Главная";
-        $object->icon = "fa fa-home";
-        $object->path = "/control";
-        $object->active_path = null;
-        $object->parent_id = null;
-        $object->place_id = null;
-        $object->place_type = Menu::$PLACE_TYPE_FIRST;
-        $object->save();
-        
-        $object = new Menu();
-        $object->title = "Файлы";
-        $object->icon = "fa fa-folder-open";
-        $object->path = "/control/files";
-        $object->save();
+        Menu::firstOrCreate(['path' => '/control'], [
+            'title' => 'Главная', 
+            'icon' => 'fa fa-home',
+            'place_type' => Menu::$PLACE_TYPE_FIRST
+        ]);
 
-        $object = new Menu();
-        $object->title = "Материалы";
-        $object->icon = "fa fa-files-o";
-        $object->save();
+        Menu::firstOrCreate(['path' => '/control/files'], [
+            'title' => 'Файлы', 
+            'icon' => 'fa fa-folder-open'
+        ]);
+
+        $object = Menu::firstOrCreate(['title' => 'Материалы'], [
+            'icon' => 'fa fa-files-o'
+        ]);
+
         $materialId = $object->id;
 
-        $object = new Menu();
-        $object->title = "Новости";
-        $object->icon = "fa fa-circle-o";
-        $object->path = "/control/news";
-        $object->parent_id = $materialId;
-        $object->save();
+        Menu::firstOrCreate(['path' => '/control/news'], [
+            'title' => 'Новости', 
+            'icon' => 'fa fa-circle-o',
+            'parent_id' => $materialId
+        ]);
 
-        $object = new Menu();
-        $object->title = "Статьи";
-        $object->icon = "fa fa-circle-o";
-        $object->path = "/control/article";
-        $object->parent_id = $materialId;
-        $object->save();
-        
-        $object = new Menu();
-        $object->title = "Фиксированные статьи";
-        $object->icon = "fa fa-circle-o";
-        $object->path = "/control/static/article";
-        $object->parent_id = $materialId;
-        $object->save();
-        
-        $object = new Menu();
-        $object->title = "Сайт";
-        $object->icon = "fa fa-share";
-        $object->target = "_blank";
-        $object->path = "/";
-        $object->place_type = Menu::$PLACE_TYPE_LAST;
-        $object->save();
+        Menu::firstOrCreate(['path' => '/control/article'], [
+            'title' => 'Статьи', 
+            'icon' => 'fa fa-circle-o',
+            'parent_id' => $materialId
+        ]);
+
+        Menu::firstOrCreate(['path' => '/control/static/article'], [
+            'title' => 'Фиксированные статьи', 
+            'icon' => 'fa fa-circle-o',
+            'parent_id' => $materialId
+        ]);
+
+        Menu::firstOrCreate(['path' => '/'], [
+            'title' => 'Сайт', 
+            'icon' => 'fa fa-share',
+            'target' => '_blank',
+            'place_type' => Menu::$PLACE_TYPE_LAST
+        ]);
     }
 }

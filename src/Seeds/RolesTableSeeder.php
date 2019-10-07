@@ -2,6 +2,7 @@
 namespace Lvmod\ControlPanel\Seeds;
 
 use Illuminate\Database\Seeder;
+use \Lvmod\ControlPanel\Models\Role;
 
 class RolesTableSeeder extends Seeder
 {
@@ -12,17 +13,8 @@ class RolesTableSeeder extends Seeder
      */
     public function run()
     {
-        $role = new \Lvmod\ControlPanel\Models\Role();
-        $role->name = "developer";
-        $role->save();
-        
-        $role = new \Lvmod\ControlPanel\Models\Role();
-        $role->name = "admin";
-        $role->save();
-        
-        $role = new \Lvmod\ControlPanel\Models\Role();
-        $role->name = "user";
-        $role->save();
-        
+        Role::firstOrCreate(['name' => 'developer'], []);
+        Role::firstOrCreate(['name' => 'admin'], []);
+        Role::firstOrCreate(['name' => 'user'], []);
     }
 }
