@@ -114,7 +114,7 @@ class MultimediaTypeTableSeeder extends Seeder
 
         MultimediaType::firstOrCreate(['name' => 'mp3'], [
             'default_preview' => '/vendor/control-panel/dist/img/PNG/Filetypes/Grey/Stroke/@2x/icon-6-file-mp3@2x.png',
-            'viewer' => 'google',
+            'viewer' => 'inline',
         ]);
     }
 }
