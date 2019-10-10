@@ -2,7 +2,7 @@
 
 namespace Lvmod\ControlPanel\Repositories;
 
-use App\User;
+use Lvmod\ControlPanel\Models\User;
 use Lvmod\ControlPanel\Models\Multimedia;
 use Lvmod\ControlPanel\Models\MultimediaTrash;
 use Illuminate\Support\Facades\DB;

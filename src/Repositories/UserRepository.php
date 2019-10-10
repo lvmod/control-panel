@@ -2,7 +2,7 @@
 
 namespace Lvmod\ControlPanel\Repositories;
 
-use App\User;
+use Lvmod\ControlPanel\Models\User;
 use Lvmod\ControlPanel\Models\Role;
 use Lvmod\ControlPanel\Models\RoleUser;
 use Illuminate\Support\Facades\DB;
