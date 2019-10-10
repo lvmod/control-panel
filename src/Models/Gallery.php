@@ -47,4 +47,13 @@ class Gallery extends Model {
     public function multimedia() {
         return $this->belongsTo('Lvmod\ControlPanel\Models\Multimedia');
     }
+
+    public function baseImageUrl() {
+        if($this->multimedia && $this->multimedia->file_name) { 
+            return app()->Utils->basePath().'/'.$this->multimedia->file_name;
+        } else if($this->image) { 
+            return $this->image;
+        } 
+        return "";
+    }
 }
