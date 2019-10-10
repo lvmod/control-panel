@@ -52,6 +52,16 @@ Route::group(['prefix' => 'control', 'namespace' => 'Lvmod\ControlPanel\Controll
         Route::get('links/{file}', 'FilesController@links');
         Route::post('links/{file}', 'FilesController@saveLinks');
     });
+    
+    Route::group(['prefix' => 'gallery'], function () {
+        Route::get('/', 'GalleryController@index');
+        Route::get('/view/{gallery}', 'GalleryController@view');
+        Route::get('create', 'GalleryController@create');
+        Route::get('edit/{gallery}', 'GalleryController@edit');
+        Route::post('store', 'GalleryController@store');
+        Route::post('update/{gallery}', 'GalleryController@update');
+        Route::get('delete/{gallery}', 'GalleryController@delete');
+    });
 
     Route::group(['prefix' => 'user'], function () {
         Route::get('/api/list', 'UsersController@list');

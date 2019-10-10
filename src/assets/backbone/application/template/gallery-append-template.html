@@ -1,0 +1,19 @@
+<% if(folder && folder.id && folder.type && folder.type.name === "folder") { %>
+    <input type="hidden" name="<%= multimediaInputName %>" value="<%= folder.id %>">
+    <h5>
+        Галерея:
+        <button type="button" class="multimedia-remove btn btn-danger pull-right" style="padding: 2px 8px;">
+            <i class="fa fa-remove"></i>
+        </button>
+    </h5>
+            
+    <div style="border: 1px solid #d2d6de; margin-top: 20px; border-radius: 4px; padding: 10px 15px">
+        <div style=""><%= folder.name %></div>
+    </div>
+<% } else {%>
+    <input type="hidden" name="<%= multimediaInputName %>" value="">
+    <h5>
+        Галерея:
+        <button type="button" class="multimedia-add btn btn-default pull-right" style="padding: 2px 8px;"><i class="fa fa-plus"></i></button>
+    </h5>
+<% } %>
