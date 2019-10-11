@@ -52,6 +52,10 @@ class Multimedia extends Model {
         return $this->hasMany('Lvmod\ControlPanel\Models\StaticArticle');
     }
 
+    public function galleryPhoto() {
+        return $this->belongsToMany('Lvmod\ControlPanel\Models\GalleryPhoto', 'gallery_photo_multimedia');
+    }
+
     public function getPathAttribute()
     {
         return $this->path;

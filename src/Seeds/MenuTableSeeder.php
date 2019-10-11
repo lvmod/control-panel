@@ -55,9 +55,21 @@ class MenuTableSeeder extends Seeder
             'place_type' => Menu::$PLACE_TYPE_LAST
         ]);
 
-        Menu::firstOrCreate(['path' => '/control/gallery'], [
-            'title' => 'Галерея', 
+
+        $object = Menu::firstOrCreate(['title' => 'Галерея'], [
             'icon' => 'fa fa-picture-o'
+        ]);
+
+        Menu::firstOrCreate(['path' => '/control/gallery-photo'], [
+            'title' => 'Фото', 
+            'icon' => 'fa fa-circle-o',
+            'parent_id' => $object->id
+        ]);
+
+        Menu::firstOrCreate(['path' => '/control/gallery-video'], [
+            'title' => 'Видео', 
+            'icon' => 'fa fa-circle-o',
+            'parent_id' => $object->id
         ]);
     }
 }

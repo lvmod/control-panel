@@ -105,13 +105,15 @@
     <td style="vertical-align: middle">
     <div class="preview"></div>
     </td>
-    <td style="vertical-align: middle">
-    {%= name %}
+    <td style="vertical-align: middle;">
+        <div style="text-overflow: ellipsis; overflow: hidden; width: 300px;">
+            {%= name %}
+        </div>
     </td>
     <td style="width: 120px; vertical-align: middle">
     {%= csize %}
     </td>
-    <td style="width: 240px; vertical-align: middle; text-align: center">
+    <td style="vertical-align: middle; text-align: center">
     <div class="alert alert-danger td-upload-error" style="display: none"></div>
     <div class="td-upload-check" style="display: none"><i style="color:green;" class="fa fa-check"></i></div>
     <div class="progress m-t-xs full progress-striped active" style="margin: 0; background-color: #D6D6D6;">

@@ -2,10 +2,10 @@
 
 namespace Lvmod\ControlPanel\Repositories;
 
-use Lvmod\ControlPanel\Models\Gallery;
+use Lvmod\ControlPanel\Models\GalleryPhoto;
 use Illuminate\Pagination\Paginator;
 
-class GalleryRepository {
+class GalleryPhotoRepository {
 
 
     /**
@@ -13,7 +13,7 @@ class GalleryRepository {
      * @return Collection
      */
     public function find() {
-        return Gallery::with('author')->with('multimedia')->orderBy('priority', 'desc')->orderBy('id', 'asc')->get();
+        return GalleryPhoto::with('author')->orderBy('priority', 'desc')->orderBy('id', 'asc')->get();
     }
 
     /**
@@ -25,17 +25,17 @@ class GalleryRepository {
         if($count < 1 || $count > 200) {
             $count = 15;
         }
-        $gallery = Gallery::with('author')->with('multimedia')->orderBy('priority', 'desc')->orderBy('id', 'asc')->paginate($count)->appends(['count' => (app()->request->count)?$count:null]);
+        $gallery = GalleryPhoto::with('author')->orderBy('priority', 'desc')->orderBy('id', 'asc')->paginate($count)->appends(['count' => (app()->request->count)?$count:null]);
         if($gallery->currentPage() > $gallery->total()) {
             Paginator::currentPageResolver(function () use ($gallery) {
                 return $gallery->total();
             });
-            $gallery = Gallery::with('author')->with('multimedia')->orderBy('priority', 'desc')->orderBy('id', 'asc')->paginate($count)->appends(['count' => (app()->request->count)?$count:null]);
+            $gallery = GalleryPhoto::with('author')->orderBy('priority', 'desc')->orderBy('id', 'asc')->paginate($count)->appends(['count' => (app()->request->count)?$count:null]);
         } else if($gallery->currentPage() < 1) {
             Paginator::currentPageResolver(function () {
                 return 1;
             });
-            $gallery = Gallery::with('author')->with('multimedia')->orderBy('priority', 'desc')->orderBy('id', 'asc')->paginate($count)->appends(['count' => (app()->request->count)?$count:null]);
+            $gallery = GalleryPhoto::with('author')->orderBy('priority', 'desc')->orderBy('id', 'asc')->paginate($count)->appends(['count' => (app()->request->count)?$count:null]);
         }
         return $gallery;
     }
@@ -49,17 +49,17 @@ class GalleryRepository {
         if($count < 1 || $count > 200) {
             $count = 15;
         }
-        $gallery = Gallery::with('author')->with('multimedia')->orderBy('priority', 'desc')->orderBy('id', 'asc')->paginate($count)->appends(['count' => (app()->request->count)?$count:null]);
+        $gallery = GalleryPhoto::with('author')->orderBy('priority', 'desc')->orderBy('id', 'asc')->paginate($count)->appends(['count' => (app()->request->count)?$count:null]);
         if($gallery->currentPage() > $gallery->total()) {
             Paginator::currentPageResolver(function () use ($gallery) {
                 return $gallery->total();
             });
-            $gallery = Gallery::with('author')->with('multimedia')->orderBy('priority', 'desc')->orderBy('id', 'asc')->paginate($count)->appends(['count' => (app()->request->count)?$count:null]);
+            $gallery = GalleryPhoto::with('author')->orderBy('priority', 'desc')->orderBy('id', 'asc')->paginate($count)->appends(['count' => (app()->request->count)?$count:null]);
         } else if($gallery->currentPage() < 1) {
             Paginator::currentPageResolver(function () {
                 return 1;
             });
-            $gallery = Gallery::with('author')->with('multimedia')->orderBy('priority', 'desc')->orderBy('id', 'asc')->paginate($count)->appends(['count' => (app()->request->count)?$count:null]);
+            $gallery = GalleryPhoto::with('author')->orderBy('priority', 'desc')->orderBy('id', 'asc')->paginate($count)->appends(['count' => (app()->request->count)?$count:null]);
         }
         return $gallery;
     }

@@ -53,14 +53,14 @@ Route::group(['prefix' => 'control', 'namespace' => 'Lvmod\ControlPanel\Controll
         Route::post('links/{file}', 'FilesController@saveLinks');
     });
     
-    Route::group(['prefix' => 'gallery'], function () {
-        Route::get('/', 'GalleryController@index');
-        Route::get('/view/{gallery}', 'GalleryController@view');
-        Route::get('create', 'GalleryController@create');
-        Route::get('edit/{gallery}', 'GalleryController@edit');
-        Route::post('store', 'GalleryController@store');
-        Route::post('update/{gallery}', 'GalleryController@update');
-        Route::get('delete/{gallery}', 'GalleryController@delete');
+    Route::group(['prefix' => 'gallery-photo'], function () {
+        Route::get('/', 'GalleryPhotoController@index');
+        Route::get('/view/{gallery}', 'GalleryPhotoController@view');
+        Route::get('create', 'GalleryPhotoController@create');
+        Route::get('edit/{gallery}', 'GalleryPhotoController@edit');
+        Route::post('store', 'GalleryPhotoController@store');
+        Route::post('update/{gallery}', 'GalleryPhotoController@update');
+        Route::get('delete/{gallery}', 'GalleryPhotoController@delete');
     });
 
     Route::group(['prefix' => 'user'], function () {
