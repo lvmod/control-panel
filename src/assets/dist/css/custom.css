@@ -1,4 +1,12 @@
-  .page-link {
+.mailbox-attachments li {
+    float: left;
+    width: 190px;
+    border: 1px solid #eee;
+    margin-bottom: 10px;
+    margin-right: 10px;
+}
+
+.page-link {
     position: relative;
     display: block;
     padding: .5rem .75rem;

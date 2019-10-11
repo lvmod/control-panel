@@ -9,7 +9,7 @@
         @include('common.errors')
 
         <div class="row">
-            <div class="col-md-3">
+            <div class="col-lg-4 col-md-5">
                 <div class="box box-primary">
                     <div class="box-body ">
                         <h5>
@@ -20,13 +20,13 @@
                         <br>
                         <br>
                         <div class="row">
-                            <div class="col-md-4" style="padding-right: 2px">
+                            <div class="col-xs-4" style="padding-right: 2px">
                                 <input type="submit" name="submit" class="btn btn-primary" value="Сохранить" style="width: 100%;">
                             </div>
-                            <div class="col-md-4" style=" padding-left: 1px; padding-right: 1px;">
+                            <div class="col-xs-4" style=" padding-left: 1px; padding-right: 1px;">
                                 <a class="btn btn-danger sw-alert-delete" href="{{ url('/control/gallery-photo/delete/'.$gallery->id) }}" style="width: 100%">Удалить</a>
                             </div>
-                            <div class="col-md-4" style="padding-left: 2px">
+                            <div class="col-xs-4" style="padding-left: 2px">
                                 <a class="btn btn-default" href="/control/gallery-photo" style="width: 100%;">Отмена</a>
                             </div>
                         </div>
@@ -34,7 +34,7 @@
                 </div>
             </div>
             <!-- /.col -->
-            <div class="col-md-9">
+            <div class="col-lg-8 col-md-7">
                 <div class="box box-primary">
                     <div class="box-header with-border">
                         <h3 class="box-title">Галерея</h3>
@@ -66,7 +66,46 @@
                     <div class="box-body no-padding">
                         <div class="mailbox-read-message">
                             <ul class="mailbox-attachments clearfix">
-                                <li>
+                            <li>
+                                    <div style="width: 100%; height: 120px;
+                                    background-image: url(https://sun9-70.userapi.com/c858432/v858432093/94d28/3Z2XlQ1cdc0.jpg);
+                                    background-position: center center;
+                                    background-repeat: no-repeat;
+                                    background-size: cover;"></div>
+
+                                    <div class="mailbox-attachment-info">
+                                        <span class="mailbox-attachment-size">
+                                            1,245 KB
+                                            <a href="#" class="btn btn-default btn-xs pull-right"><i class="fa fa-remove"></i></a>
+                                        </span>
+                                    </div>
+                                </li> <li>
+                                    <div style="width: 100%; height: 120px;
+                                    background-image: url(https://sun9-70.userapi.com/c858432/v858432093/94d28/3Z2XlQ1cdc0.jpg);
+                                    background-position: center center;
+                                    background-repeat: no-repeat;
+                                    background-size: cover;"></div>
+
+                                    <div class="mailbox-attachment-info">
+                                        <span class="mailbox-attachment-size">
+                                            1,245 KB
+                                            <a href="#" class="btn btn-default btn-xs pull-right"><i class="fa fa-remove"></i></a>
+                                        </span>
+                                    </div>
+                                </li> <li>
+                                    <div style="width: 100%; height: 120px;
+                                    background-image: url(https://sun9-70.userapi.com/c858432/v858432093/94d28/3Z2XlQ1cdc0.jpg);
+                                    background-position: center center;
+                                    background-repeat: no-repeat;
+                                    background-size: cover;"></div>
+
+                                    <div class="mailbox-attachment-info">
+                                        <span class="mailbox-attachment-size">
+                                            1,245 KB
+                                            <a href="#" class="btn btn-default btn-xs pull-right"><i class="fa fa-remove"></i></a>
+                                        </span>
+                                    </div>
+                                </li> <li>
                                     <div style="width: 100%; height: 120px;
                                     background-image: url(https://sun9-70.userapi.com/c858432/v858432093/94d28/3Z2XlQ1cdc0.jpg);
                                     background-position: center center;
