@@ -53,7 +53,7 @@ class Multimedia extends Model {
     }
 
     public function galleryPhoto() {
-        return $this->belongsToMany('Lvmod\ControlPanel\Models\GalleryPhoto', 'gallery_photo_multimedia');
+        return $this->belongsToMany('Lvmod\ControlPanel\Models\GalleryPhoto', 'gallery_photo_multimedia')->withPivot('priority');
     }
 
     public function getPathAttribute()

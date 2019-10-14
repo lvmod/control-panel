@@ -43,6 +43,10 @@ class GalleryPhoto extends Model {
     }
 
     public function multimedia() {
-        return $this->belongsToMany('Lvmod\ControlPanel\Models\Multimedia', 'gallery_photo_multimedia');
+        return $this->belongsToMany('Lvmod\ControlPanel\Models\Multimedia', 'gallery_photo_multimedia')
+        ->with("type")
+        ->withPivot('id', 'priority')
+        ->orderBy('gallery_photo_multimedia.priority')
+        ->orderBy('gallery_photo_multimedia.id');
     }
 }

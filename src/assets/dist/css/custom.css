@@ -1,3 +1,15 @@
+img.mfp-img {
+    padding: 0;
+}
+
+.mfp-title {
+    padding-left: 10px;
+}
+
+.mfp-counter {
+    padding-right: 10px;
+}
+
 .mailbox-attachments li {
     float: left;
     width: 190px;

@@ -1,0 +1,55 @@
+<div class="box-header with-border">
+    <h3 class="box-title">Галерея</h3>
+
+    <div class="box-tools pull-right">
+        <a href="#" class="btn btn-box-tool multimedia-add" data-toggle="tooltip"><i class="fa fa-plus"></i></a>
+    </div>
+</div>
+<!-- /.box-header -->
+<div class="box-body no-padding">
+    <div class="mailbox-read-message">
+        <ul class="mailbox-attachments clearfix">
+            <% if(files && files.length) {
+                for(var i = 0; i < files.length; i++) { 
+                    var item = files[i];
+                    var prevUrl = item.type.default_preview;
+                    var fullUrl = item.type.default_preview;
+                    if(item.type.makepreview == 1) {
+                        prevUrl = filePath+'_min/'+item.file_name;
+                        fullUrl = filePath+'/'+item.file_name;
+                    } else if(item.type.viewer === 'image') {
+                        prevUrl = filePath+'/'+item.file_name;
+                        fullUrl = prevUrl;
+                    } else {
+                        fullUrl = "";
+                    }
+                    %>
+            <li>
+                <% if(fullUrl) { %>
+                    <div class="preview-box" data-src="<%= fullUrl %>" data-alt="<%= item.name %>" style='width: 100%; height: 120px;
+                                        background-image: url("<%= prevUrl %>");
+                                        background-position: center center;
+                                        background-repeat: no-repeat;
+                                        background-size: cover;'></div>
+                <% } else { %>
+                    <div style='width: 100%; height: 120px;
+                        background-image: url("<%= prevUrl %>");
+                        background-position: center center;
+                        background-repeat: no-repeat;
+                        background-size: cover;'></div>
+                <% } %>
+                <div class="mailbox-attachment-info mailbox-attachment-size">
+                    <div class="float-right">
+                        <a href="#" data-id="<%= item.id %>" class="btn btn-default btn-xs pull-right multimedia-remove">
+                            <i class="fa fa-remove"></i>
+                        </a>
+                    </div>
+                    <div title=<%= item.name %> class="float-left" style='white-space: nowrap; overflow: hidden; text-overflow: ellipsis'>
+                        <%= item.name %></div>
+                </div>
+            </li>
+            <%  }
+            } %>
+        </ul>
+    </div>
+</div>

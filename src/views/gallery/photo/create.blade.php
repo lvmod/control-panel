@@ -17,33 +17,19 @@
 
                             <div class="panel-body">
                                 <div class="row">
-                                    <div class="col-lg-3">
-                                        <div class="gallery-append-box">
-                                            <script type="text/javascript">
-                                                $(function () {
-                                                    var galleryAppendView = new GalleryAppendView({
-                                                        el: $('.gallery-append-box'),
-                                                        id: "{{ old('multimedia') }}",
-                                                        multimediaInputName: 'multimedia'
-                                                    });
-                                                });
-                                            </script>
-                                        </div>
-                                        
-                                        <br>
-                                        <br>
-                                        <div>
-                                            <input type="submit" name="submit" class="btn btn-primary" value="Добавить фото"> 
-                                            <a class="btn btn-default" href="/control/gallery-photo">Отмена</a>
-                                        </div>
-                                    </div>
-
-                                    <div class="col-lg-9">
+                                    <div class="col-lg-12">
                                         <h5>
                                             Заголовок:
                                         </h5>
                                         <div>
                                             <input type="text" name="title" id="title" class="form-control" value="{{ old('title') }}"> </div>
+
+                                        <br>
+                                        <div>
+                                            <input type="submit" name="submit" class="btn btn-primary" value="Добавить фото"> 
+                                            <a class="btn btn-default" href="/control/gallery-photo">Отмена</a>
+                                        </div>
+
                                     </div>
                                 </div>
                             </div>

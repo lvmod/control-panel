@@ -64,4 +64,13 @@ class GalleryPhotoRepository {
         return $gallery;
     }
 
+
+    // /**
+    //  *
+    //  * @return Collection
+    //  */
+    // public function findMultimediaByGallaryId($id) {
+    //     return GalleryPhoto::with('author')->with('multimedia')->orderBy('pivot.priority', 'desc')->orderBy('pivot.id', 'asc')->get();
+    // }
+
 }

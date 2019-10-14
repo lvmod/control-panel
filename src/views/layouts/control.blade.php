@@ -46,11 +46,14 @@
 
     <!-- Google Font -->
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700,300italic,400italic,600italic">
+	<link rel="stylesheet" type="text/css" href="/vendor/control-panel/Magnific-Popup/magnific-popup.css">
 
     <link rel="stylesheet" href="/vendor/control-panel/dist/css/custom.css">
 
     <!-- jQuery 3 -->
     <script src="/vendor/control-panel/bower_components/jquery/dist/jquery.min.js"></script>
+    <script src="/vendor/control-panel/Magnific-Popup/jquery.magnific-popup.min.js"></script>
+
     <script>
         $.ajaxSetup({
             headers: {
@@ -84,7 +87,7 @@
     <script type="text/javascript" src="/vendor/control-panel/backbone/application/view/FilesView.js"></script>
     <script type="text/javascript" src="/vendor/control-panel/backbone/application/view/ArticleFilesView.js"></script>
     <script type="text/javascript" src="/vendor/control-panel/backbone/application/view/BasicImageView.js"></script>
-    <script type="text/javascript" src="/vendor/control-panel/backbone/application/view/GalleryAppendView.js"></script>
+    <script type="text/javascript" src="/vendor/control-panel/backbone/application/view/GalleryView.js"></script>
     <script type="text/javascript" src="/vendor/control-panel/backbone/application/view/FolderNameModal.js"></script>
     <script type="text/javascript" src="/vendor/control-panel/backbone/application/view/FileLinkModal.js"></script>
     <script type="text/javascript" src="/vendor/control-panel/backbone/application/view/FileManagerView.js"></script>

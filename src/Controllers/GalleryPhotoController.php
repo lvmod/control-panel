@@ -26,13 +26,14 @@ class GalleryPhotoController extends Controller
     public function __construct(GalleryPhotoRepository $gallery)
     {
         $this->gallery = $gallery;
-        $this->filePath = '/'.config('controlpanel.media.root').'/'.config('controlpanel.media.uploadfiles').'/';
+        $this->filePath = '/'.config('controlpanel.media.root').'/'.config('controlpanel.media.uploadfiles');
     }
 
     public function index(Request $request)
     {
         return view('control::gallery.photo.index', [
             'gallery' => $this->gallery->findPaginate(),
+            'filePath' => $this->filePath,
         ]);
     }
 
@@ -40,6 +41,7 @@ class GalleryPhotoController extends Controller
     {
         return view('control::gallery.photo.view', [
             'gallery' => $gallery,
+            'filePath' => $this->filePath,
         ]);
     }
 
@@ -50,7 +52,10 @@ class GalleryPhotoController extends Controller
 
     public function edit(Request $request, GalleryPhoto $gallery)
     {
-        return view('control::gallery.photo.edit', ['gallery' => $gallery]);
+        return view('control::gallery.photo.edit', [
+                'gallery' => $gallery,
+                'filePath' => $this->filePath,
+            ]);
     }
 
     public function store(Request $request)
@@ -85,5 +90,30 @@ class GalleryPhotoController extends Controller
     {
         $gallery->delete();
         return redirect('/control/gallery-photo');
+    }
+
+    public function apiGetAllFiles(Request $request, GalleryPhoto $gallery)
+    {
+        // $gallery->multimedia()->orderBy
+        return $gallery->multimedia;
+    }
+
+    public function apiStore(Request $request, GalleryPhoto $gallery)
+    {
+        $data = json_decode($request->getContent());
+        // return $data;
+        if (!$data) {
+            return ['error' => 'Ошибка добавления файлов в галерею'];
+        }
+
+        $gallery->multimedia()->syncWithoutDetaching($data);
+
+        return $gallery->multimedia;
+    }
+
+    public function apiDelete(Request $request, GalleryPhoto $gallery, $fileId)
+    {
+        $gallery->multimedia()->detach($fileId);
+        return $gallery->multimedia;
     }
 }

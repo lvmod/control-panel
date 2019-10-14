@@ -35,109 +35,19 @@
             </div>
             <!-- /.col -->
             <div class="col-lg-8 col-md-7">
-                <div class="box box-primary">
-                    <div class="box-header with-border">
-                        <h3 class="box-title">Галерея</h3>
-
-                        <div class="box-tools pull-right">
-                            <a href="#" class="btn btn-box-tool btn-add-file" data-toggle="tooltip"><i class="fa fa-plus"></i></a>
-                            <script>
-                                $(function() {
-                                    $(".btn-add-file").click(function(e) {
-                                        e.stopPropagation();
-
-                                        var fm = new FileManagerDialogView({
-                                            single: true,
-                                            viewer: "image",
-                                            success: function(files) {
-                                                if (files && files.length) {
-                                                    console.log(files);
-                                                }
-                                            }
-                                        });
-
-                                        return false;
-                                    });
-                                });
-                            </script>
-                        </div>
-                    </div>
-                    <!-- /.box-header -->
-                    <div class="box-body no-padding">
-                        <div class="mailbox-read-message">
-                            <ul class="mailbox-attachments clearfix">
-                            <li>
-                                    <div style="width: 100%; height: 120px;
-                                    background-image: url(https://sun9-70.userapi.com/c858432/v858432093/94d28/3Z2XlQ1cdc0.jpg);
-                                    background-position: center center;
-                                    background-repeat: no-repeat;
-                                    background-size: cover;"></div>
-
-                                    <div class="mailbox-attachment-info">
-                                        <span class="mailbox-attachment-size">
-                                            1,245 KB
-                                            <a href="#" class="btn btn-default btn-xs pull-right"><i class="fa fa-remove"></i></a>
-                                        </span>
-                                    </div>
-                                </li> <li>
-                                    <div style="width: 100%; height: 120px;
-                                    background-image: url(https://sun9-70.userapi.com/c858432/v858432093/94d28/3Z2XlQ1cdc0.jpg);
-                                    background-position: center center;
-                                    background-repeat: no-repeat;
-                                    background-size: cover;"></div>
-
-                                    <div class="mailbox-attachment-info">
-                                        <span class="mailbox-attachment-size">
-                                            1,245 KB
-                                            <a href="#" class="btn btn-default btn-xs pull-right"><i class="fa fa-remove"></i></a>
-                                        </span>
-                                    </div>
-                                </li> <li>
-                                    <div style="width: 100%; height: 120px;
-                                    background-image: url(https://sun9-70.userapi.com/c858432/v858432093/94d28/3Z2XlQ1cdc0.jpg);
-                                    background-position: center center;
-                                    background-repeat: no-repeat;
-                                    background-size: cover;"></div>
-
-                                    <div class="mailbox-attachment-info">
-                                        <span class="mailbox-attachment-size">
-                                            1,245 KB
-                                            <a href="#" class="btn btn-default btn-xs pull-right"><i class="fa fa-remove"></i></a>
-                                        </span>
-                                    </div>
-                                </li> <li>
-                                    <div style="width: 100%; height: 120px;
-                                    background-image: url(https://sun9-70.userapi.com/c858432/v858432093/94d28/3Z2XlQ1cdc0.jpg);
-                                    background-position: center center;
-                                    background-repeat: no-repeat;
-                                    background-size: cover;"></div>
-
-                                    <div class="mailbox-attachment-info">
-                                        <span class="mailbox-attachment-size">
-                                            1,245 KB
-                                            <a href="#" class="btn btn-default btn-xs pull-right"><i class="fa fa-remove"></i></a>
-                                        </span>
-                                    </div>
-                                </li>
-                                <li>
-                                    <div style="width: 100%; height: 120px;
-                                    background-image: url(https://sun9-70.userapi.com/c858432/v858432093/94d28/3Z2XlQ1cdc0.jpg);
-                                    background-position: center center;
-                                    background-repeat: no-repeat;
-                                    background-size: cover;"></div>
-
-                                    <div class="mailbox-attachment-info">
-                                        <span class="mailbox-attachment-size">
-                                            1,245 KB
-                                            <a href="#" class="btn btn-default btn-xs pull-right"><i class="fa fa-remove"></i></a>
-                                        </span>
-                                    </div>
-                                </li>
-
-                            </ul>
-                        </div>
-                    </div>
+                <div class="box box-primary gallery-box">
+                    
                 </div>
+                <script>
+                    $(function() {
+                        var galleryView = new GalleryView({
+                            el: $('.gallery-box'),
+                            id: "{{ $gallery->id }}",
+                            baseUrl: "/control/gallery-photo/api/{{ $gallery->id }}",
+                            filePath: "{{$filePath}}",
+                        });
+                    });
+                </script>
                 <!-- /. box -->
             </div>
             <!-- /.col -->
