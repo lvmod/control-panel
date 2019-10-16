@@ -102,12 +102,40 @@ class GalleryPhotoController extends Controller
     {
         $data = json_decode($request->getContent());
         // return $data;
-        if (!$data) {
+        if (!$data || !is_array($data) || !count($data)) {
             return ['error' => 'Ошибка добавления файлов в галерею'];
         }
 
-        $gallery->multimedia()->syncWithoutDetaching($data);
+        //Вычисляем максимальный order
+        $existMultimedia = [];       
+        $maxSort = 0;
+        foreach ($gallery->multimedia as $item) {
+            $existMultimedia[$item->pivot->multimedia_id] = $item;
+            if($maxSort < $item->pivot->sort) {
+                $maxSort = $item->pivot->sort;
+            }
+        }
 
+        $attachData = [];
+        foreach ($data as $value) {
+            if(!array_key_exists($value, $existMultimedia)) {
+                $maxSort++;
+                $attachData[$value] = ["sort" => $maxSort];
+            }
+        }
+
+        $gallery->multimedia()->attach($attachData);
+
+        return $gallery->multimedia()->get();
+    }
+
+    public function apiSetSort(Request $request, GalleryPhoto $gallery, $multimediaId, $multimediaSort)
+    {
+        if(!$gallery || !$multimediaId) {
+            return ['error' => 'Ошибка перемещения'];
+        }
+
+        $gallery->multimedia()->updateExistingPivot($multimediaId, ["sort" => $multimediaSort]);
         return $gallery->multimedia;
     }
 

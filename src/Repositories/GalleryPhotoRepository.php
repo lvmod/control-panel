@@ -13,7 +13,7 @@ class GalleryPhotoRepository {
      * @return Collection
      */
     public function find() {
-        return GalleryPhoto::with('author')->orderBy('priority', 'desc')->orderBy('id', 'asc')->get();
+        return GalleryPhoto::with('author')->orderBy('sort', 'asc')->orderBy('id', 'asc')->get();
     }
 
     /**
@@ -25,17 +25,17 @@ class GalleryPhotoRepository {
         if($count < 1 || $count > 200) {
             $count = 15;
         }
-        $gallery = GalleryPhoto::with('author')->orderBy('priority', 'desc')->orderBy('id', 'asc')->paginate($count)->appends(['count' => (app()->request->count)?$count:null]);
+        $gallery = GalleryPhoto::with('author')->orderBy('sort', 'asc')->orderBy('id', 'asc')->paginate($count)->appends(['count' => (app()->request->count)?$count:null]);
         if($gallery->currentPage() > $gallery->total()) {
             Paginator::currentPageResolver(function () use ($gallery) {
                 return $gallery->total();
             });
-            $gallery = GalleryPhoto::with('author')->orderBy('priority', 'desc')->orderBy('id', 'asc')->paginate($count)->appends(['count' => (app()->request->count)?$count:null]);
+            $gallery = GalleryPhoto::with('author')->orderBy('sort', 'asc')->orderBy('id', 'asc')->paginate($count)->appends(['count' => (app()->request->count)?$count:null]);
         } else if($gallery->currentPage() < 1) {
             Paginator::currentPageResolver(function () {
                 return 1;
             });
-            $gallery = GalleryPhoto::with('author')->orderBy('priority', 'desc')->orderBy('id', 'asc')->paginate($count)->appends(['count' => (app()->request->count)?$count:null]);
+            $gallery = GalleryPhoto::with('author')->orderBy('sort', 'asc')->orderBy('id', 'asc')->paginate($count)->appends(['count' => (app()->request->count)?$count:null]);
         }
         return $gallery;
     }
@@ -49,17 +49,17 @@ class GalleryPhotoRepository {
         if($count < 1 || $count > 200) {
             $count = 15;
         }
-        $gallery = GalleryPhoto::with('author')->orderBy('priority', 'desc')->orderBy('id', 'asc')->paginate($count)->appends(['count' => (app()->request->count)?$count:null]);
+        $gallery = GalleryPhoto::with('author')->orderBy('sort', 'asc')->orderBy('id', 'asc')->paginate($count)->appends(['count' => (app()->request->count)?$count:null]);
         if($gallery->currentPage() > $gallery->total()) {
             Paginator::currentPageResolver(function () use ($gallery) {
                 return $gallery->total();
             });
-            $gallery = GalleryPhoto::with('author')->orderBy('priority', 'desc')->orderBy('id', 'asc')->paginate($count)->appends(['count' => (app()->request->count)?$count:null]);
+            $gallery = GalleryPhoto::with('author')->orderBy('sort', 'asc')->orderBy('id', 'asc')->paginate($count)->appends(['count' => (app()->request->count)?$count:null]);
         } else if($gallery->currentPage() < 1) {
             Paginator::currentPageResolver(function () {
                 return 1;
             });
-            $gallery = GalleryPhoto::with('author')->orderBy('priority', 'desc')->orderBy('id', 'asc')->paginate($count)->appends(['count' => (app()->request->count)?$count:null]);
+            $gallery = GalleryPhoto::with('author')->orderBy('sort', 'asc')->orderBy('id', 'asc')->paginate($count)->appends(['count' => (app()->request->count)?$count:null]);
         }
         return $gallery;
     }
@@ -70,7 +70,7 @@ class GalleryPhotoRepository {
     //  * @return Collection
     //  */
     // public function findMultimediaByGallaryId($id) {
-    //     return GalleryPhoto::with('author')->with('multimedia')->orderBy('pivot.priority', 'desc')->orderBy('pivot.id', 'asc')->get();
+    //     return GalleryPhoto::with('author')->with('multimedia')->orderBy('pivot.sort', 'asc')->orderBy('pivot.id', 'asc')->get();
     // }
 
 }

@@ -6,46 +6,73 @@
     </div>
 </div>
 <!-- /.box-header -->
-<div class="box-body no-padding">
+<div class="box-body no-padding dnd-containment">
     <div class="mailbox-read-message">
         <ul class="mailbox-attachments clearfix">
             <% if(files && files.length) {
                 for(var i = 0; i < files.length; i++) { 
                     var item = files[i];
-                    var prevUrl = item.type.default_preview;
+                    var leftSort = (files[i-1])?files[i-1].pivot.sort:undefined;
+                    var leftId = (files[i-1])?files[i-1].id:undefined;
+                    var currentSort = item.pivot.sort;                    
+                    var rightSort = (files[i+1])?files[i+1].pivot.sort:undefined;
+                    var rightId = (files[i+1])?files[i+1].id:undefined;
+                    var previewUrl = item.type.default_preview;
                     var fullUrl = item.type.default_preview;
                     if(item.type.makepreview == 1) {
-                        prevUrl = filePath+'_min/'+item.file_name;
+                        previewUrl = filePath+'_min/'+item.file_name;
                         fullUrl = filePath+'/'+item.file_name;
                     } else if(item.type.viewer === 'image') {
-                        prevUrl = filePath+'/'+item.file_name;
-                        fullUrl = prevUrl;
+                        previewUrl = filePath+'/'+item.file_name;
+                        fullUrl = previewUrl;
                     } else {
                         fullUrl = "";
                     }
                     %>
-            <li>
-                <% if(fullUrl) { %>
+            <li class='dnd-on' data-id='<%= item.id %>' data-left-sort="<%= leftSort %>" data-left-id="<%= leftId %>"
+                data-current-sort="<%= currentSort %>" data-right-sort="<%= rightSort %>"
+                data-right-id="<%= rightId %>">
+                <div style="position: relative">
+
+                    <% if(fullUrl) { %>
                     <div class="preview-box" data-src="<%= fullUrl %>" data-alt="<%= item.name %>" style='width: 100%; height: 120px;
-                                        background-image: url("<%= prevUrl %>");
-                                        background-position: center center;
-                                        background-repeat: no-repeat;
-                                        background-size: cover;'></div>
-                <% } else { %>
-                    <div style='width: 100%; height: 120px;
-                        background-image: url("<%= prevUrl %>");
-                        background-position: center center;
-                        background-repeat: no-repeat;
-                        background-size: cover;'></div>
-                <% } %>
-                <div class="mailbox-attachment-info mailbox-attachment-size">
-                    <div class="float-right">
-                        <a href="#" data-id="<%= item.id %>" class="btn btn-default btn-xs pull-right multimedia-remove">
-                            <i class="fa fa-remove"></i>
-                        </a>
+                                            position: relative;
+                                            background-image: url("<%= previewUrl %>");
+                                            background-position: center center;
+                                            background-repeat: no-repeat;
+                                            background-size: cover;'>
+                        <div class="dnd-panel-left">
+                            <i class="fa fa-angle-left"></i>
+                        </div>
+                        <div class="dnd-panel-right">
+                            <i class="fa fa-angle-right"></i>
+                        </div>
                     </div>
-                    <div title=<%= item.name %> class="float-left" style='white-space: nowrap; overflow: hidden; text-overflow: ellipsis'>
-                        <%= item.name %></div>
+                    <% } else { %>
+                    <div style='width: 100%; height: 120px;
+                            background-image: url("<%= previewUrl %>");
+                            background-position: center center;
+                            background-repeat: no-repeat;
+                            background-size: cover;'>
+                        <div class="dnd-panel-left">
+                            <i class="fa fa-angle-left"></i>
+                        </div>
+                        <div class="dnd-panel-right">
+                            <i class="fa fa-angle-right"></i>
+                        </div>
+                    </div>
+                    <% } %>
+                    <div class="mailbox-attachment-info mailbox-attachment-size">
+                        <div class="float-right">
+                            <a href="#" data-id="<%= item.id %>"
+                                class="btn btn-default btn-xs pull-right multimedia-remove">
+                                <i class="fa fa-remove"></i>
+                            </a>
+                        </div>
+                        <div title=<%= item.name %> class="float-left"
+                            style='white-space: nowrap; overflow: hidden; text-overflow: ellipsis'>
+                            <%= item.name %></div>
+                    </div>
                 </div>
             </li>
             <%  }

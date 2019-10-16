@@ -65,6 +65,7 @@ Route::group(['prefix' => 'control', 'namespace' => 'Lvmod\ControlPanel\Controll
         Route::group(['prefix' => 'api'], function () {
             Route::get('{gallery}', 'GalleryPhotoController@apiGetAllFiles');
             Route::post('{gallery}/store', 'GalleryPhotoController@apiStore');
+            Route::get('{gallery}/set-sort/{multimediaId}/{multimediaSort}', 'GalleryPhotoController@apiSetSort');
             Route::get('{gallery}/delete/{fileId}', 'GalleryPhotoController@apiDelete');
         });
     });

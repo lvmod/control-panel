@@ -1,3 +1,37 @@
+.dnd-panel-left {
+    position: absolute; 
+    left: 0; 
+    top: 0; 
+    width: 50%; 
+    height: 100%;
+    font-size: 77px;
+    text-align: left;
+    padding: 0 10px;
+}
+
+.dnd-panel-right {
+    position: absolute;
+    right: 0; 
+    top: 0; 
+    width: 50%; 
+    height: 100%;
+    font-size: 77px;
+    text-align: right;
+    padding: 0 10px;
+}
+
+.dnd-panel-left i, .dnd-panel-right i {
+    display: none;
+}
+
+.dnd-panel-left.hover i, .dnd-panel-right.hover i {
+    display: inline-block;
+}
+
+.dnd-panel-left.hover, .dnd-panel-right.hover {
+    background-color: #ffffff99; 
+}
+
 img.mfp-img {
     padding: 0;
 }
