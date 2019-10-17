@@ -84,12 +84,14 @@ var GalleryView = Backbone.View.extend({
                     }
 
                     if (multimediaId !== undefined && multimediaSort !== undefined) {
+                        $("div.overlay").css('display', 'block');
                         $.getJSON(context.baseUrl + "set-sort/" + multimediaId + "/" + multimediaSort,
                             function (data) {
                                 if (data.error) {
                                     alert(data.error);
                                 } else {
                                     if(!context.files) {
+                                        $("div.overlay").css('display', 'none');
                                         return;
                                     }
 
@@ -107,8 +109,10 @@ var GalleryView = Backbone.View.extend({
                                     // context.files = data;
                                     context.render();
                                 }
+                                $("div.overlay").css('display', 'none');
                             }, function (xhr) {
                                 alert("Ошибка перемещения");
+                                $("div.overlay").css('display', 'none');
                             }
                         );
                     }
