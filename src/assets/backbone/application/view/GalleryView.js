@@ -84,14 +84,14 @@ var GalleryView = Backbone.View.extend({
                     }
 
                     if (multimediaId !== undefined && multimediaSort !== undefined) {
-                        $("div.overlay").css('display', 'block');
+                        context.$("div.overlay").css('display', 'block');
                         $.getJSON(context.baseUrl + "set-sort/" + multimediaId + "/" + multimediaSort,
                             function (data) {
                                 if (data.error) {
                                     alert(data.error);
                                 } else {
                                     if(!context.files) {
-                                        $("div.overlay").css('display', 'none');
+                                        context.$("div.overlay").css('display', 'none');
                                         return;
                                     }
 
@@ -109,10 +109,10 @@ var GalleryView = Backbone.View.extend({
                                     // context.files = data;
                                     context.render();
                                 }
-                                $("div.overlay").css('display', 'none');
+                                context.$("div.overlay").css('display', 'none');
                             }, function (xhr) {
                                 alert("Ошибка перемещения");
-                                $("div.overlay").css('display', 'none');
+                                context.$("div.overlay").css('display', 'none');
                             }
                         );
                     }
@@ -173,6 +173,7 @@ var GalleryView = Backbone.View.extend({
             success: function (files) {
                 if (files && files.length) {
                     var data = files.map(function (item) { return item.id });
+                    context.$("div.overlay").css('display', 'block');
                     $.ajax({
                         url: context.baseUrl + "store",
                         type: 'post',
@@ -186,9 +187,11 @@ var GalleryView = Backbone.View.extend({
                                 context.files = data;
                                 context.render();
                             }
+                            context.$("div.overlay").css('display', 'none');
                         },
                         error: function (xhr) {
                             alert("Ошибка добавления файлов");
+                            context.$("div.overlay").css('display', 'none');
                         },
                     });
                 }
@@ -202,6 +205,7 @@ var GalleryView = Backbone.View.extend({
             return;
         }
 
+        context.$("div.overlay").css('display', 'block');
         $.getJSON(context.baseUrl + "delete/" + id, function (data) {
             if (data.error) {
                 alert(data.error);
@@ -209,8 +213,10 @@ var GalleryView = Backbone.View.extend({
                 context.files = data;
                 context.render();
             }
+            context.$("div.overlay").css('display', 'none');
         }, function (xhr) {
             alert("Ошибка удаления файла");
+            context.$("div.overlay").css('display', 'none');
         });
     },
 });
