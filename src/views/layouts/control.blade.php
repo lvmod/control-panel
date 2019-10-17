@@ -52,7 +52,8 @@
 
     <!-- jQuery 3 -->
     <script src="/vendor/control-panel/bower_components/jquery/dist/jquery.min.js"></script>
-    <script src="https://code.jquery.com/ui/1.11.3/jquery-ui.min.js"></script>
+    <script src="/vendor/control-panel/bower_components/jquery-ui/jquery-ui.min.js"></script>
+    <script src="/vendor/control-panel/plugins/jquery-ui-touch-punch/jquery.ui.touch-punch.min.js"></script>
     <script src="/vendor/control-panel/Magnific-Popup/jquery.magnific-popup.min.js"></script>
 
     <script>
