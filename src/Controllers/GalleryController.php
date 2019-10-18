@@ -2,19 +2,19 @@
 
 namespace Lvmod\ControlPanel\Controllers;
 
-use Lvmod\ControlPanel\Models\GalleryPhoto;
-use Lvmod\ControlPanel\Repositories\GalleryPhotoRepository;
+use Lvmod\ControlPanel\Models\Gallery;
+use Lvmod\ControlPanel\Repositories\GalleryRepository;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 
-class GalleryPhotoController extends Controller
+class GalleryController extends Controller
 {
 
     protected $filePath;
 
     /**
      *
-     * @var GalleryPhotoRepository
+     * @var GalleryRepository
      */
     protected $gallery;
 
@@ -23,36 +23,39 @@ class GalleryPhotoController extends Controller
      *
      * @return void
      */
-    public function __construct(GalleryPhotoRepository $gallery)
+    public function __construct(GalleryRepository $gallery)
     {
         $this->gallery = $gallery;
         $this->filePath = '/'.config('controlpanel.media.root').'/'.config('controlpanel.media.uploadfiles');
     }
 
-    public function index(Request $request)
+    public function index(Request $request, $type)
     {
-        return view('control::gallery.photo.index', [
-            'gallery' => $this->gallery->findPaginate(),
+        return view('control::gallery.index', [
+            'type' => $type,
+            'gallery' => $this->gallery->findPaginate($type),
             'filePath' => $this->filePath,
         ]);
     }
 
-    public function view(Request $request, GalleryPhoto $gallery)
+    public function view(Request $request, Gallery $gallery)
     {
-        return view('control::gallery.photo.view', [
+        return view('control::gallery.view', [
             'gallery' => $gallery,
             'filePath' => $this->filePath,
         ]);
     }
 
-    public function create(Request $request)
+    public function create(Request $request, $type)
     {
-        return view('control::gallery.photo.create');
+        return view('control::gallery.create', [
+            'type' => $type,
+        ]);
     }
 
-    public function edit(Request $request, GalleryPhoto $gallery)
+    public function edit(Request $request, Gallery $gallery)
     {
-        return view('control::gallery.photo.edit', [
+        return view('control::gallery.edit', [
                 'gallery' => $gallery,
                 'filePath' => $this->filePath,
             ]);
@@ -61,18 +64,20 @@ class GalleryPhotoController extends Controller
     public function store(Request $request)
     {
         $this->validate($request, [
-                'title' => 'required|max:255'
+                'title' => 'required|max:255',
+                'type' => 'required|max:255'
             ]
         );
-        $gallery = new GalleryPhoto;
+        $gallery = new Gallery;
+        $gallery->type = $request->type;
         $gallery->title = $request->title;
         $gallery->author_id = $request->user()->id;
         $gallery->save();
 
-        return redirect('/control/gallery-photo/edit/'.$gallery->id);
+        return redirect('/control/gallery/edit/'.$gallery->id);
     }
 
-    public function update(Request $request, GalleryPhoto $gallery)
+    public function update(Request $request, Gallery $gallery)
     {
         $this->validate($request, [
                 'title' => 'required|max:255'
@@ -83,22 +88,22 @@ class GalleryPhotoController extends Controller
         $gallery->author_id = $request->user()->id;
         $gallery->save();
 
-        return redirect('/control/gallery-photo');
+        return redirect('/control/gallery/'.$gallery->type);
     }
 
-    public function delete(Request $request, GalleryPhoto $gallery)
+    public function delete(Request $request, Gallery $gallery)
     {
         $gallery->delete();
-        return redirect('/control/gallery-photo');
+        return redirect('/control/gallery/'.$gallery->type);
     }
 
-    public function apiGetAllFiles(Request $request, GalleryPhoto $gallery)
+    public function apiGetAllFiles(Request $request, Gallery $gallery)
     {
         // $gallery->multimedia()->orderBy
         return $gallery->multimedia;
     }
 
-    public function apiStore(Request $request, GalleryPhoto $gallery)
+    public function apiStore(Request $request, Gallery $gallery)
     {
         $data = json_decode($request->getContent());
         // return $data;
@@ -129,7 +134,7 @@ class GalleryPhotoController extends Controller
         return $gallery->multimedia()->get();
     }
 
-    public function apiSetSort(Request $request, GalleryPhoto $gallery, $multimediaId, $multimediaSort)
+    public function apiSetSort(Request $request, Gallery $gallery, $multimediaId, $multimediaSort)
     {
         if(!$gallery || !$multimediaId) {
             return ['error' => 'Ошибка перемещения'];
@@ -139,7 +144,7 @@ class GalleryPhotoController extends Controller
         return $gallery->multimedia;
     }
 
-    public function apiDelete(Request $request, GalleryPhoto $gallery, $fileId)
+    public function apiDelete(Request $request, Gallery $gallery, $fileId)
     {
         $gallery->multimedia()->detach($fileId);
         return $gallery->multimedia;

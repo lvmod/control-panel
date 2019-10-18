@@ -10,6 +10,7 @@ var GalleryView = Backbone.View.extend({
         this.$el = this.$el || $(".gallery-box");
         this.options = options || {};
         this.baseUrl = this.options.baseUrl;
+        this.type = this.options.type||'mixed';
         this.files = [];
         if (this.baseUrl) {
             if (!this.baseUrl.endsWith("/")) {
@@ -166,10 +167,17 @@ var GalleryView = Backbone.View.extend({
             console.error("Для объекта GalleryView не задан baseUrl");
             return;
         }
-
+        var viewer = "";
+        var type = "";
+        if(context.type == "image") {
+            viewer = "image";
+        } else if(context.type == "video") {
+            viewer = "video";
+        } 
         var fm = new FileManagerDialogView({
             single: true,
-            viewer: "image",
+            viewer: viewer,
+            type: type,
             success: function (files) {
                 if (files && files.length) {
                     var data = files.map(function (item) { return item.id });

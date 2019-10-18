@@ -1,7 +1,15 @@
 @extends('control::layouts.control')
 
 @section('content')
-@include('control::helpers.header', ['title'=>'Добавление галереи фотографий', 'items'=>app()->controlMenu->breadcrumb()])
+<?php 
+    $title = 'Добавление галереи';
+    if($type=='image') {
+        $title .= ' изображений';
+    } else if($type=='video') {
+        $title .= ' видео';
+    } 
+?>
+@include('control::helpers.header', ['title'=>$title, 'items'=>app()->controlMenu->breadcrumb()])
 
 <section class="content">
     <!-- Default box -->
@@ -9,7 +17,7 @@
         <div class="box-body">
             <div class="row">
                 <div class="col-lg-12">
-                    <form action="{{ url('/control/gallery-photo/store') }}" method="POST" class="form-horizontal">
+                    <form action="{{ url('/control/gallery/store') }}" method="POST" class="form-horizontal">
                         {{ csrf_field() }}
                         <div class="hpanel">
 
@@ -18,6 +26,7 @@
                             <div class="panel-body">
                                 <div class="row">
                                     <div class="col-lg-12">
+                                    <input type="hidden" name="type" id="type" value="{{ $type }}">
                                         <h5>
                                             Заголовок:
                                         </h5>
@@ -27,7 +36,7 @@
                                         <br>
                                         <div>
                                             <input type="submit" name="submit" class="btn btn-primary" value="Добавить фото"> 
-                                            <a class="btn btn-default" href="/control/gallery-photo">Отмена</a>
+                                            <a class="btn btn-default" href="/control/gallery">Отмена</a>
                                         </div>
 
                                     </div>

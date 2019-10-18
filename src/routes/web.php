@@ -53,20 +53,20 @@ Route::group(['prefix' => 'control', 'namespace' => 'Lvmod\ControlPanel\Controll
         Route::post('links/{file}', 'FilesController@saveLinks');
     });
     
-    Route::group(['prefix' => 'gallery-photo'], function () {
-        Route::get('/', 'GalleryPhotoController@index');
-        Route::get('view/{gallery}', 'GalleryPhotoController@view');
-        Route::get('create', 'GalleryPhotoController@create');
-        Route::get('edit/{gallery}', 'GalleryPhotoController@edit');
-        Route::post('store', 'GalleryPhotoController@store');
-        Route::post('update/{gallery}', 'GalleryPhotoController@update');
-        Route::get('delete/{gallery}', 'GalleryPhotoController@delete');
+    Route::group(['prefix' => 'gallery'], function () {
+        Route::get('{type}', 'GalleryController@index');
+        Route::get('view/{gallery}', 'GalleryController@view');
+        Route::get('create/{type}', 'GalleryController@create');
+        Route::get('edit/{gallery}', 'GalleryController@edit');
+        Route::post('store', 'GalleryController@store');
+        Route::post('update/{gallery}', 'GalleryController@update');
+        Route::get('delete/{gallery}', 'GalleryController@delete');
         
         Route::group(['prefix' => 'api'], function () {
-            Route::get('{gallery}', 'GalleryPhotoController@apiGetAllFiles');
-            Route::post('{gallery}/store', 'GalleryPhotoController@apiStore');
-            Route::get('{gallery}/set-sort/{multimediaId}/{multimediaSort}', 'GalleryPhotoController@apiSetSort');
-            Route::get('{gallery}/delete/{fileId}', 'GalleryPhotoController@apiDelete');
+            Route::get('{gallery}', 'GalleryController@apiGetAllFiles');
+            Route::post('{gallery}/store', 'GalleryController@apiStore');
+            Route::get('{gallery}/set-sort/{multimediaId}/{multimediaSort}', 'GalleryController@apiSetSort');
+            Route::get('{gallery}/delete/{fileId}', 'GalleryController@apiDelete');
         });
     });
 

@@ -60,13 +60,13 @@ class MenuTableSeeder extends Seeder
             'icon' => 'fa fa-picture-o'
         ]);
 
-        Menu::firstOrCreate(['path' => '/control/gallery-photo'], [
-            'title' => 'Фото', 
+        Menu::firstOrCreate(['path' => '/control/gallery/image'], [
+            'title' => 'Изображения', 
             'icon' => 'fa fa-circle-o',
             'parent_id' => $object->id
         ]);
 
-        Menu::firstOrCreate(['path' => '/control/gallery-video'], [
+        Menu::firstOrCreate(['path' => '/control/gallery/video'], [
             'title' => 'Видео', 
             'icon' => 'fa fa-circle-o',
             'parent_id' => $object->id

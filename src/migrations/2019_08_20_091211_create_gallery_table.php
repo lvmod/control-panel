@@ -4,9 +4,9 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateGalleryPhotoTable extends Migration
+class CreateGalleryTable extends Migration
 {
-    protected $tableName = "gallery_photo";
+    protected $tableName = "gallery";
 
     /**
      * Run the migrations.
@@ -22,6 +22,7 @@ class CreateGalleryPhotoTable extends Migration
 
             $table->double('sort')->nullable()->index();
             $table->string('title');
+            $table->string('type')->index()->default('mixed');
             $table->mediumText('body')->nullable();
             $table->dateTime('created')->nullable();
             $table->timestamps();

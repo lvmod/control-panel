@@ -1,10 +1,18 @@
 @extends('control::layouts.control')
 
 @section('content')
-@include('control::helpers.header', ['title'=>'Редактирование галереи фоторгафий', 'items'=>app()->controlMenu->breadcrumb()])
+<?php 
+    $title = 'Редактирование галереи';
+    if($gallery->type=='image') {
+        $title .= ' изображений';
+    } else if($gallery->type=='video') {
+        $title .= ' видео';
+    } 
+?>
+@include('control::helpers.header', ['title'=>$title, 'items'=>app()->controlMenu->breadcrumb()])
 
 <section class="content">
-    <form action="{{ url('/control/gallery-photo/update/'.$gallery->id) }}" method="POST" class="form-horizontal">
+    <form action="{{ url('/control/gallery/update/'.$gallery->id) }}" method="POST" class="form-horizontal">
         {{ csrf_field() }}
         @include('common.errors')
 
@@ -24,10 +32,10 @@
                                 <input type="submit" name="submit" class="btn btn-primary" value="Сохранить" style="width: 100%;">
                             </div>
                             <div class="col-xs-4" style=" padding-left: 1px; padding-right: 1px;">
-                                <a class="btn btn-danger sw-alert-delete" href="{{ url('/control/gallery-photo/delete/'.$gallery->id) }}" style="width: 100%">Удалить</a>
+                                <a class="btn btn-danger sw-alert-delete" href="{{ url('/control/gallery/delete/'.$gallery->id) }}" style="width: 100%">Удалить</a>
                             </div>
                             <div class="col-xs-4" style="padding-left: 2px">
-                                <a class="btn btn-default" href="/control/gallery-photo" style="width: 100%;">Отмена</a>
+                                <a class="btn btn-default" href="/control/gallery" style="width: 100%;">Отмена</a>
                             </div>
                         </div>
                     </div>
@@ -43,7 +51,8 @@
                         var galleryView = new GalleryView({
                             el: $('.gallery-box'),
                             id: "{{ $gallery->id }}",
-                            baseUrl: "/control/gallery-photo/api/{{ $gallery->id }}",
+                            type: "{{ $gallery->type }}",
+                            baseUrl: "/control/gallery/api/{{ $gallery->id }}",
                             filePath: "{{$filePath}}",
                         });
                     });
