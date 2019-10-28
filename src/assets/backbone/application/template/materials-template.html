@@ -10,151 +10,19 @@
     </li>
     <li class="nav-item">
         <a class="nav-link" id="static-article-tab" data-toggle="tab" href="#static-article" role="tab"
-            aria-controls="static-article" aria-selected="false">Фиксированные статьи</a>
+            aria-controls="static-article" aria-selected="false">Страницы</a>
     </li>
 </ul>
 
 <!-- Tab panes -->
 <div class="tab-content">
     <div class="tab-pane active" id="news" role="tabpanel" aria-labelledby="news-tab">
-        <div class="box box-primary">
-            <div class="box-header with-border">
-            </div>
-            <!-- /.box-header -->
-            <div class="box-body no-padding">
-                <div class="table-responsive mailbox-messages">
-                    <table class="table table-hover table-striped">
-                        <tbody class="object-container">
-                            <% if(news && news.data && news.data.length) { 
-                                            for(var i = 0; i < news.data.length; i++) { 
-                                                var item = news.data[i];
-                                                %>
-                            <tr class="tr-materials-news" data-i="<%= i %>" data-id="<%= item.id %>" data-type="news">
-                                <td style="width: 25px; vertical-align: middle; position: relative;"
-                                    data-id="<%= item.id %>">
-                                    <input type="checkbox" class="checkbox-material">
-                                </td>
-                                <% if(item.multimedia && item.multimedia.file_name) { %>
-                                <td class="fm-clickable mailbox-star"
-                                    style="width: 50px; cursor: pointer; text-align: center"><img height=30
-                                        src="<%= basePath+'/'+item.multimedia.file_name %>" /></td>
-                                <% } else if(item.image) { %>
-                                <td class="fm-clickable mailbox-star"
-                                    style="width: 50px; cursor: pointer; text-align: center"><img height=30
-                                        src="<%= item.image %>" /></td>
-                                <% } %>
-                                <td class="fm-clickable mailbox-name"
-                                    style="vertical-align: middle; cursor: pointer; color: #3c8dbc;"><%= item.title %>
-                                </td>
-                                <td class="fm-clickable mailbox-name"
-                                    style="vertical-align: middle; cursor: pointer; color: #3c8dbc; text-align: right">
-                                    <%= moment(item.posted).format('DD.MM.YYYY') %></td>
-                            </tr>
-                            <% }
-                                        } %>
-                        </tbody>
-                    </table>
-                    <!-- /.table -->
-                </div>
-                <!-- /.mail-box-messages -->
-            </div>
-            <!-- /.box-body -->
-            <div class="box-footer no-padding">
-            </div>
-        </div>
+        <div></div>
     </div>
     <div class="tab-pane" id="article" role="tabpanel" aria-labelledby="article-tab">
-        <div class="box box-primary">
-            <div class="box-header with-border">
-            </div>
-            <!-- /.box-header -->
-            <div class="box-body no-padding">
-                <div class="table-responsive mailbox-messages">
-                    <table class="table table-hover table-striped">
-                        <tbody class="object-container">
-                            <% if(article && article.data && article.data.length) { 
-                                            for(var i = 0; i < article.data.length; i++) { 
-                                                var item = article.data[i];
-                                                %>
-                            <tr class="tr-materials-article" data-i="<%= i %>" data-id="<%= item.id %>" data-type="article">
-                                <td style="width: 25px; vertical-align: middle; position: relative;"
-                                    data-id="<%= item.id %>">
-                                    <input type="checkbox" class="checkbox-material">
-                                </td>
-                                <% if(item.multimedia && item.multimedia.file_name) { %>
-                                <td class="fm-clickable mailbox-star"
-                                    style="width: 50px; cursor: pointer; text-align: center"><img height=30
-                                        src="<%= basePath+'/'+item.multimedia.file_name %>" /></td>
-                                <% } else if(item.image) { %>
-                                <td class="fm-clickable mailbox-star"
-                                    style="width: 50px; cursor: pointer; text-align: center"><img height=30
-                                        src="<%= item.image %>" /></td>
-                                <% } %>
-                                <td class="fm-clickable mailbox-name"
-                                    style="vertical-align: middle; cursor: pointer; color: #3c8dbc;"><%= item.title %>
-                                </td>
-                                <td class="fm-clickable mailbox-name"
-                                    style="vertical-align: middle; cursor: pointer; color: #3c8dbc; text-align: right">
-                                    <%= moment(item.posted).format('DD.MM.YYYY') %></td>
-                            </tr>
-                            <% }
-                                        } %>
-                        </tbody>
-                    </table>
-                    <!-- /.table -->
-                </div>
-                <!-- /.mail-box-messages -->
-            </div>
-            <!-- /.box-body -->
-            <div class="box-footer no-padding">
-            </div>
-        </div>
+        <div></div>
     </div>
     <div class="tab-pane" id="static-article" role="tabpanel" aria-labelledby="static-article-tab">
-        <div class="box box-primary">
-            <div class="box-header with-border">
-            </div>
-            <!-- /.box-header -->
-            <div class="box-body no-padding">
-                <div class="table-responsive mailbox-messages">
-                    <table class="table table-hover table-striped">
-                        <tbody class="object-container">
-                            <% if(staticArticle && staticArticle.data && staticArticle.data.length) { 
-                                            for(var i = 0; i < staticArticle.data.length; i++) { 
-                                                var item = staticArticle.data[i];
-                                                %>
-                            <tr class="tr-materials-static-article" data-i="<%= i %>" data-id="<%= item.id %>" data-type="static-article">
-                                <td style="width: 25px; vertical-align: middle; position: relative;"
-                                    data-id="<%= item.id %>">
-                                    <input type="checkbox" class="checkbox-material">
-                                </td>
-                                <% if(item.multimedia && item.multimedia.file_name) { %>
-                                <td class="fm-clickable mailbox-star"
-                                    style="width: 50px; cursor: pointer; text-align: center"><img height=30
-                                        src="<%= basePath+'/'+item.multimedia.file_name %>" /></td>
-                                <% } else if(item.image) { %>
-                                <td class="fm-clickable mailbox-star"
-                                    style="width: 50px; cursor: pointer; text-align: center"><img height=30
-                                        src="<%= item.image %>" /></td>
-                                <% } %>
-                                <td class="fm-clickable mailbox-name"
-                                    style="vertical-align: middle; cursor: pointer; color: #3c8dbc;"><%= item.title %>
-                                </td>
-                                <td class="fm-clickable mailbox-name"
-                                    style="vertical-align: middle; cursor: pointer; color: #3c8dbc; text-align: right">
-                                    <%= moment(item.posted).format('DD.MM.YYYY') %></td>
-                            </tr>
-                            <% }
-                                        } %>
-                        </tbody>
-                    </table>
-                    <!-- /.table -->
-                </div>
-                <!-- /.mail-box-messages -->
-            </div>
-            <!-- /.box-body -->
-            <div class="box-footer no-padding">
-            </div>
-        </div>
+        <div></div>
     </div>
 </div>

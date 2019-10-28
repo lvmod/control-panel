@@ -275,7 +275,7 @@ class Utils
         }
     }
 
-    public function getPaginatorLinks($pageNumber, $totalCount, $showCount) {
+    public function getPaginatorLinks($pageNumber, $lastPage, $showCount) {
         $middle = intval($showCount / 2);
 
         //Левая граница
@@ -284,12 +284,12 @@ class Utils
         $right = $pageNumber + $middle;
 
         //Определяем на сколько правая граница выходит за пределы количества элементов
-        $rtc = $right - $totalCount;
+        $rtc = $right - $lastPage;
         if ($rtc > 0) {
             //Корректируем левую границу
             $left -= $rtc;
             //Корректируем правую границу
-            $right = $totalCount;
+            $right = $lastPage;
         }
 
         //Определяем на сколько левая граница меньше 1
@@ -297,8 +297,8 @@ class Utils
         if ($ltc <= 1) {
             //Корректируем правую границу
             $right += 1 + abs($left);
-            if ($right > $totalCount) {
-                $right = $totalCount;
+            if ($right > $lastPage) {
+                $right = $lastPage;
             }
             //Корректируем левую границу
             $left = 1;
@@ -309,7 +309,7 @@ class Utils
             'end' => $right, 
             'pageNumber'=> $pageNumber,
             'showCount'=> $showCount,
-            'totalCount'=> $totalCount
+            'lastPage'=> $lastPage
         ];
     }
 

@@ -19,7 +19,7 @@
 
         {{-- Pagination Elements --}}
         <?php 
-            $pagging = app()->Utils->getPaginatorLinks($paginator->currentPage(), $paginator->total(), 6); 
+            $pagging = app()->Utils->getPaginatorLinks($paginator->currentPage(), $paginator->lastPage(), 6); 
             for ($page = $pagging['start']; $page <= $pagging['end']; $page++) {
                ?>
                     @if ($page == $paginator->currentPage())

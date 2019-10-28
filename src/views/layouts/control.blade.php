@@ -95,6 +95,7 @@
     <script type="text/javascript" src="/vendor/control-panel/backbone/application/view/FileManagerView.js"></script>
     <script type="text/javascript" src="/vendor/control-panel/backbone/application/view/FileManagerDialogView.js"></script>
     <script type="text/javascript" src="/vendor/control-panel/backbone/application/view/MaterialView.js"></script>
+    <script type="text/javascript" src="/vendor/control-panel/backbone/application/view/MaterialsPaginatorView.js"></script>
     <script type="text/javascript" src="/vendor/control-panel/backbone/application/view/MaterialsView.js"></script>
     <script type="text/javascript" src="/vendor/control-panel/backbone/application/view/MaterialsDialogView.js"></script>
 

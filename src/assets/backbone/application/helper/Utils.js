@@ -715,5 +715,42 @@ window.Utils = {
         }
 
         return format;
+    },
+    getPaginatorLinks: function (pageNumber, lastPage, showCount) {
+        var middle = Math.floor(showCount / 2);
+
+        //Левая граница
+        var left = pageNumber - middle;
+        //Правая граница
+        var right = pageNumber + middle;
+
+        //Определяем на сколько правая граница выходит за пределы количества элементов
+        var rtc = right - lastPage;
+        if (rtc > 0) {
+            //Корректируем левую границу
+            left -= rtc;
+            //Корректируем правую границу
+            right = lastPage;
+        }
+
+        //Определяем на сколько левая граница меньше 1
+        var ltc = 1 + left;
+        if (ltc <= 1) {
+            //Корректируем правую границу
+            right += 1 + Math.abs(left);
+            if (right > lastPage) {
+                right = lastPage;
+            }
+            //Корректируем левую границу
+            left = 1;
+        }
+
+        return {
+            start: left, 
+            end: right, 
+            pageNumber:pageNumber,
+            showCount: showCount,
+            lastPage: lastPage
+        };
     }
 };

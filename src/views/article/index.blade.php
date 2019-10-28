@@ -53,7 +53,7 @@
     </div><!-- /.box -->
     @endforeach
 
-    <div style="width: 450px; margin: 0 auto">
+    <div style="text-align: center;">
         {{ $article->links('control::pagination.custom') }}
     </div>
 

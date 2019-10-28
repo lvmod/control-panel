@@ -1,0 +1,100 @@
+<div class="box box-primary">
+    <div class="box-header with-border">
+    </div>
+    <!-- /.box-header -->
+    <div class="box-body no-padding">
+        <div class="table-responsive mailbox-messages">
+            <table class="table table-hover table-striped">
+                <tbody class="object-container">
+                    <% if(materials && materials.data && materials.data.length) { 
+                                        for(var i = 0; i < materials.data.length; i++) { 
+                                            var item = materials.data[i];
+                                            %>
+                    <tr class="tr-materials" data-i="<%= i %>" data-id="<%= item.id %>" data-type="<%= type %>">
+                        <td style="width: 25px; vertical-align: middle; position: relative;" data-id="<%= item.id %>">
+                            <input type="checkbox" class="checkbox-material">
+                        </td>
+                        <% if(item.multimedia && item.multimedia.file_name) { %>
+                        <td class="fm-clickable mailbox-star" style="width: 50px; cursor: pointer; text-align: center">
+                            <img height=30 src="<%= baseMediaPath+'/'+item.multimedia.file_name %>" /></td>
+                        <% } else if(item.image) { %>
+                        <td class="fm-clickable mailbox-star" style="width: 50px; cursor: pointer; text-align: center">
+                            <img height=30 src="<%= item.image %>" /></td>
+                        <% } %>
+                        <td class="fm-clickable mailbox-name"
+                            style="vertical-align: middle; cursor: pointer; color: #3c8dbc;"><%= item.title %>
+                        </td>
+                        <td class="fm-clickable mailbox-name"
+                            style="vertical-align: middle; cursor: pointer; color: #3c8dbc; text-align: right">
+                            <%= moment(item.posted).format('DD.MM.YYYY') %></td>
+                    </tr>
+                    <% }
+                                    } %>
+                </tbody>
+            </table>
+
+            <div style="text-align: center;">
+                <% if(materials && materials.data && materials.data.length && materials.last_page) { 
+                    var paginator = materials;
+                    %>
+
+                <ul class="pagination" role="navigation">
+                    <% if(paginator.current_page == 1) { %>
+                    <li class="page-item disabled" aria-disabled="true" aria-label="Первая">
+                        <span class="page-link" aria-hidden="true">&lsaquo;&lsaquo;</span>
+                    </li>
+                    <li class="page-item disabled" aria-disabled="true" aria-label="Предыдущая">
+                        <span class="page-link" aria-hidden="true">&lsaquo;</span>
+                    </li>
+                    <% } else { %>
+                    <li class="page-item">
+                        <a class="page-link materials-page-link" href="#" data-page="1" rel="first"
+                            aria-label="Первая">&lsaquo;&lsaquo;</a>
+                    </li>
+                    <li class="page-item">
+                        <a class="page-link materials-page-link" href="#"
+                            data-page="<%= (paginator.current_page - 1) %>" rel="prev"
+                            aria-label="Предыдущая">&lsaquo;</a>
+                    </li>
+                    <% } %>
+
+                    <% var pagging = Utils.getPaginatorLinks(paginator.current_page, paginator.last_page, 6); 
+                        for (var page = pagging.start; page <= pagging.end; page++) { %>
+                    <% if(page == paginator.current_page) { %>
+                    <li class="page-item active" aria-current="page"><span class="page-link"><%= page %></span></li>
+                    <% } else { %>
+                    <li class="page-item materials-page-link"><a class="page-link" href="#"
+                            data-page="<%= page %>"><%= page %></a></li>
+                    <% } %>
+
+                    <% } %>
+
+                    <% if(paginator.current_page < paginator.last_page) { %>
+                    <li class="page-item">
+                        <a class="page-link materials-page-link" href="#"
+                            data-page="<%= (paginator.current_page + 1) %>" rel="next"
+                            aria-label=Следующая">&rsaquo;</a>
+                    </li>
+                    <li class="page-item">
+                        <a class="page-link materials-page-link" href="#" data-page="<%= paginator.last_page %>"
+                            rel="last" aria-label="Последняя">&rsaquo;&rsaquo;</a>
+                    </li>
+                    <% } else { %>
+                    <li class="page-item disabled" aria-disabled="true" aria-label="Следующая">
+                        <span class="page-link" aria-hidden="true">&rsaquo;</span>
+                    </li>
+                    <li class="page-item disabled" aria-disabled="true" aria-label="Последняя">
+                        <span class="page-link" aria-hidden="true">&rsaquo;&rsaquo;</span>
+                    </li>
+                    <% } %>
+                </ul>
+                <% } %>
+            </div>
+            <!-- /.table -->
+        </div>
+        <!-- /.mail-box-messages -->
+    </div>
+    <!-- /.box-body -->
+    <div class="box-footer no-padding">
+    </div>
+</div>
