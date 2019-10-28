@@ -57,14 +57,12 @@ class GalleryRepository {
      *
      * @return Collection
      */
-    public function findPublicPaginate($type, $limitMultimedia=4) {
+    public function findPublicPaginate($type) {
         $count = app()->request->count?:15;
         if($count < 1 || $count > 200) {
             $count = 15;
         }
-        $gallery = Gallery::with('author')->with(['multimedia' => function($q) use ($limitMultimedia) {
-            $q->limit($limitMultimedia);
-        }]);
+        $gallery = Gallery::with('author')->with('multimedia');
         if($type) {
             $gallery = $gallery->where('type', $type);
         }
@@ -73,9 +71,7 @@ class GalleryRepository {
             Paginator::currentPageResolver(function () use ($gallery) {
                 return $gallery->total();
             });
-            $gallery = Gallery::with('author')->with(['multimedia' => function($q) use ($limitMultimedia) {
-                $q->limit($limitMultimedia);
-            }]);
+            $gallery = Gallery::with('author')->with('multimedia');
             if($type) {
                 $gallery = $gallery->where('type', $type);
             }
@@ -84,9 +80,7 @@ class GalleryRepository {
             Paginator::currentPageResolver(function () {
                 return 1;
             });
-            $gallery = Gallery::with('author')->with(['multimedia' => function($q) use ($limitMultimedia) {
-                $q->limit($limitMultimedia);
-            }]);
+            $gallery = Gallery::with('author')->with('multimedia');
             if($type) {
                 $gallery = $gallery->where('type', $type);
             }
