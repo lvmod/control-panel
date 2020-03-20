@@ -13,11 +13,12 @@ var GalleryView = Backbone.View.extend({
         this.type = this.options.type||'mixed';
         this.files = [];
         if (this.baseUrl) {
-            if (!this.baseUrl.endsWith("/")) {
-                this.baseUrl += "/";
-                this.files = $.getJSONSync(this.baseUrl);
-                this.filePath = this.options.filePath || $.getJSONSync("/control/files/basepath").path;
+            if (this.baseUrl.endsWith("/")) {
+                this.baseUrl = this.baseUrl.slice(0, -1);
             }
+
+            this.files = $.getJSONSync(this.baseUrl);
+            this.filePath = this.options.filePath || $.getJSONSync("/control/files/basepath").path;
         } else {
             console.error("Для объекта GalleryView не задан baseUrl");
         }
@@ -86,7 +87,7 @@ var GalleryView = Backbone.View.extend({
 
                     if (multimediaId !== undefined && multimediaSort !== undefined) {
                         context.$("div.overlay").css('display', 'block');
-                        $.getJSON(context.baseUrl + "set-sort/" + multimediaId + "/" + multimediaSort,
+                        $.getJSON(context.baseUrl + "/set-sort/" + multimediaId + "/" + multimediaSort,
                             function (data) {
                                 if (data.error) {
                                     alert(data.error);
@@ -183,7 +184,7 @@ var GalleryView = Backbone.View.extend({
                     var data = files.map(function (item) { return item.id });
                     context.$("div.overlay").css('display', 'block');
                     $.ajax({
-                        url: context.baseUrl + "store",
+                        url: context.baseUrl + "/store",
                         type: 'post',
                         dataType: 'json',
                         contentType: 'application/json',
@@ -214,7 +215,7 @@ var GalleryView = Backbone.View.extend({
         }
 
         context.$("div.overlay").css('display', 'block');
-        $.getJSON(context.baseUrl + "delete/" + id, function (data) {
+        $.getJSON(context.baseUrl + "/delete/" + id, function (data) {
             if (data.error) {
                 alert(data.error);
             } else {
