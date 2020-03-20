@@ -57,6 +57,10 @@ class User extends Authenticatable {
         return $this->belongsToMany('Lvmod\ControlPanel\Models\Multimedia', 'multimedia_user');
     }
 
+    public function people() {
+        return $this->belongsTo('Lvmod\ControlPanel\Models\People');
+    }
+
     public function hasRole($role) {
         var_dump($this);
         die();
