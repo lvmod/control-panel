@@ -52,7 +52,7 @@
                             el: $('.gallery-box'),
                             id: "{{ $gallery->id }}",
                             type: "{{ $gallery->type }}",
-                            baseUrl: "/control/gallery/api/{{ $gallery->id }}",
+                            baseUrl: "{{ url('/control/gallery/api/'.$gallery->id) }}",
                             filePath: "{{$filePath}}",
                         });
                     });
