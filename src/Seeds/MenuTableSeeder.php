@@ -30,6 +30,12 @@ class MenuTableSeeder extends Seeder
 
         $materialId = $object->id;
 
+        Menu::firstOrCreate(['path' => '/control/category'], [
+            'title' => 'Категории', 
+            'icon' => 'fa fa-circle-o',
+            'parent_id' => $materialId
+        ]);
+
         Menu::firstOrCreate(['path' => '/control/news'], [
             'title' => 'Новости', 
             'icon' => 'fa fa-circle-o',

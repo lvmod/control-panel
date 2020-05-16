@@ -5,6 +5,16 @@ Route::get('download/{file}', 'Lvmod\ControlPanel\Controllers\FilesController@do
 Route::group(['prefix' => 'control', 'namespace' => 'Lvmod\ControlPanel\Controllers', 'middleware' => ['web', 'check.role:admin,developer']], function () {
     Route::get('/', 'IndexController@index');
 
+    Route::group(['prefix' => 'category'], function () {
+        Route::get('/', 'CategoryController@index');
+        Route::get('view/{category}', 'CategoryController@view');
+        Route::get('create', 'CategoryController@create');
+        Route::get('edit/{category}', 'CategoryController@edit');
+        Route::post('store', 'CategoryController@store');
+        Route::post('update/{category}', 'CategoryController@update');
+        Route::get('delete/{category}', 'CategoryController@delete');
+    });
+
     Route::group(['prefix' => 'news'], function () {
         Route::get('/', 'NewsController@index');
         Route::get('api/fillbaseimage', 'NewsController@getFillBaseImage');
