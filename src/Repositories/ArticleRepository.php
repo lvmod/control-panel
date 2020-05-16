@@ -24,17 +24,17 @@ class ArticleRepository {
         if($count < 1 || $count > 200) {
             $count = 15;
         }
-        $article = Article::with('author')->with('multimedia')->orderBy('posted', 'desc')->orderBy('id', 'desc')->paginate($count)->appends(['count' => (app()->request->count)?$count:null]);
+        $article = Article::with('author')->with('multimedia')->orderBy('posted', 'desc')->orderBy('id', 'desc')->paginate($count)->appends(app()->request->query());
         if($article->currentPage() > $article->total()) {
             Paginator::currentPageResolver(function () use ($article) {
                 return $article->total();
             });
-            $article = Article::with('author')->with('multimedia')->orderBy('posted', 'desc')->orderBy('id', 'desc')->paginate($count)->appends(['count' => (app()->request->count)?$count:null]);
+            $article = Article::with('author')->with('multimedia')->orderBy('posted', 'desc')->orderBy('id', 'desc')->paginate($count)->appends(app()->request->query());
         } else if($article->currentPage() < 1) {
             Paginator::currentPageResolver(function () {
                 return 1;
             });
-            $article = Article::with('author')->with('multimedia')->orderBy('posted', 'desc')->orderBy('id', 'desc')->paginate($count)->appends(['count' => (app()->request->count)?$count:null]);
+            $article = Article::with('author')->with('multimedia')->orderBy('posted', 'desc')->orderBy('id', 'desc')->paginate($count)->appends(app()->request->query());
         }
         return $article;
     }
@@ -48,17 +48,17 @@ class ArticleRepository {
         if($count < 1 || $count > 200) {
             $count = 15;
         }
-        $article = Article::with('author')->with('multimedia')->where('visible', true)->where('posted', '<=', \Carbon\Carbon::today())->orderBy('posted', 'desc')->orderBy('id', 'desc')->paginate($count)->appends(['count' => (app()->request->count)?$count:null]);
+        $article = Article::with('author')->with('multimedia')->where('visible', true)->where('posted', '<=', \Carbon\Carbon::today())->orderBy('posted', 'desc')->orderBy('id', 'desc')->paginate($count)->appends(app()->request->query());
         if($article->currentPage() > $article->total()) {
             Paginator::currentPageResolver(function () use ($article) {
                 return $article->total();
             });
-            $article = Article::with('author')->with('multimedia')->where('visible', true)->where('posted', '<=', \Carbon\Carbon::today())->orderBy('posted', 'desc')->orderBy('id', 'desc')->paginate($count)->appends(['count' => (app()->request->count)?$count:null]);
+            $article = Article::with('author')->with('multimedia')->where('visible', true)->where('posted', '<=', \Carbon\Carbon::today())->orderBy('posted', 'desc')->orderBy('id', 'desc')->paginate($count)->appends(app()->request->query());
         } else if($article->currentPage() < 1) {
             Paginator::currentPageResolver(function () {
                 return 1;
             });
-            $article = Article::with('author')->with('multimedia')->where('visible', true)->where('posted', '<=', \Carbon\Carbon::today())->orderBy('posted', 'desc')->orderBy('id', 'desc')->paginate($count)->appends(['count' => (app()->request->count)?$count:null]);
+            $article = Article::with('author')->with('multimedia')->where('visible', true)->where('posted', '<=', \Carbon\Carbon::today())->orderBy('posted', 'desc')->orderBy('id', 'desc')->paginate($count)->appends(app()->request->query());
         }
         return $article;
     }
@@ -72,7 +72,7 @@ class ArticleRepository {
         where(function($q) {
             $q->whereNotNull('multimedia_id')
               ->orWhereNotNull('image');
-        })->orderBy('posted', 'desc')->orderBy('id', 'desc')->paginate($count)->appends(['count' => (app()->request->count)?$count:null]);
+        })->orderBy('posted', 'desc')->orderBy('id', 'desc')->paginate($count)->appends(app()->request->query());
         if($article->currentPage() > $article->total()) {
             Paginator::currentPageResolver(function () use ($article) {
                 return $article->total();
@@ -81,7 +81,7 @@ class ArticleRepository {
             where(function($q) {
                 $q->whereNotNull('multimedia_id')
                   ->orWhereNotNull('image');
-            })->orderBy('posted', 'desc')->orderBy('id', 'desc')->paginate($count)->appends(['count' => (app()->request->count)?$count:null]);
+            })->orderBy('posted', 'desc')->orderBy('id', 'desc')->paginate($count)->appends(app()->request->query());
         } else if($article->currentPage() < 1) {
             Paginator::currentPageResolver(function () {
                 return 1;
@@ -90,7 +90,7 @@ class ArticleRepository {
             where(function($q) {
                 $q->whereNotNull('multimedia_id')
                   ->orWhereNotNull('image');
-            })->orderBy('posted', 'desc')->orderBy('id', 'desc')->paginate($count)->appends(['count' => (app()->request->count)?$count:null]);
+            })->orderBy('posted', 'desc')->orderBy('id', 'desc')->paginate($count)->appends(app()->request->query());
         }
         return $article;
     }

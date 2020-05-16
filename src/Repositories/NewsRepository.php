@@ -28,17 +28,17 @@ class NewsRepository {
         if($count < 1 || $count > 200) {
             $count = 15;
         }
-        $news = News::with('author')->with('category')->with('multimedia')->orderBy('posted', 'desc')->orderBy('id', 'desc')->paginate($count)->appends(['count' => (app()->request->count)?$count:null]);
+        $news = News::with('author')->with('category')->with('multimedia')->orderBy('posted', 'desc')->orderBy('id', 'desc')->paginate($count)->appends(app()->request->query());
         if($news->currentPage() > $news->total()) {
             Paginator::currentPageResolver(function () use ($news) {
                 return $news->total();
             });
-            $news = News::with('author')->with('category')->with('multimedia')->orderBy('posted', 'desc')->orderBy('id', 'desc')->paginate($count)->appends(['count' => (app()->request->count)?$count:null]);
+            $news = News::with('author')->with('category')->with('multimedia')->orderBy('posted', 'desc')->orderBy('id', 'desc')->paginate($count)->appends(app()->request->query());
         } else if($news->currentPage() < 1) {
             Paginator::currentPageResolver(function () {
                 return 1;
             });
-            $news = News::with('author')->with('category')->with('multimedia')->orderBy('posted', 'desc')->orderBy('id', 'desc')->paginate($count)->appends(['count' => (app()->request->count)?$count:null]);
+            $news = News::with('author')->with('category')->with('multimedia')->orderBy('posted', 'desc')->orderBy('id', 'desc')->paginate($count)->appends(app()->request->query());
         }
         return $news;
     }
@@ -53,17 +53,17 @@ class NewsRepository {
         if($count < 1 || $count > 200) {
             $count = 15;
         }
-        $news = News::with('author')->with('category')->with('multimedia')->where('visible', true)->where('posted', '<=', \Carbon\Carbon::today())->orderBy('posted', 'desc')->orderBy('id', 'desc')->paginate($count)->appends(['count' => (app()->request->count)?$count:null]);
+        $news = News::with('author')->with('category')->with('multimedia')->where('visible', true)->where('posted', '<=', \Carbon\Carbon::today())->orderBy('posted', 'desc')->orderBy('id', 'desc')->paginate($count)->appends(app()->request->query());
         if($news->currentPage() > $news->total()) {
             Paginator::currentPageResolver(function () use ($news) {
                 return $news->total();
             });
-            $news = News::with('author')->with('category')->with('multimedia')->where('visible', true)->where('posted', '<=', \Carbon\Carbon::today())->orderBy('posted', 'desc')->orderBy('id', 'desc')->paginate($count)->appends(['count' => (app()->request->count)?$count:null]);
+            $news = News::with('author')->with('category')->with('multimedia')->where('visible', true)->where('posted', '<=', \Carbon\Carbon::today())->orderBy('posted', 'desc')->orderBy('id', 'desc')->paginate($count)->appends(app()->request->query());
         } else if($news->currentPage() < 1) {
             Paginator::currentPageResolver(function () {
                 return 1;
             });
-            $news = News::with('author')->with('category')->with('multimedia')->where('visible', true)->where('posted', '<=', \Carbon\Carbon::today())->orderBy('posted', 'desc')->orderBy('id', 'desc')->paginate($count)->appends(['count' => (app()->request->count)?$count:null]);
+            $news = News::with('author')->with('category')->with('multimedia')->where('visible', true)->where('posted', '<=', \Carbon\Carbon::today())->orderBy('posted', 'desc')->orderBy('id', 'desc')->paginate($count)->appends(app()->request->query());
         }
         return $news;
     }
@@ -77,7 +77,7 @@ class NewsRepository {
         where(function($q) {
             $q->whereNotNull('multimedia_id')
               ->orWhereNotNull('image');
-        })->orderBy('posted', 'desc')->orderBy('id', 'desc')->paginate($count)->appends(['count' => (app()->request->count)?$count:null]);
+        })->orderBy('posted', 'desc')->orderBy('id', 'desc')->paginate($count)->appends(app()->request->query());
         if($news->currentPage() > $news->total()) {
             Paginator::currentPageResolver(function () use ($news) {
                 return $news->total();
@@ -86,7 +86,7 @@ class NewsRepository {
             where(function($q) {
                 $q->whereNotNull('multimedia_id')
                   ->orWhereNotNull('image');
-            })->orderBy('posted', 'desc')->orderBy('id', 'desc')->paginate($count)->appends(['count' => (app()->request->count)?$count:null]);
+            })->orderBy('posted', 'desc')->orderBy('id', 'desc')->paginate($count)->appends(app()->request->query());
         } else if($news->currentPage() < 1) {
             Paginator::currentPageResolver(function () {
                 return 1;
@@ -95,7 +95,7 @@ class NewsRepository {
             where(function($q) {
                 $q->whereNotNull('multimedia_id')
                   ->orWhereNotNull('image');
-            })->orderBy('posted', 'desc')->orderBy('id', 'desc')->paginate($count)->appends(['count' => (app()->request->count)?$count:null]);
+            })->orderBy('posted', 'desc')->orderBy('id', 'desc')->paginate($count)->appends(app()->request->query());
         }
         return $news;
     }

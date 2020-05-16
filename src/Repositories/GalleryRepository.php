@@ -29,7 +29,7 @@ class GalleryRepository {
         if($type) {
             $gallery = $gallery->where('type', $type);
         }
-        $gallery = $gallery->orderBy('sort', 'asc')->orderBy('id', 'asc')->paginate($count)->appends(['count' => (app()->request->count)?$count:null]);
+        $gallery = $gallery->orderBy('sort', 'asc')->orderBy('id', 'asc')->paginate($count)->appends(app()->request->query());
         
         if($gallery->currentPage() > $gallery->total()) {
             Paginator::currentPageResolver(function () use ($gallery) {
@@ -39,7 +39,7 @@ class GalleryRepository {
             if($type) {
                 $gallery = $gallery->where('type', $type);
             }
-            $gallery = $gallery->orderBy('sort', 'asc')->orderBy('id', 'asc')->paginate($count)->appends(['count' => (app()->request->count)?$count:null]);
+            $gallery = $gallery->orderBy('sort', 'asc')->orderBy('id', 'asc')->paginate($count)->appends(app()->request->query());
         } else if($gallery->currentPage() < 1) {
             Paginator::currentPageResolver(function () {
                 return 1;
@@ -48,7 +48,7 @@ class GalleryRepository {
             if($type) {
                 $gallery = $gallery->where('type', $type);
             }
-            $gallery = $gallery->orderBy('sort', 'asc')->orderBy('id', 'asc')->paginate($count)->appends(['count' => (app()->request->count)?$count:null]);
+            $gallery = $gallery->orderBy('sort', 'asc')->orderBy('id', 'asc')->paginate($count)->appends(app()->request->query());
         }
         return $gallery;
     }
@@ -66,7 +66,7 @@ class GalleryRepository {
         if($type) {
             $gallery = $gallery->where('type', $type);
         }
-        $gallery = $gallery->orderBy('sort', 'asc')->orderBy('id', 'asc')->paginate($count)->appends(['count' => (app()->request->count)?$count:null]);
+        $gallery = $gallery->orderBy('sort', 'asc')->orderBy('id', 'asc')->paginate($count)->appends(app()->request->query());
         if($gallery->currentPage() > $gallery->total()) {
             Paginator::currentPageResolver(function () use ($gallery) {
                 return $gallery->total();
@@ -75,7 +75,7 @@ class GalleryRepository {
             if($type) {
                 $gallery = $gallery->where('type', $type);
             }
-            $gallery = $gallery->orderBy('sort', 'asc')->orderBy('id', 'asc')->paginate($count)->appends(['count' => (app()->request->count)?$count:null]);
+            $gallery = $gallery->orderBy('sort', 'asc')->orderBy('id', 'asc')->paginate($count)->appends(app()->request->query());
         } else if($gallery->currentPage() < 1) {
             Paginator::currentPageResolver(function () {
                 return 1;
@@ -84,7 +84,7 @@ class GalleryRepository {
             if($type) {
                 $gallery = $gallery->where('type', $type);
             }
-            $gallery = $gallery->orderBy('sort', 'asc')->orderBy('id', 'asc')->paginate($count)->appends(['count' => (app()->request->count)?$count:null]);
+            $gallery = $gallery->orderBy('sort', 'asc')->orderBy('id', 'asc')->paginate($count)->appends(app()->request->query());
         }
         return $gallery;
     }

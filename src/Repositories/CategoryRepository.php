@@ -28,17 +28,17 @@ class CategoryRepository {
             $count = 15;
         }
         $categoryQuery = Category::orderBy('id', 'desc');
-        $query = $categoryQuery->paginate($count)->appends(['count' => (app()->request->count)?$count:null]);
+        $query = $categoryQuery->paginate($count)->appends(app()->request->query());
         if($query->currentPage() > $query->total()) {
             Paginator::currentPageResolver(function () use ($query) {
                 return $query->total();
             });
-            $query = $categoryQuery->paginate($count)->appends(['count' => (app()->request->count)?$count:null]);
+            $query = $categoryQuery->paginate($count)->appends(app()->request->query());
         } else if($query->currentPage() < 1) {
             Paginator::currentPageResolver(function () {
                 return 1;
             });
-            $query = $categoryQuery->paginate($count)->appends(['count' => (app()->request->count)?$count:null]);
+            $query = $categoryQuery->paginate($count)->appends(app()->request->query());
         }
         return $query;
     }
