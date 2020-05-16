@@ -9,7 +9,7 @@ class CategoryRepository {
 
 
     /**
-     * Получить все новости.
+     * Получить все.
      *
      * @return Collection
      */
@@ -18,7 +18,7 @@ class CategoryRepository {
     }
 
     /**
-     * Получить все новости.
+     * Получить все с постраничной разбивкой.
      *
      * @return Collection
      */
