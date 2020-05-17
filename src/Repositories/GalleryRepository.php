@@ -31,9 +31,9 @@ class GalleryRepository {
         }
         $gallery = $gallery->orderBy('sort', 'asc')->orderBy('id', 'asc')->paginate($count)->appends(app()->request->query());
         
-        if($gallery->currentPage() > $gallery->total()) {
+        if($gallery->currentPage() > $gallery->lastPage()) {
             Paginator::currentPageResolver(function () use ($gallery) {
-                return $gallery->total();
+                return $gallery->lastPage();
             });
             $gallery = Gallery::with('author');
             if($type) {
@@ -67,9 +67,9 @@ class GalleryRepository {
             $gallery = $gallery->where('type', $type);
         }
         $gallery = $gallery->orderBy('sort', 'asc')->orderBy('id', 'asc')->paginate($count)->appends(app()->request->query());
-        if($gallery->currentPage() > $gallery->total()) {
+        if($gallery->currentPage() > $gallery->lastPage()) {
             Paginator::currentPageResolver(function () use ($gallery) {
-                return $gallery->total();
+                return $gallery->lastPage();
             });
             $gallery = Gallery::with('author')->with('multimedia');
             if($type) {

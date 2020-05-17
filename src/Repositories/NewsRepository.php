@@ -29,9 +29,9 @@ class NewsRepository {
             $count = 15;
         }
         $news = News::with('author')->with('category')->with('multimedia')->orderBy('posted', 'desc')->orderBy('id', 'desc')->paginate($count)->appends(app()->request->query());
-        if($news->currentPage() > $news->total()) {
+        if($news->currentPage() > $news->lastPage()) {
             Paginator::currentPageResolver(function () use ($news) {
-                return $news->total();
+                return $news->lastPage();
             });
             $news = News::with('author')->with('category')->with('multimedia')->orderBy('posted', 'desc')->orderBy('id', 'desc')->paginate($count)->appends(app()->request->query());
         } else if($news->currentPage() < 1) {
@@ -54,9 +54,9 @@ class NewsRepository {
             $count = 15;
         }
         $news = News::with('author')->with('category')->with('multimedia')->where('visible', true)->where('posted', '<=', \Carbon\Carbon::today())->orderBy('posted', 'desc')->orderBy('id', 'desc')->paginate($count)->appends(app()->request->query());
-        if($news->currentPage() > $news->total()) {
+        if($news->currentPage() > $news->lastPage()) {
             Paginator::currentPageResolver(function () use ($news) {
-                return $news->total();
+                return $news->lastPage();
             });
             $news = News::with('author')->with('category')->with('multimedia')->where('visible', true)->where('posted', '<=', \Carbon\Carbon::today())->orderBy('posted', 'desc')->orderBy('id', 'desc')->paginate($count)->appends(app()->request->query());
         } else if($news->currentPage() < 1) {
@@ -78,9 +78,9 @@ class NewsRepository {
             $q->whereNotNull('multimedia_id')
               ->orWhereNotNull('image');
         })->orderBy('posted', 'desc')->orderBy('id', 'desc')->paginate($count)->appends(app()->request->query());
-        if($news->currentPage() > $news->total()) {
+        if($news->currentPage() > $news->lastPage()) {
             Paginator::currentPageResolver(function () use ($news) {
-                return $news->total();
+                return $news->lastPage();
             });
             $news = News::with('author')->with('category')->with('multimedia')->
             where(function($q) {

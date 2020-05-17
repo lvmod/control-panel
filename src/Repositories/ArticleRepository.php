@@ -25,9 +25,9 @@ class ArticleRepository {
             $count = 15;
         }
         $article = Article::with('author')->with('multimedia')->orderBy('posted', 'desc')->orderBy('id', 'desc')->paginate($count)->appends(app()->request->query());
-        if($article->currentPage() > $article->total()) {
+        if($article->currentPage() > $article->lastPage()) {
             Paginator::currentPageResolver(function () use ($article) {
-                return $article->total();
+                return $article->lastPage();
             });
             $article = Article::with('author')->with('multimedia')->orderBy('posted', 'desc')->orderBy('id', 'desc')->paginate($count)->appends(app()->request->query());
         } else if($article->currentPage() < 1) {
@@ -49,9 +49,9 @@ class ArticleRepository {
             $count = 15;
         }
         $article = Article::with('author')->with('multimedia')->where('visible', true)->where('posted', '<=', \Carbon\Carbon::today())->orderBy('posted', 'desc')->orderBy('id', 'desc')->paginate($count)->appends(app()->request->query());
-        if($article->currentPage() > $article->total()) {
+        if($article->currentPage() > $article->lastPage()) {
             Paginator::currentPageResolver(function () use ($article) {
-                return $article->total();
+                return $article->lastPage();
             });
             $article = Article::with('author')->with('multimedia')->where('visible', true)->where('posted', '<=', \Carbon\Carbon::today())->orderBy('posted', 'desc')->orderBy('id', 'desc')->paginate($count)->appends(app()->request->query());
         } else if($article->currentPage() < 1) {
@@ -73,9 +73,9 @@ class ArticleRepository {
             $q->whereNotNull('multimedia_id')
               ->orWhereNotNull('image');
         })->orderBy('posted', 'desc')->orderBy('id', 'desc')->paginate($count)->appends(app()->request->query());
-        if($article->currentPage() > $article->total()) {
+        if($article->currentPage() > $article->lastPage()) {
             Paginator::currentPageResolver(function () use ($article) {
-                return $article->total();
+                return $article->lastPage();
             });
             $article = Article::with('author')->with('multimedia')->
             where(function($q) {

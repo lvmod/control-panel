@@ -29,9 +29,9 @@ class CategoryRepository {
         }
         $categoryQuery = Category::orderBy('id', 'desc');
         $query = $categoryQuery->paginate($count)->appends(app()->request->query());
-        if($query->currentPage() > $query->total()) {
+        if($query->currentPage() > $query->lastPage()) {
             Paginator::currentPageResolver(function () use ($query) {
-                return $query->total();
+                return $query->lastPage();
             });
             $query = $categoryQuery->paginate($count)->appends(app()->request->query());
         } else if($query->currentPage() < 1) {

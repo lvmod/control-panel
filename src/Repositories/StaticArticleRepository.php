@@ -25,9 +25,9 @@ class StaticArticleRepository {
             $count = 15;
         }
         $article = StaticArticle::with('author')->with('multimedia')->orderBy('id', 'desc')->paginate($count)->appends(app()->request->query());
-        if($article->currentPage() > $article->total()) {
+        if($article->currentPage() > $article->lastPage()) {
             Paginator::currentPageResolver(function () use ($article) {
-                return $article->total();
+                return $article->lastPage();
             });
             $article = StaticArticle::with('author')->with('multimedia')->orderBy('id', 'desc')->paginate($count)->appends(app()->request->query());
         } else if($article->currentPage() < 1) {
@@ -49,9 +49,9 @@ class StaticArticleRepository {
             $count = 15;
         }
         $article = StaticArticle::with('author')->with('multimedia');
-        if($article->currentPage() > $article->total()) {
+        if($article->currentPage() > $article->lastPage()) {
             Paginator::currentPageResolver(function () use ($article) {
-                return $article->total();
+                return $article->lastPage();
             });
             $article = StaticArticle::with('author')->with('multimedia')->orderBy('id', 'desc')->paginate($count)->appends(app()->request->query());
         } else if($article->currentPage() < 1) {
@@ -73,9 +73,9 @@ class StaticArticleRepository {
             $q->whereNotNull('multimedia_id')
               ->orWhereNotNull('image');
         })->orderBy('id', 'desc')->paginate($count)->appends(app()->request->query());
-        if($article->currentPage() > $article->total()) {
+        if($article->currentPage() > $article->lastPage()) {
             Paginator::currentPageResolver(function () use ($article) {
-                return $article->total();
+                return $article->lastPage();
             });
             $article = StaticArticle::with('author')->with('multimedia')->
             where(function($q) {
